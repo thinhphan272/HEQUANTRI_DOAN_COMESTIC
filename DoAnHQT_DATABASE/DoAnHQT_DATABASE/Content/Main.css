@@ -22,9 +22,21 @@ textarea {
     width: 300px;
 }
 
-    .navbar-nav.menu {
-        margin: 0;
-    }
+.navbar-nav.menu {
+    margin: 0;
+}
+
+.fa-solid{
+    color: white;
+    transition: ease 0.3s;
+}
+
+.fa-solid:hover {
+    transform: scale(1.5);
+}
+
+
+
 
 .menu {
     font-weight: bold;
@@ -34,25 +46,25 @@ textarea {
     justify-content: center;
 }
 
-    .menu li {
-        display: block;
-        padding: 10px 20px;
-        transition: opacity 0.3s ease;
-    }
+.menu li {
+    display: block;
+    padding: 10px 20px;
+    transition: opacity 0.3s ease;
+}
 
-        .menu li a {
-            color: white !important;
-            text-decoration: none;
-        }
+.menu li a {
+    color: white !important;
+    text-decoration: none;
+}
 
-    /* ===== MENU HOVER EFFECTS ===== */
-    .menu:hover li {
-        opacity: 0.2;
-    }
+/* ===== MENU HOVER EFFECTS ===== */
+.menu:hover li {
+    opacity: 0.2;
+}
 
-    .menu li:hover {
-        opacity: 1;
-    }
+.menu li:hover {
+    opacity: 1;
+}
 
 /* ===== IMAGE STYLES ===== */
 /* Chỉ áp dụng cho ảnh thông thường, không phải ảnh có class img-hover */
@@ -99,3 +111,4 @@ img:not(.img-hover) {
 .list-unstyled li:hover {
     transform: scale(1.06);
 }
+

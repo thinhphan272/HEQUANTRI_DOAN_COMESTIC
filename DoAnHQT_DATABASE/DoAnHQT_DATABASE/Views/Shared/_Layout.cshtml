@@ -10,16 +10,7 @@
     <link rel="stylesheet" href="~/Content/themify-icons/themify-icons.css" />
     @*<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />*@
     <link rel="stylesheet" href="~/Content/Main.css" />
-    <style>
-
-        /* Social icons styles - FIXED VERSION */
-        
-
-
-
-        
-        
-    </style>
+   
 </head>
 <body>
     <header>
@@ -27,14 +18,14 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm fixed-top" style="background-color: #306e51 ">
             <div class="container">
                 <a class="navbar-brand text-light" href="#">
-                    <img src="~/Content/Images/logo1.png" alt="Logo" width="150" height="50" class="d-inline-block align-text-top">
+                    <img class="img-hover" src="~/Content/Images/logo1.png" alt="Logo" width="150" height="50" class="d-inline-block align-text-top">
 
                 </a>
 
 
-                <form class="d-flex" role="search" style=" width: 300px">
-                    <input class="form-control flex-grow-1" style="border-radius:3px" type="search" placeholder="Tìm kiếm sản phẩm ..." aria-label="Search" />
-                    <button class="btn btn-success  flex-shrink-0" type="submit">
+                <form class="d-flex" role="search" style=" width: 400px">
+                    <input class="form-control" style="border-radius:3px" type="search" placeholder="Tìm kiếm sản phẩm ..." aria-label="Search" />
+                    <button class="btn btn-success " type="submit">
                         <i class="ti-search"></i>
                     </button>
                 </form>
@@ -42,45 +33,35 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1 menu">
-                        <li>
-                            <button name="home" class="btn btn-outline-light rounded-circle " style="width: 40px; height: 40px;">
-                                <i class="ti-home "></i>
-                            </button>
-                            <label for="home">
+                        <li class="d-flex">
+                            <i class="fa-solid fa-house fa-xl  align-self-center"></i>
+
+                            <label>
                                 @Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
                             </label>
 
                         </li>
 
-                        <li>
-                            <button name="contact" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px;">
-                                <i class="ti-headphone"></i>
-                            </button>
-                            <label for="contact">
+                        <li class="d-flex">
+                            <i class="fa-solid fa-phone fa-xl  align-self-center"></i>
+
+                            <label>
                                 @Html.ActionLink("Chăm sóc khách hàng", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
                             </label>
 
 
                         </li>
 
-                        <li>
-                            <button name="login" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px;">
-                                <i class="ti-user"></i>
-                            </button>
-
-                            <label for="login">
+                        <li class="d-flex">
+                            <i class="fa-solid fa-user fa-xl  align-self-center"></i>
+                            <label>
                                 @Html.ActionLink("Đăng nhập / Đăng ký", "About", "Home", new { area = "" }, new { @class = "nav-link" })
                             </label>
 
 
                         </li>
                     </ul>
-                    <button class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px;">
-
-                        <i class="ti-shopping-cart align-items-center"></i>
-
-
-                    </button>
+                    <i class="fa-solid fa-cart-shopping fa-xl align-self-center"></i>
 
                 </div>
             </div>

@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="~/Content/fontawesome-free-7.0.1-web/css/all.min.css" />
+
+    <link rel="stylesheet" href="~/Content/bootstrap-5.3.6-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/themify-icons/themify-icons.css" />
+    @*<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />*@
+    <link rel="stylesheet" href="~/Content/Main.css" />
+    <style>
+
+        /* Social icons styles - FIXED VERSION */
+        
+
+
+
+        
+        
+    </style>
+</head>
+<body>
+    <header>
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm fixed-top" style="background-color: #306e51 ">
+            <div class="container">
+                <a class="navbar-brand text-light" href="#">
+                    <img src="~/Content/Images/logo1.png" alt="Logo" width="150" height="50" class="d-inline-block align-text-top">
+
+                </a>
+
+
+                <form class="d-flex" role="search" style=" width: 300px">
+                    <input class="form-control flex-grow-1" style="border-radius:3px" type="search" placeholder="Tìm kiếm sản phẩm ..." aria-label="Search" />
+                    <button class="btn btn-success  flex-shrink-0" type="submit">
+                        <i class="ti-search"></i>
+                    </button>
+                </form>
+
+
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav flex-grow-1 menu">
+                        <li>
+                            <button name="home" class="btn btn-outline-light rounded-circle " style="width: 40px; height: 40px;">
+                                <i class="ti-home "></i>
+                            </button>
+                            <label for="home">
+                                @Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                            </label>
+
+                        </li>
+
+                        <li>
+                            <button name="contact" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px;">
+                                <i class="ti-headphone"></i>
+                            </button>
+                            <label for="contact">
+                                @Html.ActionLink("Chăm sóc khách hàng", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+                            </label>
+
+
+                        </li>
+
+                        <li>
+                            <button name="login" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px;">
+                                <i class="ti-user"></i>
+                            </button>
+
+                            <label for="login">
+                                @Html.ActionLink("Đăng nhập / Đăng ký", "About", "Home", new { area = "" }, new { @class = "nav-link" })
+                            </label>
+
+
+                        </li>
+                    </ul>
+                    <button class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px;">
+
+                        <i class="ti-shopping-cart align-items-center"></i>
+
+
+                    </button>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="margin-top: 70px">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="3000">
+                <img src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
+            </div>
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+
+
+    </div>
+    <footer>
+       
+            <div class="row justify-content-around text-center" style="background-color: #c4ffd0; padding: 20px 0;">
+                <div class="col-md-2 col-6 mb-1">
+                    <img class="img-hover" src="~/Content/Images/icon_footer1.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
+                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Trả tiền<br />khi nhận hàng</p>
+                </div>
+                <div class="col-md-2 col-6 mb-1">
+                    <img class="img-hover" src="~/Content/Images/free.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
+                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Miễn phí<br />vận chuyển</p>
+                </div>
+                <div class="col-md-2 col-6 mb-1">
+                    <img class="img-hover" src="~/Content/Images/chinhhang.jpg" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3)" />
+                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Cam kết<br />hàng chính hãng</p>
+                </div>
+                <div class="col-md-2 col-6 mb-1">
+                    <img class="img-hover" src="~/Content/Images/doitra7.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
+                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Đổi trả<br />trong 7 ngày</p>
+                </div>
+                <div class="col-md-2 col-6 mb-1">
+                    <img class="img-hover" src="~/Content/Images/24_7.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3)" />
+                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Hỗ trợ<br />24/7</p>
+                </div>
+
+
+            </div>
+            <div  style="background-color: #306e51" >
+                <div class="container row p-2 text-light ms-5 ">
+                    <div class="col-md-2 col-lg-3 ">
+                        <h6>HỖ TRỢ KHÁCH HÀNG</h6>
+                        <ul class="list-group list-unstyled">
+                            <li >Câu hỏi thường gặp</li>
+                            <li>Gửi yêu cầu hỗ trợ</li>
+                            <li>Hướng dẫn đặt hàng</li>
+                            <li>Phương thức vận chuyển</li>
+                            <li>Chính sách đổi trả</li>
+                        </ul>
+
+                    </div>
+                    <div class="col-md-2 col-lg-3 ">
+                        <h6>VỀ HASAKI.VN</h6>
+                        <ul class="list-group list-unstyled" >
+                            <li>Giới thiệu Hasaki.vn</li>
+                            <li>Chính sách bảo mật</li>
+                            <li>Điều khoản sử dụng</li>
+                            <li>Hasaki cẩm nang</li>
+                            <li>Tuyển dụng</li>
+                            <li>Liên hệ</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 col-lg-3 ">
+                        <h6>HỢP TÁC LIÊN KẾT</h6>
+                        <div class="d-flex mt-2 mb-2">
+                          <i class="fa-brands fa-facebook fa-2x social-icon"></i>
+                          <i class="fa-brands fa-instagram fa-2x social-icon"></i>
+                          <i class="fa-brands fa-tiktok fa-2x social-icon"></i>
+                        </div>
+                           
+                            
+                        
+                        <h6>THANH TOÁN</h6>
+                        <div class="d-flex">
+                            <img width="50"  class="img-hover me-2" width="50" src="~/Content/Images/MoMo_Logo.png"/>
+                            <img width="50"   class="img-hover" src="~/Content/Images/vnpay.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-lg-3">
+                        <h6>TẢI APP HASAKI TẠI ĐÂY</h6>
+                    </div>
+
+                </div>
+
+            </div>
+            
+        
+        <hr />
+        <p class="text-center">&copy; @DateTime.Now.Year - HASAKI VIETNAM</p>
+    </footer>
+
+    <script src="~/Content/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

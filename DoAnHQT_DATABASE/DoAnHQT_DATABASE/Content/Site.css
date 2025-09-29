@@ -1,0 +1,78 @@
+﻿/*﻿*/ /* ===== RESET & BASE STYLES ===== */
+/*.dl-horizontal dt {
+    white-space: normal;
+}*/
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+/* ===== LAYOUT & CONTAINER ===== */
+/*.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
+
+/* ===== NAVBAR & MENU ===== */
+/*.navbar-nav {
+    width: 300px;
+}
+
+    .navbar-nav.menu {
+        margin: 0;
+    }
+
+.menu {
+    font-weight: bold;
+    border-radius: 10px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.menu li {
+    display: block;
+    padding: 10px 20px;
+    transition: opacity 0.3s ease;
+}
+
+.menu li a {
+    color: white !important;
+    text-decoration: none;
+}*/
+
+/* ===== MENU HOVER EFFECTS ===== */
+/*.menu:hover li {
+    opacity: 0.2;
+}
+
+.menu li:hover {
+    opacity: 1;
+}*/
+
+/* ===== IMAGE STYLES ===== */
+/* Chỉ áp dụng cho ảnh thông thường, không phải ảnh có class img-hover */
+/*img:not(.img-hover) {
+    border-radius: 10px;
+}*/   
+
+/* ===== IMAGE HOVER EFFECTS ===== */
+/*.img-hover {
+    border-radius: 10px;
+    transition: all 0.3s ease !important;
+}
+
+.img-hover:hover {
+    transform: scale(1.05) translateY(-5px) !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.social-icon {
+    border: 3px solid red !important;
+    background-color: yellow !important;
+    padding: 10px !important;
+}*/

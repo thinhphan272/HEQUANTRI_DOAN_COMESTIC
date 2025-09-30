@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="~/Content/themify-icons/themify-icons.css" />
     @*<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />*@
     <link rel="stylesheet" href="~/Content/Main.css" />
-   
+    
 </head>
 <body>
-    <header>
-
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm fixed-top" style="background-color: #306e51 ">
+    <header class="fixed-top">
+        <!--Thanh NAV-->
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #306e51 ">
             <div class="container">
                 <a class="navbar-brand text-light" href="#">
-                    <img class="img-hover" src="~/Content/Images/logo1.png" alt="Logo" width="150" height="50" class="d-inline-block align-text-top">
+                    <img class="img-hover d-inline-block align-text-top" src="~/Content/Images/logo1.png" alt="Logo" width="150" height="50">
 
                 </a>
 
@@ -66,17 +66,80 @@
                 </div>
             </div>
         </nav>
+        @*Thanh Menu*@
+        @*<div class="align-self-center"  style="background-color: rgb(137, 137, 137, 0.55)" >
+                <div class="row justify-content-center text-center text-light  p-2">
+                    <div class="menu-bar col-md-2 d-flex ">
+                        <i class="fa-solid fa-bars text-dark me-1 "></i>
+                        <h6 class="menu-bar-item">DANH MỤC SẢN PHẨM</h6>
+                    </div>
+                    <div class="menu-bar col-md-2">
+                        <h6 class="menu-bar-item">THƯƠNG HIỆU</h6>
+                    </div>
+                    <div class="menu-bar col-md-2">
+                        <h6 class="menu-bar-item">CHĂM SÓC DA</h6>
+                    </div>
+                    <div class="menu-bar col-md-2">
+                        <h6 class="menu-bar-item">TRANG ĐIỂM</h6>
+                    </div>
+                    <div class="menu-bar col-md-2">
+                        <h6 class="menu-bar-item">HÀNG NEW</h6>
+                    </div>
+
+                </div>
+            </div>*@
+
+        <div class="align-self-center" style="background-color: rgb(137, 137, 137, 0.55)">
+            <div class="row justify-content-center text-center text-light p-2">
+                <!-- Danh mục sản phẩm -->
+                <div class="menu-bar col-md-2 d-flex" data-dropdown="danh-muc">
+                    <i class="fa-solid fa-bars text-dark me-1"></i>
+                    <h6 class="menu-bar-item">DANH MỤC SẢN PHẨM</h6>
+                </div>
+
+                <div class="menu-bar col-md-2" data-dropdown="thuong-hieu">
+                    <h6 class="menu-bar-item">THƯƠNG HIỆU</h6>
+                </div>
+
+                <div class="menu-bar col-md-2" data-dropdown="cham-soc-da">
+                    <h6 class="menu-bar-item">CHĂM SÓC DA</h6>
+                </div>
+
+                <div class="menu-bar col-md-2" data-dropdown="trang-diem">
+                    <h6 class="menu-bar-item">TRANG ĐIỂM</h6>
+                </div>
+
+                <div class="menu-bar col-md-2" data-dropdown="hang-moi">
+                    <h6 class="menu-bar-item">HÀNG NEW</h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown Menu Toàn Màn Hình -->
+        <div class="fullscreen-dropdown" id="fullscreenDropdown">
+            <button class="dropdown-close" id="dropdownClose">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="dropdown-container">
+                <!-- Nội dung dropdown sẽ được thay đổi bằng JavaScript -->
+                <div class="dropdown-content" id="dropdownContent">
+                    <!-- Nội dung sẽ được inject từ JavaScript -->
+                </div>
+            </div>
+        </div>
+
     </header>
-    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="margin-top: 70px">
+
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="margin-top: 135px">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="3000">
-                <img src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
+                <img style="border-radius: 0px" src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
+                <img style="border-radius: 0px" src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
+                <img style="border-radius: 0px" src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -97,84 +160,100 @@
 
     </div>
     <footer>
-       
-            <div class="row justify-content-around text-center" style="background-color: #c4ffd0; padding: 20px 0;">
-                <div class="col-md-2 col-6 mb-1">
-                    <img class="img-hover" src="~/Content/Images/icon_footer1.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
-                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Trả tiền<br />khi nhận hàng</p>
-                </div>
-                <div class="col-md-2 col-6 mb-1">
-                    <img class="img-hover" src="~/Content/Images/free.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
-                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Miễn phí<br />vận chuyển</p>
-                </div>
-                <div class="col-md-2 col-6 mb-1">
-                    <img class="img-hover" src="~/Content/Images/chinhhang.jpg" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3)" />
-                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Cam kết<br />hàng chính hãng</p>
-                </div>
-                <div class="col-md-2 col-6 mb-1">
-                    <img class="img-hover" src="~/Content/Images/doitra7.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
-                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Đổi trả<br />trong 7 ngày</p>
-                </div>
-                <div class="col-md-2 col-6 mb-1">
-                    <img class="img-hover" src="~/Content/Images/24_7.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3)" />
-                    <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Hỗ trợ<br />24/7</p>
-                </div>
 
+        <div class="row justify-content-around text-center" style="background-color: #c4ffd0; padding: 20px 0;">
+            <div class="col-md-2 col-6 mb-1">
+                <img class="img-hover" src="~/Content/Images/icon_footer1.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
+                <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Trả tiền<br />khi nhận hàng</p>
+            </div>
+            <div class="col-md-2 col-6 mb-1">
+                <img class="img-hover" src="~/Content/Images/free.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
+                <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Miễn phí<br />vận chuyển</p>
+            </div>
+            <div class="col-md-2 col-6 mb-1">
+                <img class="img-hover" src="~/Content/Images/chinhhang.jpg" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3)" />
+                <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Cam kết<br />hàng chính hãng</p>
+            </div>
+            <div class="col-md-2 col-6 mb-1">
+                <img class="img-hover" src="~/Content/Images/doitra7.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3) " />
+                <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Đổi trả<br />trong 7 ngày</p>
+            </div>
+            <div class="col-md-2 col-6 mb-1">
+                <img class="img-hover" src="~/Content/Images/24_7.png" width="150" height="150" style="background-color: white; border-radius: 50%; box-shadow: 10px 10px 20px rgba(0,0,0,0.3)" />
+                <p style="color: #306e51; font-weight: bold; font-family: Arial; margin-top: 10px;">Hỗ trợ<br />24/7</p>
+            </div>
+
+
+        </div>
+        <div style="background-color: #306e51">
+            <div class="container row p-2 text-light ms-5 ">
+                <div class="col-md-2 col-lg-3 ">
+                    <h6>HỖ TRỢ KHÁCH HÀNG</h6>
+                    <ul class="list-group list-unstyled">
+                        <li>Câu hỏi thường gặp</li>
+                        <li>Gửi yêu cầu hỗ trợ</li>
+                        <li>Hướng dẫn đặt hàng</li>
+                        <li>Phương thức vận chuyển</li>
+                        <li>Chính sách đổi trả</li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2 col-lg-3 ">
+                    <h6>VỀ HASAKI.VN</h6>
+                    <ul class="list-group list-unstyled">
+                        <li>Giới thiệu Hasaki.vn</li>
+                        <li>Chính sách bảo mật</li>
+                        <li>Điều khoản sử dụng</li>
+                        <li>Hasaki cẩm nang</li>
+                        <li>Tuyển dụng</li>
+                        <li>Liên hệ</li>
+                    </ul>
+                </div>
+                <div class="col-md-2 col-lg-3 ">
+                    <h6>HỢP TÁC LIÊN KẾT</h6>
+                    <div class="d-flex mt-2 mb-2">
+                        <i class="fa-brands fa-facebook fa-2x social-icon"></i>
+                        <i class="fa-brands fa-instagram fa-2x social-icon"></i>
+                        <i class="fa-brands fa-tiktok fa-2x social-icon"></i>
+                    </div>
+
+
+
+                    <h6>THANH TOÁN</h6>
+                    <div class="d-flex">
+                        <img width="50" class="img-hover me-2" src="~/Content/Images/MoMo_Logo.png" />
+                        <img width="50" class="img-hover" src="~/Content/Images/vnpay.jpg" />
+                    </div>
+                </div>
+                <div class="col-md-2 col-lg-3">
+                    <h6>TẢI APP HASAKI TẠI ĐÂY</h6>
+                    <div class="row d-flex">
+                        <div class="col-4">
+                            <img src="~/Content/Images/qr_appcode.png" width="100" height="100" />
+                        </div>
+                        <div class="col-8 align-self-center">
+                            <i class="fa-brands fa-apple fa-2x social-icon" name="iconAppStore"></i>
+                            <label for="iconAppStore"><h5>App Store</h5></label><br />
+                            @*<i class="fa-brands fa-google-play fa-2xl" ></i>*@
+                            <img class="img-hover" name="iconGooglePlay" src="~/Content/Images/GPicon.png" width="30" />
+                            <label for="iconAppStore"><h5>Google Play</h5></label>
+                        </div>
+
+
+                    </div>
+                </div>
 
             </div>
-            <div  style="background-color: #306e51" >
-                <div class="container row p-2 text-light ms-5 ">
-                    <div class="col-md-2 col-lg-3 ">
-                        <h6>HỖ TRỢ KHÁCH HÀNG</h6>
-                        <ul class="list-group list-unstyled">
-                            <li >Câu hỏi thường gặp</li>
-                            <li>Gửi yêu cầu hỗ trợ</li>
-                            <li>Hướng dẫn đặt hàng</li>
-                            <li>Phương thức vận chuyển</li>
-                            <li>Chính sách đổi trả</li>
-                        </ul>
+            <hr />
+            <h4 class="text-center pb-4 text-light">&copy; @DateTime.Now.Year - HASAKI VIETNAM</h4>
+        </div>
 
-                    </div>
-                    <div class="col-md-2 col-lg-3 ">
-                        <h6>VỀ HASAKI.VN</h6>
-                        <ul class="list-group list-unstyled" >
-                            <li>Giới thiệu Hasaki.vn</li>
-                            <li>Chính sách bảo mật</li>
-                            <li>Điều khoản sử dụng</li>
-                            <li>Hasaki cẩm nang</li>
-                            <li>Tuyển dụng</li>
-                            <li>Liên hệ</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-2 col-lg-3 ">
-                        <h6>HỢP TÁC LIÊN KẾT</h6>
-                        <div class="d-flex mt-2 mb-2">
-                          <i class="fa-brands fa-facebook fa-2x social-icon"></i>
-                          <i class="fa-brands fa-instagram fa-2x social-icon"></i>
-                          <i class="fa-brands fa-tiktok fa-2x social-icon"></i>
-                        </div>
-                           
-                            
-                        
-                        <h6>THANH TOÁN</h6>
-                        <div class="d-flex">
-                            <img width="50"  class="img-hover me-2" width="50" src="~/Content/Images/MoMo_Logo.png"/>
-                            <img width="50"   class="img-hover" src="~/Content/Images/vnpay.jpg" />
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-lg-3">
-                        <h6>TẢI APP HASAKI TẠI ĐÂY</h6>
-                    </div>
 
-                </div>
 
-            </div>
-            
-        
-        <hr />
-        <p class="text-center">&copy; @DateTime.Now.Year - HASAKI VIETNAM</p>
     </footer>
 
     <script src="~/Content/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/dropdown.js"></script>
+    
 </body>
 </html>

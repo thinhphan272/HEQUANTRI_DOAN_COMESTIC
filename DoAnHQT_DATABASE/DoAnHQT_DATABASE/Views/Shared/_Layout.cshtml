@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="~/Content/fontawesome-free-7.0.1-web/css/all.min.css" />
 
     <link rel="stylesheet" href="~/Content/bootstrap-5.3.6-dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/Content/themify-icons/themify-icons.css" />
+
     @*<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />*@
     <link rel="stylesheet" href="~/Content/Main.css" />
-    
+    <link rel="stylesheet" href="~/Content/css/loginRegister.css" />
+
 </head>
 <body>
     <header class="fixed-top">
@@ -254,6 +255,76 @@
 
     <script src="~/Content/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Content/dropdown.js"></script>
-    
+
+    <!--Modal layout-->
+    <div class="modal">
+        <div class="modal_overlay"></div>
+
+        <div class="modal_body">
+
+            <!--Authen form-->
+            <div class="auth-form">
+                <div class="auth-form-container">
+                    <div class="auth-form-header">
+                        <h3 class="auth-form-heading">Đăng ký</h3>
+                        <button class="auth-form-switch-btn btn">Đăng nhập</button>
+                    </div>
+
+                    <div class="auth-form_form">
+                        <div class="auth-form_group">
+                            <input type="text" class="auth-form_input" placeholder="Email của bạn" />
+
+                        </div>
+                        <div class="auth-form_group">
+                            <input type="password" class="auth-form_input" placeholder="Mật khẩu" />
+
+                        </div>
+                        <div class="auth-form_group">
+                            <input type="password" class="auth-form_input" placeholder="Nhập lại mật khẩu" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="auth-form_aside">
+
+                        <p class="auth-form_policy-text">
+                            Bằng việc đăng ký bạn đã đồng ý với Hasaki về
+
+                            <a href="" class="auth-form_text-link">Điều khoản dịch vụ</a> &
+                            <a href="" class="auth-form_text-link">Chính sách bảo mật</a>
+                        </p>
+
+                    </div>
+
+                    <div class="auth-form_controls">
+                        <button class="btn register_back-btn back-btn ">TRỞ LẠI</button>
+                        <button class="btn register_back-btn register-btn ">ĐĂNG KÝ</button>
+                    </div>
+                </div>
+
+
+                <div class="auth-form_socials">
+                    <a href="" class="btn auth-facebook btn--with-icon" style="background-color: #3A5A98">
+                        <i class="auth-form_socials-icon auth-facebook-icon fa-brands fa-facebook-square"></i>
+                        <span class="auth-form_socials-title">
+                            Kết nối với Facebook
+                        </span>
+                        
+                    </a>
+                    <a href="" class="btn auth-google btn--with-icon" style="background-color: white">
+                        @*<i class="auth-form_socials-icon auth-google-icon fa-brands fa-google"></i>*@
+                        <img class="auth-form_socials-icon" src="~/Content/Images/gg-icon.png" />
+                        <span class="auth-form_socials-title">
+                            Kết nối với Google
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
 </body>
 </html>

@@ -1,6 +1,24 @@
-:root {
+﻿:root {
     --primary-color: #306e51;
     --border-color: #dbdbdb;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+
+}
+@keyframes growth{
+    from{
+        transform: scale(var(--growth-from));
+    }
+    to{
+        transform: scale(var(--growth-to));
+    }
 }
 
 
@@ -9,9 +27,12 @@
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0; 
-    display: flex;
-
+    left: 0;
+    display: none; /* CHỈ để display: none thôi */
+    animation: fadeIn linear 0.1s;
+    z-index: 9999; /* Thêm z-index cao */
+    align-items: center; /* Thêm để căn giữa theo chiều dọc */
+    justify-content: center; /* Thêm để căn giữa theo chiều ngang */
 }
 
 
@@ -20,15 +41,20 @@
     width: 100%;
     height: 100%;
     background-color: rgb(0, 0, 0, 0.4);
-
+    z-index: 1;
 }
 
-.modal_body{
+.modal_body {
     width: 550px;
     margin: auto;
     background-color: white;
     position: relative;
     border-radius: 10px;
+    animation: growth linear 0.1s;
+    --growth-from: 0.7;
+    --growth-to: 1;
+    z-index: 2; /* Thêm z-index cao hơn overlay */
+    margin: 0;
 }
 
 /*==============Authen MODAL============*/
@@ -116,6 +142,7 @@
     padding: 12px 36px;
     display: flex;
     justify-content: space-between;
+    border-radius: 0 0 10px 10px;
     
 }
 
@@ -148,4 +175,28 @@
 
 .auth-form_socials-title{
     margin: 0 23px;
+}
+
+.auth-form_help{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.auth-form_help-link{
+    text-decoration: none;
+    font-size: 1rem;
+    color: #939393;
+}
+
+.auth-form_help-separate{
+    display: block;
+    border-left: 1px solid var(--border-color);
+    height: 22px;
+    margin: 2px 15px 0;
+}
+
+.auth-form_help-forgot{
+    color: var(--primary-color);
+
 }

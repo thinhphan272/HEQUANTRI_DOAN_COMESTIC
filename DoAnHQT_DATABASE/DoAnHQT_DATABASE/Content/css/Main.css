@@ -75,6 +75,7 @@ textarea {
     text-decoration: none;
 }
 
+
 /* ===== MENU HOVER EFFECTS ===== */
 .menu:hover li {
     opacity: 0.2;
@@ -129,6 +130,24 @@ img:not(.img-hover) {
 
 .list-unstyled li:hover {
     transform: scale(1.06);
+}
+.app{
+    display: flex;
+    align-items: center;
+}
+
+.icon-label {
+    text-decoration: none;
+    color: white;
+    margin: 0 13px;
+    font-size: 1.2rem;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.app-section{
+    display: flex;
+    align-items: center;
 }
 
 /*=========================================================================*/
@@ -235,10 +254,10 @@ img:not(.img-hover) {
     padding: 3px 0;
 }
 
-    .dropdown-section a:hover {
-        color: #306e51;
-        transform: translateX(5px);
-    }
+.dropdown-section a:hover {
+    color: #306e51;
+    transform: translateX(5px);
+}
 
 /* Animation */
 @keyframes fadeIn {
@@ -385,3 +404,5 @@ img:not(.img-hover) {
     margin: 10px auto;
     
 }
+
+

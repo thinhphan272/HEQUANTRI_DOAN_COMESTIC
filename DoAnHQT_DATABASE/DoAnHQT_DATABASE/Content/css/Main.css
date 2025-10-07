@@ -353,3 +353,35 @@ img:not(.img-hover) {
     line-height: 38px;
 }
 
+
+
+/*CSS INDEXXXXXXXXXXXXXX*/
+
+.product-type-choice {
+    justify-content: center;
+}
+
+.product-type-choice-item {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    margin: 0 30px;
+    box-shadow: 5px 5px 15px rgb(0, 0,0,0.3);
+    transition: ease 0.3s;
+}
+
+.product-type-choice-item:hover{
+    transform: scale(1.06);
+}
+
+.product-type-choice-image{
+
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+   
+    margin: 10px auto;
+    
+}

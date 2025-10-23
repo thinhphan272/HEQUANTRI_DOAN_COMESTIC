@@ -630,11 +630,11 @@ img:not(.img-hover) {
 
 .flash-deal{
     display: flex;
-    width: 100%;
+    width: 1400px;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     padding: 20px;
-    
+    margin: 0 auto;
 }
 
 .flash-deal-content{
@@ -663,4 +663,217 @@ img:not(.img-hover) {
 
 .item p {
     text-align: center;
+}
+/*CSS SHOWSANPHAM==========================*/
+.grid{
+    width: 1400px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.grid_row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+.grid_column-2{
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 16.6667%;
+
+}
+.grid_column-10 {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 83.3334%;
+    
+}
+
+.app_container{
+    background-color: #F5F5F5;
+}
+
+
+.category{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.category_heading{
+    font-size: 1.4rem;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    margin-top: 0px;
+}
+
+.category_heading-icon {
+    font-size: 1.2rem;
+    margin-right: 4px;
+    
+}
+.category-list{
+    padding-left: 0px;
+    list-style: none;
+    padding: 0 0 8px 0;
+    margin-left: 10px;
+}
+
+.category-item_link{
+    position: relative;
+    text-decoration: none;
+    color: black;
+    display: block;
+    font-size: 1.1rem;
+    padding:4px 16px;
+    transition: right linear 0.2s;
+    right: 0;
+}
+
+.category-item_link:hover{
+    right: -4px;
+    color: var(--primary-color);
+}
+.category-item-active .category-item_link {
+    color: var(--primary-color);
+}
+
+.category-item-active .category-item_link::before {
+    position: absolute;
+    border: 4px solid;
+    content: "";
+    left: 8px;
+    top: 50%;
+    transform: translateY(calc(-50%));
+    border-color: transparent transparent transparent var(--primary-color);
+}
+
+/*Home sort + filter==================*/
+
+
+.app_content{
+    padding-top: 36px;
+}
+
+
+.home-filter-btn {
+    background-color: white;
+    margin-right: 12px;
+    width: 100px;
+}
+
+.home-filter{
+    background-color: rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    padding: 12px 22px;
+    border-radius: 2px;
+}
+
+.home-filter_page {
+    display: flex;
+    align-items: center;
+}
+
+.home-filter_label {
+    margin-right: 16px;
+}
+
+.select-input_label {
+   margin-left: 4px;
+}
+.select-input_icon{
+    font-size: 1.2rem;
+    color: rgb(131, 131, 131);
+    position: relative;
+    top: 1px;
+}
+
+.select-input {
+    position: relative;
+    min-width: 200px;
+    height: 37px;
+    padding: 0 12px;
+    background-color: white;
+    display: flex;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.select-input:hover .select-input_list{
+    display: block;
+}
+
+.select-input_list{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 38px; 
+    border-radius: 5px;
+    background-color: white;
+    padding:10px 16px;
+    list-style: none;
+    display: none;
+}
+
+.select-input_link{
+    text-decoration: none;
+    display: block;
+    padding: 5px 0;
+    color: black;
+}
+
+.select-input_link:hover{
+    color: var(--primary-color);
+}
+
+.home-filter_page{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.home-filter_page-num{
+    margin-right: 22px;
+}
+
+.home-filter_page-current{
+    color: var(--primary-color);
+}
+
+.home-filter_page-control{
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    width: 72px;
+    height: 36px;
+}
+
+.home-filter_page-btn {
+    flex: 1;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    background-color: white;
+    text-decoration: none;
+    
+}
+
+.home-filter_page-btn-disable{
+    background-color: #f9f9f9;
+}
+
+
+.home-filter_page-btn-disable .home-filter_page-icon {
+    cursor: default;
+    color: #ccc;
+}
+.home-filter_page-btn:first-child {
+    border-right: 1px solid var(--border-color);
+}
+
+.home-filter_page-icon{
+    margin: auto;
+    color: #555;
 }

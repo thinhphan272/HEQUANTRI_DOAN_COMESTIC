@@ -217,7 +217,7 @@
                 <!-- Danh mục sản phẩm -->
                 <div class="menu-bar col-md-2 d-flex" data-dropdown="danh-muc">
                     <i class="fa-solid fa-bars text-dark me-1"></i>
-                    <h6 class="menu-bar-item">DANH MỤC SẢN PHẨM</h6>
+                    <h6 class="menu-bar-item"><a href="@Url.Action("ShowSanPham", "Home")" style="text-decoration: none; color: white;">DANH MỤC SẢN PHẨM</a></h6>
                 </div>
 
                 <div class="menu-bar col-md-2" data-dropdown="thuong-hieu">
@@ -253,7 +253,7 @@
 
     </header>
 
-    <div id="carouselExampleInterval w-100" class="carousel slide" data-bs-ride="carousel" style="margin-top: 123px">
+    @*<div id="carouselExampleInterval" class="carousel slide w-100" data-bs-ride="carousel" style="margin-top: 123px">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="3000">
                 <img style="border-radius: 0px" src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
@@ -273,15 +273,16 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-    </div>
+    </div>*@
 
-    <div class="container body-content">
+    <div class="index">
         @RenderBody()
         <hr />
 
 
 
     </div>
+
     <footer>
 
         <div class="row justify-content-around text-center" style="background-color: #c4ffd0; padding: 20px 0;">

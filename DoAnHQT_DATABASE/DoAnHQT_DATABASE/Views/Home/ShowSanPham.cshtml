@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="app_container" style="margin-top:123px;">
+    <div class="grid">
+        <div class="grid_row app_content">
+            <div class="grid_column-2">
+                <nav class="category">
+                    <h4 class="category_heading">
+                        <i class="category_heading-icon fa-solid fa-list"></i>
+                        Danh mục
+                    </h4>
+                    <ul class="category-list">
+                        <li class="category-item category-item-active">
+
+                            <a href="#" class="category-item_link">
+                                Trang điểm mặt
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" class="category-item_link">
+                                Trang điểm môi
+                            </a>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" class="category-item_link">
+                                Trang điểm mắt
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="grid_column-10">
+                <div class="home-filter">
+                    <span class="home-filter_label">Sắp xếp theo</span>
+                    <button class="btn home-filter-btn">Phổ biến</button>
+                    <button class="btn home-filter-btn home-filter-btn-primary" style="background-color:var(--primary-color); color: white">Mới nhất</button>
+                    <button class="btn home-filter-btn">Bán chạy</button>
+
+                    <div class="select-input">
+                        <span class="select-input_label">Giá</span>
+                        <i class="select-input_icon fa fa-angle-down"></i>
+                        <ul class="select-input_list">
+                            <li class="select-input_item">
+                                <a href="" class="select-input_link">Giá: Thấp đến cao</a>
+                            </li>
+                            <li class="select-input_item">
+                                <a href="" class="select-input_link">Giá: Cao đến thấp</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="home-filter_page">
+                        <span class="home-filter_page-num">
+                            <span class="home-filter_page-current">
+                                1
+                            </span>/14
+
+                        </span>
+
+                        <div class="home-filter_page-control">
+                            <a href="" class="home-filter_page-btn home-filter_page-btn-disable">
+                                <i class="home-filter_page-icon fa fa-angle-left"></i>
+                            </a>
+                            <a href="" class="home-filter_page-btn">
+                                <i class="home-filter_page-icon fa fa-angle-right"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+
+        </div>
+    </div>   
+</div>

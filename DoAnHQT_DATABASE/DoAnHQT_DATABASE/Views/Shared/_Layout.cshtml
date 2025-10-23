@@ -42,7 +42,7 @@
                     </div>
 
                     <button class="header-search-btn">
-                        <i class="header-search-btn-icon fa-solid fa-search"></i>
+                        <i class="header-search-btn-icon fa-solid header_icon fa-search"></i>
                     </button>
                 
                 </div>
@@ -58,8 +58,8 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1 menu">
-                        <li class="d-flex">
-                            <i class="fa-solid fa-house fa-xl  align-self-center"></i>
+                        <li class="d-flex ">
+                            <i class="fa-solid fa-house fa-xl header_icon align-self-center"></i>
 
                             <label>
                                 @Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
@@ -67,8 +67,8 @@
 
                         </li>
 
-                        <li class="d-flex">
-                            <i class="fa-solid fa-phone fa-xl  align-self-center"></i>
+                        <li class="d-flex ">
+                            <i class="fa-solid fa-phone fa-xl header_icon align-self-center"></i>
 
                             <label>
                                 @Html.ActionLink("Chăm sóc khách hàng", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
@@ -77,16 +77,134 @@
 
                         </li>
 
-                        <li class="d-flex loggin">
-                            <i class="fa-solid fa-user fa-xl  align-self-center"></i>
+                        @*<li class="d-flex loggin">
+                            <i class="fa-solid fa-user fa-xl header_icon align-self-center"></i>
                             <label>
                                 @Html.ActionLink("Đăng nhập / Đăng ký", "About", "Home", new { area = "" }, new { @class = "nav-link" })
                             </label>
 
 
+                        </li>*@
+
+                        <li class="header_navbar-user " style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px;"> 
+                            <img class="header_navbar-user-img" src="~/Content/Images/Avatar/user1.jpg"/>
+                            <a class="header_navbar-user-name">Phan Thịnh</a>
+
+                            <ul class="header_navbar-user-menu">
+                                <li class="header_navbar-user-item">
+                                    <a herf="" style="color: black;" >Tài khoản của tôi</a>
+                                </li>
+                                <li class="header_navbar-user-item">
+                                    <a herf="" >Địa chỉ của tôi</a>
+                                </li>
+                                <li class="header_navbar-user-item">
+                                    <a herf="" >Đơn mua</a>
+                                </li>
+                                <hr style="margin: 0"/>
+                                <li class="header_navbar-user-item header_navbar-user-logout">
+                                    <a herf="" style="color: #306e51">Đăng xuất</a>
+                                </li>
+                            </ul>
                         </li>
+
                     </ul>
-                    <i class="fa-solid fa-cart-shopping fa-xl align-self-center"></i>
+                    <div class="header_cart">
+                        <div class="header_cart-wrap">
+                            <i class="header_cart-icon fa-solid fa-cart-shopping fa-xl"></i>
+
+                            <span class="header_cart-notice"> 
+                                3
+                            </span>
+                            <div class="header_cart-list">
+                                <img src="~/Content/Images/no_cart.png" class="header_cart-no-cart-img" />
+                                <span class="header_cart-list-no-cart-msg">Chưa có sản phẩm</span>
+
+                                <h5 class="header_cart-heading">Sản phẩm đã thêm</h5>
+
+                                <ul class="header_cart-list-item">
+                                    <li class="header_cart-item">
+                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
+                                        <div class="header_cart-item-info">
+
+                                            <div class="header_cart-item-head">
+
+                                                <h5 class="header_cart-item-name">Sửa rửa mặt Cerave</h5>
+                                                <div class="header_cart-item-price-wrap">
+                                                    <span class="header_cart-item-price">350.000đ</span>
+                                                    <span class="header_cart-item-multiply">x</span>
+                                                    <span class="header_cart-item-qnt">1</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="header_cart-item-body">
+                                                <span class="header_cart-item-description">
+                                                    Phân loại: Bạc
+                                                </span>
+                                                <span class="header_cart-item-remove"><button class="btn header_cart-item-remove-btn">Xóa</button></span>
+                                            </div>
+
+
+                                        </div>
+
+                                    </li>
+                                    <li class="header_cart-item">
+                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
+                                        <div class="header_cart-item-info">
+
+                                            <div class="header_cart-item-head">
+
+                                                <h5 class="header_cart-item-name">Sửa rửa mặt Cerave</h5>
+                                                <div class="header_cart-item-price-wrap">
+                                                    <span class="header_cart-item-price">350.000đ</span>
+                                                    <span class="header_cart-item-multiply">x</span>
+                                                    <span class="header_cart-item-qnt">1</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="header_cart-item-body">
+                                                <span class="header_cart-item-description">
+                                                    Phân loại: Bạc
+                                                </span>
+                                                <span class="header_cart-item-remove"><button class="btn header_cart-item-remove-btn">Xóa</button></span>
+                                            </div>
+
+
+                                        </div>
+
+                                    </li>
+                                    <li class="header_cart-item">
+                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
+                                        <div class="header_cart-item-info">
+
+                                            <div class="header_cart-item-head">
+
+                                                <h5 class="header_cart-item-name">Sửa rửa mặt Cerave</h5>
+                                                <div class="header_cart-item-price-wrap">
+                                                    <span class="header_cart-item-price">350.000đ</span>
+                                                    <span class="header_cart-item-multiply">x</span>
+                                                    <span class="header_cart-item-qnt">1</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="header_cart-item-body">
+                                                <span class="header_cart-item-description">
+                                                    Phân loại: Bạc
+                                                </span>
+                                                <span class="header_cart-item-remove"><button class="btn header_cart-item-remove-btn">Xóa</button></span>
+                                            </div>
+
+
+                                        </div>
+
+                                    </li>
+                                </ul>
+
+                                <a class="header_cart-view-cart btn btn_giohang">Xem giỏ hàng</a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
 
                 </div>
             </div>
@@ -122,9 +240,9 @@
 
         <!-- Dropdown Menu Toàn Màn Hình -->
         <div class="fullscreen-dropdown" id="fullscreenDropdown">
-            <button class="dropdown-close" id="dropdownClose">
+            @*<button class="dropdown-close" id="dropdownClose">
                 <i class="fa-solid fa-xmark"></i>
-            </button>
+            </button>*@
             <div class="dropdown-container">
                 <!-- Nội dung dropdown sẽ được thay đổi bằng JavaScript -->
                 <div class="dropdown-content" id="dropdownContent">
@@ -268,6 +386,7 @@
     <script src="~/Content/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Content/css/js/dropdown.js"></script>
     <script src="~/Content/css/js/LoginRegister.js"></script>
+    <script src="~/Content/css/js/flashsale.js"></script>
     <!--Modal layout-->
     <div class="modal">
         <div class="modal_overlay"></div>

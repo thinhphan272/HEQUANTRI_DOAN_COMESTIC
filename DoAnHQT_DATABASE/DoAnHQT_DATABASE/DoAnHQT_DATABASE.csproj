@@ -166,6 +166,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\css\js\dropdown.js" />
+    <Content Include="Content\css\js\flashsale.js" />
     <Content Include="Content\css\js\LoginRegister.js" />
     <Content Include="Content\css\loginRegister.css" />
     <Content Include="Content\fontawesome-free-7.0.1-web\css\all.css" />
@@ -5822,6 +5823,7 @@
     <Content Include="Content\fontawesome-free-7.0.1-web\svgs\solid\z.svg" />
     <Content Include="Content\fontawesome-free-7.0.1-web\svgs\solid\zap.svg" />
     <Content Include="Content\Images\24_7.png" />
+    <Content Include="Content\Images\Avatar\user1.jpg" />
     <Content Include="Content\Images\banner.jpg" />
     <Content Include="Content\Images\banner2.jpg" />
     <Content Include="Content\Images\banner3.jpg" />
@@ -5834,7 +5836,9 @@
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo1.png" />
     <Content Include="Content\Images\MoMo_Logo.png" />
+    <Content Include="Content\Images\no_cart.png" />
     <Content Include="Content\Images\ProductIMG\mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+    <Content Include="Content\Images\ProductIMG\suaruamatcarave.png" />
     <Content Include="Content\Images\qr_appcode.png" />
     <Content Include="Content\Images\vnpay.jpg" />
     <Content Include="Content\css\Main.css" />

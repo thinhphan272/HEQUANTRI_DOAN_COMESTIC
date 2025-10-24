@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/FileContentIndex
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060/SemanticSymbols.db-wal

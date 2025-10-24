@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/FileContentIndex
+/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DoAnHQT_DATABASE.csproj.AssemblyReference.cache
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/DocumentLayout.backup.json
+/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/DocumentLayout.json

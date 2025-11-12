@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace DoAnHQT_DATABASE.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller        
     {
         public ActionResult Index()
         {
@@ -17,6 +17,15 @@ namespace DoAnHQT_DATABASE.Controllers
         {
             return View();
         }
+
+        public ActionResult SanPhamDetail()
+        {
+            return View();
+        }
+
+    
+
+        
 
         public ActionResult About()
         {
@@ -31,5 +40,7 @@ namespace DoAnHQT_DATABASE.Controllers
 
             return View();
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
-﻿var fulltime = new Date("december 11, 2025 22:36:00").getTime();
+﻿
+var fulltime = new Date("november 11, 2025 22:36:00").getTime();
 setInterval(function () {
 	var now = new Date().getTime();
 	var Duration = fulltime - now;

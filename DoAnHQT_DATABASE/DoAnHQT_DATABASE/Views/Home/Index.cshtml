@@ -2,84 +2,295 @@
     ViewBag.Title = "Home Page";
 }
 
-
-
-<main>
-    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="margin-top: 123px">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
-            </div>
-            <div class="carousel-item" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
-            </div>
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="margin-top: 123px">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+            <img style="border-radius: 0px" src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img style="border-radius: 0px" src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+            <img style="border-radius: 0px" src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
+        </div>
     </div>
-    <div class="flash-deal mt-4 mb-4">
-        <img src="Images/sale_70p.jpg" alt="hinh1" class="flash-deal-img" />
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<main class="" style="width: 1300px; margin: 0 auto">
+
+    <div class=" flash-deal mt-4 mb-4" style="background-color: #FF8E4D">
+
         <div class="flash-deal-content">
             <div class="flash-deal-header">
-                <h2>SALE UP TO 70% OFF</h2>
+                <div class="flash-deal-header-content me-3 text-light">
+                    FLASH SALE
+                </div>
+
 
             </div>
             <div class="flash-deal-timer">
                 <div class="item">
-                    <p id="days">Days</p>
-                    <p>NGÀY</p>
+                    <p class="flash-deal-timer-time" id="days">Days</p>
+
                 </div>
                 <div class="item">
-                    <p id="hours">Hours</p>
-                    <p>GIỜ</p>
+                    <p class="flash-deal-timer-time" id="hours">Hours</p>
+
                 </div>
                 <div class="item">
-                    <p id="minutes">Minutes</p>
-                    <p>PHÚT</p>
+                    <p class="flash-deal-timer-time" id="minutes">Minutes</p>
+
                 </div>
                 <div class="item">
-                    <p id="seconds">Seconds</p>
-                    <p>GIÂY</p>
+                    <p class="flash-deal-timer-time" id="seconds">Seconds</p>
+
                 </div>
             </div>
 
             <p class="end">Chương trình Sale đã kết thúc</p>
+
+
         </div>
     </div>
 
-    <div class="row product-type-choice ">
-        <div class="col-auto product-type-choice-item">
-            <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+    <div class="small-banner row mb-4">
+        <div class="col-md-4 small-banner-item">
+            <img src="~/Content/Images/index1.jpg" class="small-banner-item_img" />
         </div>
-        <div class="col-auto product-type-choice-item">
-            <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+        <div class="col-md-4 small-banner-item">
+            <img src="~/Content/Images/index2.jpg" class="small-banner-item_img" />
+        </div>
+        <div class="col-md-4 small-banner-item">
+            <img src="~/Content/Images/index3.jpg" class="small-banner-item_img" />
+        </div>
+    </div>
+
+    
+
+    <div class="product-category-container">
+        
+        <!-- Nút scroll trái -->
+        <button class="scroll-btn scroll-left">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+
+        <!-- Danh mục sản phẩm -->
+        <div class="product-type-choice shadow-lg p-2 category-scroll" style="border-radius: 10px">
+            <div class="product-type-choice-label">
+                Danh mục
+            </div>
+
+            <div class="category-items mb-2">
+
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="product-type-choice-item">
+                    <div class="product-type-choice-image-div">
+                        <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
+                    </div>
+                    <div class="category-name">
+                        <div>
+                            <p class="category-name-content">Mặt nạ</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Thêm các danh mục khác... -->
+            </div>
+        </div>
+
+        <!-- Nút scroll phải -->
+        <button class="scroll-btn scroll-right">
+            <i class="fa fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="brand-container shadow">
+        <div class="brand-choice-label">
+            Thương hiệu
 
         </div>
-        <div class="col-auto product-type-choice-item">
-            <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
-
-        </div>
-        <div class="col-auto product-type-choice-item">
-            <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
-
-        </div>
-        <div class="col-auto product-type-choice-item">
-            <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
-
-        </div>
-        <div class="col-auto product-type-choice-item">
-            <img class="product-type-choice-image" src="~/Content/Images/ProductIMG/mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
-
+        
+        <div class="row" style="display: flex; align-items: center">
+            <div class="col-md-4 brand-item-large">
+                <img class="brand-item-large-image" src="~/Content/Images/Brand/brand1.jpg"/>
+            </div>
+            <div class="col-md-8 brand-item-small">
+                <div class="row  brand-choice-row">
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/brandLa_ROCHE.png)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelLa_ROCHE.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/brandBIODERMA.jpg)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelBIODERMA.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/brandCerave.jpg)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelCERAVE.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/brandKLAIRS.jpg)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelKLAIRS.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/brandCOCOON.jpg)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelCOCOON.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/brandGARNIER.jpg)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelGANIER.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/brandVaseline.jpg)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelVaseline.jpg" />
+                        </div>
+                    </div>
+                    <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/branDOVE.jpg)">
+                        <div style="width: 110px; margin: 0 auto; margin-top: 115px">
+                            <img width="100%" src="~/Content/Images/Brand/labelDOVE.jpg" />
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
 
     </div>
+
 </main>

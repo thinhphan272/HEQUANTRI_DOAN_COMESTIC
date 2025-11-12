@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -165,6 +166,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\js\danhmucIndexScroll.js" />
     <Content Include="Content\css\js\dropdown.js" />
     <Content Include="Content\css\js\flashsale.js" />
     <Content Include="Content\css\js\LoginRegister.js" />
@@ -5827,18 +5829,42 @@
     <Content Include="Content\Images\banner.jpg" />
     <Content Include="Content\Images\banner2.jpg" />
     <Content Include="Content\Images\banner3.jpg" />
+    <Content Include="Content\Images\Brand\brand1.jpg" />
+    <Content Include="Content\Images\Brand\brand2.jpg" />
+    <Content Include="Content\Images\Brand\brandBIODERMA.jpg" />
+    <Content Include="Content\Images\Brand\brandCerave.jpg" />
+    <Content Include="Content\Images\Brand\brandCOCOON.jpg" />
+    <Content Include="Content\Images\Brand\brandGARNIER.jpg" />
+    <Content Include="Content\Images\Brand\brandKLAIRS.jpg" />
+    <Content Include="Content\Images\Brand\brandLa_ROCHE.png" />
+    <Content Include="Content\Images\Brand\branDOVE.jpg" />
+    <Content Include="Content\Images\Brand\brandVaseline.jpg" />
+    <Content Include="Content\Images\Brand\labelBIODERMA.jpg" />
+    <Content Include="Content\Images\Brand\labelCERAVE.jpg" />
+    <Content Include="Content\Images\Brand\labelCOCOON.jpg" />
+    <Content Include="Content\Images\Brand\labelDOVE.jpg" />
+    <Content Include="Content\Images\Brand\labelGANIER.jpg" />
+    <Content Include="Content\Images\Brand\labelKLAIRS.jpg" />
+    <Content Include="Content\Images\Brand\labelLa_ROCHE.jpg" />
+    <Content Include="Content\Images\Brand\labelVaseline.jpg" />
     <Content Include="Content\Images\chinhhang.jpg" />
     <Content Include="Content\Images\doitra7.png" />
     <Content Include="Content\Images\free.png" />
     <Content Include="Content\Images\gg-icon.png" />
     <Content Include="Content\Images\GPicon.png" />
     <Content Include="Content\Images\icon_footer1.png" />
+    <Content Include="Content\Images\index1.jpg" />
+    <Content Include="Content\Images\index2.jpg" />
+    <Content Include="Content\Images\index3.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo1.png" />
     <Content Include="Content\Images\MoMo_Logo.png" />
     <Content Include="Content\Images\no_cart.png" />
+    <Content Include="Content\Images\PaymentIMG\payCOD.png" />
     <Content Include="Content\Images\ProductIMG\mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
-    <Content Include="Content\Images\ProductIMG\suaruamatcarave.png" />
+    <Content Include="Content\Images\ProductIMG\SuaRuaMat\SRMLaRoChePoSay.png" />
+    <Content Include="Content\Images\ProductIMG\SuaRuaMat\SRMSimple1.png" />
+    <Content Include="Content\Images\ProductIMG\SuaRuaMat\suaruamatcarave.png" />
     <Content Include="Content\Images\qr_appcode.png" />
     <Content Include="Content\Images\vnpay.jpg" />
     <Content Include="Content\css\Main.css" />
@@ -5933,9 +5959,15 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ShowSanPham.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
+    <Content Include="Views\Cart\PaymentPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\ProductIMG\DauGoi\" />
+    <Folder Include="Content\Images\ProductIMG\DauXa\" />
+    <Folder Include="Content\Images\ProductIMG\KemLot\" />
+    <Folder Include="Content\Images\ProductIMG\PhanPhu\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

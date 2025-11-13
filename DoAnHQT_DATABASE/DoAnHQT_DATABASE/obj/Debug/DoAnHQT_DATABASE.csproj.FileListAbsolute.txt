@@ -393,3 +393,7 @@ C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\
 C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\DoAnHQT_DATABASE\DoAnHQT_DATABASE\obj\Debug\DoAnHQT_.407BF570.Up2Date
 C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\DoAnHQT_DATABASE\DoAnHQT_DATABASE\obj\Debug\DoAnHQT_DATABASE.dll
 C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\DoAnHQT_DATABASE\DoAnHQT_DATABASE\obj\Debug\DoAnHQT_DATABASE.pdb
+C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\DoAnHQT_DATABASE\DoAnHQT_DATABASE\bin\EntityFramework.dll
+C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\DoAnHQT_DATABASE\DoAnHQT_DATABASE\bin\EntityFramework.SqlServer.dll
+C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\DoAnHQT_DATABASE\DoAnHQT_DATABASE\bin\EntityFramework.xml
+C:\Users\Nguyen Tan Tai\Documents\C# code\DoAnHeQuanTri\HEQUANTRI_DOAN_COMESTIC\DoAnHQT_DATABASE\DoAnHQT_DATABASE\bin\EntityFramework.SqlServer.xml

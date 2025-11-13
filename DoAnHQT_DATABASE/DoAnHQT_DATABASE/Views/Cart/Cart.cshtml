@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="cart-container-shop" style="margin-top: 130px !important; width: 1300px; margin: 0 auto">
+    <h5>Giỏ hàng <span style="color: rgb(153, 153, 153)">(2 sản phẩm)</span></h5>
+    <div class="row">
+        <div class="col-md-9">
+
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col" >Giá tiền</th>
+                        <th scope="col" class="text-center">Số lượng</th>
+                        <th scope="col" class="text-end">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-middle" style="width: 600px;">
+                            <div class="row cart-item">
+                                <div class="col-md-2">
+                                    <div class="cart-item-image">
+                                        <img width="100%" src="~/Content/Images/ProductIMG/SuaRuaMat/SRMLaRoChePoSay.png"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <h6 class="cart-item-brand">LA ROCHE-POSAY</h6>
+                                    <span class="cart-item-name">Gel rửa mặt La Roche-Posay dành cho da dầu, da nhạy cảm<br />400ml</span><br />
+                                   
+                                    <div class="like-and-delete">
+
+                                        <span class="home-product-item_like home-product-item_like-liked">
+                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
+                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
+                                            Yêu thích
+                                        </span>
+                                        <div class="btn cart-delete-item">
+                                            <i class="fa fa-x" style="color: var(--primary-color)"></i> Xóa
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle ">430.000 đ</td>
+                        <td class="align-middle">
+                           <div class="quantity-content">
+                               <div class="quantity-number">
+                                   1
+                               </div>
+                               <div class="quantity-btn"> 
+                                   <div class="quantity-btn-icon">
+                                       <i class="fa-solid fa-caret-up ">
+
+                                       </i>
+                                   </div>
+                                   <div  class="quantity-btn-icon">
+                                       <i class="fa-solid fa-caret-down">
+
+                                       </i>
+                                   </div>
+                                  
+                               </div>
+                           </div>
+                        </td>
+                        <td class="align-middle text-end">430.000đ</td>
+                    </tr>
+
+                    
+                </tbody>
+            </table>
+
+            <a href="@Url.Action("ShowSanPham", "Home")" class=" btn continue-shopping">
+                <i class="fa fa-arrow-left"></i>
+                Tiếp tục mua hàng
+            </a>
+        </div>
+        <div class="col-md-3" style="border-top: 2px solid var(--primary-color); padding: 0;">
+            <div class="cart-pay-header">
+                <span class="cart-pay-header-content">Hóa đơn của bạn</span>
+            </div>
+            <div class="cart-pay-body">
+                <div class="cart-pay-total">
+                    <div class="cart-pay-total-label">Tạm tính:</div>
+                    <div  class="cart-pay-total-money">430.000 đ</div>
+
+                </div>
+                <div class="cart-pay-discount">
+                    <div class="cart-pay-discount-label">Giảm giá:</div>
+                    <div class="cart-pay-discount-money">0 đ</div>
+
+                </div>
+                <hr style="margin: 10px 0;"/>
+                <div class="cart-total-after-discount">
+                    <div class="cart-total-after-discount-label">Tổng cộng:</div>
+                    <div class="cart-total-after-discount-money">430.000 đ</div>
+                </div>
+                <div class="VAT">(Đã bao gồm VAT)</div>
+                <a href="@Url.Action("PaymentPage", "Cart")" class="btn proceed-to-order w-100">Tiến hành đặt hàng</a>
+            </div>
+        </div>
+    </div>
+
+</div>

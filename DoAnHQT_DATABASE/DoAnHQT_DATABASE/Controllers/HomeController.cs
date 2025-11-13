@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DoAnHQT_DATABASE.Models;
 
 namespace DoAnHQT_DATABASE.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller        
     {
+        QL_BANHANG_ONLINE db = new QL_BANHANG_ONLINE();
         public ActionResult Index()
         {
             return View();
@@ -15,21 +17,13 @@ namespace DoAnHQT_DATABASE.Controllers
 
         public ActionResult ShowSanPham()
         {
-            return View();
+            return View(db.Product.ToList());
         }
 
-        public ActionResult About()
+        public ActionResult SanPhamDetail()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

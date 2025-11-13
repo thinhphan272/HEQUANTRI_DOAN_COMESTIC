@@ -20,9 +20,14 @@ namespace DoAnHQT_DATABASE.Controllers
             return View(db.Product.ToList());
         }
 
-        public ActionResult SanPhamDetail()
+        public ActionResult HienThiDanhMuc()
         {
-            return View();
+            return PartialView(db.ProductType.ToList());
+        }
+        public ActionResult SanPhamDetail(string id)
+        {
+            Product sp = db.Product.FirstOrDefault(t => t.ProductID.Trim().Equals(id.Trim()));
+            return View(sp);
         }
 
     }

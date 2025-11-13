@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "PaymentPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="payment-page" style="margin-top: 123px;">
+    <div class="payment-container " style=" width: 1300px; margin: 0 auto;">
+        
+        <div class="row">
+            <div class="col-md-8 mt-4">
+                <div class="delivery-address shadow mb-4" style="background-color: white">
+                    <span class="delivery-address-label">Địa chỉ nhận hàng</span>
+                    <div class="delivery-address-content">
+                        <div class="customer-address-info">
+                            <div class="customer-address-choice-and-name">
+                                <div class="address-choice">
+                                    Nhà riêng
+                                </div>
+                                <span class="customer-name-phone">Phan Thịnh - *******921</span>
+                            </div>
+                            
+                            <span class="customer-address">85/1, Lái Thiêu 113, Phường Lái Thiêu, Thị xã Thuận An, Bình Dương</span>
+                        </div>
+                        <a href="#" class="change-customer-infor">
+                            Thay đổi
+                        </a>
+
+                    </div>
+                </div>
+                <div class="form-of-payment shadow mb-4" style="background-color: white">
+                    <span class="form-of-payment-label">Hình thức thanh toán</span>
+                    <div class="form-of-payment-choice">
+                        <div class="form-of-payment-choice-item">
+                            <div class="form-of-payment-img me-2">
+                                <img width="100%" src="~/Content/Images/PaymentIMG/payCOD.png" />
+
+                            </div>
+                            <span class="form-of-payment-choice-label">Thanh toán khi nhận hàng (COD)</span>
+                        </div>
+                        
+                        <a href="#" class="change-payment-choice">
+                            Thay đổi
+                        </a>
+                    </div>
+                </div>
+                <div class="discount-code shadow mb-4" style="background-color: white">
+                    <span class="discount-code-label">Mã giảm giá</span>
+                    <a href="#" class="type-discount-code">
+                        Nhập mã giảm giá
+                    </a>
+                </div>
+                <div class="cart-detail shadow mb-4" style=" background-color: white">
+                    <span class="cart-detail-label">Thông tin kiện hàng</span>
+                    <table class="table bg-light">
+                       
+                        <tbody>
+                            <tr>
+                                <td class="align-middle" style="width: 600px;">
+                                    <div class="row cart-item">
+                                        <div class="col-md-2">
+                                            <div class="cart-item-image">
+                                                <img width="100%" src="~/Content/Images/ProductIMG/SuaRuaMat/SRMLaRoChePoSay.png" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h6 class="cart-item-brand">LA ROCHE-POSAY</h6>
+                                            <span class="cart-item-name">Gel rửa mặt La Roche-Posay dành cho da dầu, da nhạy cảm 400ml</span><br />
+                                            <span class="cart-item-capacity">400ml</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-end">1 <i class="fa fa-x" style="font-size: 0.8rem;"></i> 430.000 đ</td>
+
+                            </tr>
+                            <tr>
+                                <td class="align-middle" style="width: 600px;">
+                                    <div class="row cart-item">
+                                        <div class="col-md-2">
+                                            <div class="cart-item-image">
+                                                <img width="100%" src="~/Content/Images/ProductIMG/SuaRuaMat/SRMLaRoChePoSay.png" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <h6 class="cart-item-brand">LA ROCHE-POSAY</h6>
+                                            <span class="cart-item-name">Gel rửa mặt La Roche-Posay dành cho da dầu, da nhạy cảm 400ml</span><br />
+                                            <span class="cart-item-capacity">400ml</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-end">1 <i class="fa fa-x" style="font-size: 0.8rem;"></i> 430.000 đ</td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cart-note shadow mb-4" style="background-color: white">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="cart-note-textarea">
+                                
+                                <textarea placeholder="Ghi chú" class="form-control" id="exampleFormControlTextarea1" rows="2"  style="background-color: rgba(240, 240, 244, 0.98); border-radius: 10px; min-width: 400px;"></textarea>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="cart-note-total">
+                                <div class="cart-note-total-label">
+                                    Tổng tiền (3)
+                                </div>
+                                <div class="cart-note-total-money">
+                                    430.000 đ
+                                </div>
+                            </div>
+                            <a href="#" class="btn w-100 btn-order-submit mt-2" style="background-color: var(--primary-color); color: white; border-radius: 30px; font-size: 1.2rem; font-weight: 600">Đặt hàng</a>
+                        </div>
+                    </div>
+
+                    <span style="font-size: 0.8rem;">Nhấn "Đặt hàng" đồng nghĩa việc bạn đồng ý tuân theo <a href="#" style="text-decoration: none">Chính sách xử lý dữ liệu cá nhân</a> & <a href="#" style="text-decoration: none">Điều khoản Hasaki</a> </span>
+                </div>
+            </div>
+            <div class="col-md-4 mt-4">
+
+                <div class="payment-order-final shadow" style="background-color: white">
+                    <a href="#" class="btn w-100 btn-order-submit mt-2" style="background-color: var(--primary-color); color: white; border-radius: 30px; font-size: 1.2rem; font-weight: 600; line-height: 1.2rem; padding: 10px">Đặt hàng</a>
+
+                    <div class="cart-pay-body mt-3">
+                        <div class="payment-order mb-4" style="display: flex; justify-content: space-between">
+                            <span class="payment-order-label" style="font-size: 1.2rem; font-weight: 600;">Đơn hàng</span>
+                            <a href="@Url.Action("Cart", "Cart")" style="text-decoration: none">
+                                Thay đổi
+                            </a>
+                        </div>
+                        <div class="cart-pay-total mb-2">
+                            <div class="cart-pay-total-label">Tạm tính:</div>
+                            <div class="cart-pay-total-money">430.000 đ</div>
+
+                        </div>
+                        <div class="cart-pay-discount mb-2">
+                            <div class="cart-pay-discount-label">Giảm giá:</div>
+                            <div class="cart-pay-discount-money">-0 đ</div>
+
+                        </div>
+                        <div class="cart-pay-delivery mb-2" style="display: flex; justify-content: space-between">
+                            <div class="cart-pay-discount-label">Phí vận chuyển:</div>
+                            <div class="cart-pay-discount-money">0 đ</div>
+
+                        </div>
+                        <div class="cart-total-after-discount mb-2">
+                            <div class="cart-total-after-discount-label">Thành tiền (Đã VAT)</div>
+                            <div class="cart-total-after-discount-money" style="font-size: 1.2rem">430.000 đ</div>
+                        </div>
+                        <hr style="margin: 10px 0;" />
+                        <span style="font-size: 0.8rem; text-align: center">Đã bao gồm VAT, phí đóng gói, phí vận chuyển và các chi phí khác vui lòng xem <a href="#" style="text-decoration: none;">Chính sách vận chuyển</a> </span>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -5856,15 +5856,24 @@
     <Content Include="Content\Images\index1.jpg" />
     <Content Include="Content\Images\index2.jpg" />
     <Content Include="Content\Images\index3.jpg" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\ChongNang.png" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\ChongNangDaMat.jpg" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\DauGoi.jpg" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\DauXa.png" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\KemLot.jpg" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\MaHong.png" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\PhanPhu.jpg" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\SuaRuaMat.jpg" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\TayTeBaoChetDaMat.png" />
+    <Content Include="Content\Images\LoaiSanPhamIndex\TayTrang1.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logo1.png" />
     <Content Include="Content\Images\MoMo_Logo.png" />
     <Content Include="Content\Images\no_cart.png" />
     <Content Include="Content\Images\PaymentIMG\payCOD.png" />
-    <Content Include="Content\Images\ProductIMG\mat-na-nghe-hung-yen-cocoon-giup-da-rang-ro-min-mang-100ml-3.jpg" />
-    <Content Include="Content\Images\ProductIMG\SuaRuaMat\SRMLaRoChePoSay.png" />
-    <Content Include="Content\Images\ProductIMG\SuaRuaMat\SRMSimple1.png" />
-    <Content Include="Content\Images\ProductIMG\SuaRuaMat\suaruamatcarave.png" />
+    <Content Include="Content\Images\ProductIMG\SRMCerave.png" />
+    <Content Include="Content\Images\ProductIMG\SRMLaRoChePoSay.png" />
+    <Content Include="Content\Images\ProductIMG\SRMSimple1.png" />
     <Content Include="Content\Images\qr_appcode.png" />
     <Content Include="Content\Images\SanPhamDetailIMG\chinh_hang.png" />
     <Content Include="Content\Images\SanPhamDetailIMG\doi_tra30.png" />
@@ -5970,10 +5979,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\ProductIMG\DauGoi\" />
-    <Folder Include="Content\Images\ProductIMG\DauXa\" />
-    <Folder Include="Content\Images\ProductIMG\KemLot\" />
-    <Folder Include="Content\Images\ProductIMG\PhanPhu\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

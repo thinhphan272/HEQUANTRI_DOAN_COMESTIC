@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<style>
+    /* 1. Tinh chỉnh ảnh thumbnail */
+    .product-thumbnail {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 6px; /* Bo tròn nhẹ góc ảnh */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Đổ bóng nhẹ cho ảnh */
+    }
+
+    /* 2. Căn giữa nội dung */
+    .table.align-middle td,
+    .table.align-middle th {
+        vertical-align: middle;
+    }
+
+    /* 3. Style cho tiêu đề bảng */
+    .admin-table thead th {
+        background-color: #f8f9fa; /* Màu nền xám rất nhạt */
+        color: #6c757d; /* Màu chữ xám đậm */
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase; /* Chữ in hoa */
+        border-bottom: 2px solid #dee2e6;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    /* 4. Hiệu ứng khi di chuột vào hàng */
+    .admin-table tbody tr:hover {
+        background-color: #fdfdfd;
+    }
+
+    /* 5. Giới hạn mô tả (nếu dùng) */
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.9rem;
+        color: #555;
+    }
+</style>
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h2 class="mt-4">Quản lý sản phẩm</h2>
+        <a class="btn btn-primary shadow-sm" href="@Url.Action("Create", "Product", new {area = "admin"})">
+            <i class="fas fa-plus me-2"></i>Thêm sản phẩm
+        </a>
+    </div>
+
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <i class="fas fa-table me-1"></i>
+            Danh sách sản phẩm hiện có
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle admin-table mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%; padding-left: 1.5rem;">Tên sản phẩm</th>
+                            <th style="width: 10%;">Loại</th>
+                            <th style="width: 10%;">Giá</th>
+                            <th style="width: 10%;">Tồn kho</th>
+                            <th style="width: 10%;">Hạn dùng</th>
+                            <th style="width: 10%;" class="text-center">Hình ảnh</th>
+                            <th class="text-center" style="width: 15%;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding-left: 1.5rem;">
+                                <div class="fw-bold text-primary">Dầu Gội Bưởi Cocoon Không Sulfate</div>
+                                <small class="text-muted">Mã: SP001</small>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border">Cocoon</span>
+                            </td>
+                            <td>
+                                <span class="fw-bold text-danger">@String.Format("{0:N0}", 150000) ₫</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">100</span>
+                            </td>
+                            <td class="text-muted">
+                                <i class="far fa-calendar-alt me-1"></i> 11/12/2026
+                            </td>
+                            <td class="text-center">
+                                <img src="~/Content/Images/ProductIMG/SRMCerave.png" class="product-thumbnail" alt="Product Image" />
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="@Url.Action("Edit", "Product", new { area = "admin" })" class="btn btn-sm btn-outline-primary" title="Sửa">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-outline-info" title="Xem chi tiết">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

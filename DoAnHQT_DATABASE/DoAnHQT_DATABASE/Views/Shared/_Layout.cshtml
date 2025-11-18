@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="~/Content/css/Main.css" />
     <link rel="stylesheet" href="~/Content/css/loginRegister.css" />
 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
 </head>
 <body>
     <header class="fixed-top">
@@ -23,7 +26,7 @@
 
                 </a>
 
-                <div class="header-search d-flex" >
+                <div class="header-search d-flex">
                     <div class="header-search-input-wrap">
                         <input class="header-search-input" type="text" placeholder="Tìm kiếm sản phẩm ..." />
                         <!--Search History-->
@@ -44,16 +47,16 @@
                     <button class="header-search-btn">
                         <i class="header-search-btn-icon fa-solid header_icon fa-search"></i>
                     </button>
-                
+
                 </div>
 
 
                 @*<form class="d-flex" role="search" style=" width: 400px">
-                    <input class="form-control" style="border-radius:3px" type="search" placeholder="Tìm kiếm sản phẩm ..." aria-label="Search" />
-                    <button class="btn btn-success " type="submit">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
-                </form>*@
+                        <input class="form-control" style="border-radius:3px" type="search" placeholder="Tìm kiếm sản phẩm ..." aria-label="Search" />
+                        <button class="btn btn-success " type="submit">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </form>*@
 
 
                 <div class="collapse navbar-collapse">
@@ -86,37 +89,37 @@
 
                         </li>
 
-                        @*<li class="header_navbar-user " style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px;"> 
-                            <img class="header_navbar-user-img" src="~/Content/Images/Avatar/user1.jpg"/>
-                            <a class="header_navbar-user-name">Phan Thịnh</a>
+                        @*<li class="header_navbar-user " style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px;">
+                                <img class="header_navbar-user-img" src="~/Content/Images/Avatar/user1.jpg"/>
+                                <a class="header_navbar-user-name">Phan Thịnh</a>
 
-                            <ul class="header_navbar-user-menu">
-                                <li class="header_navbar-user-item">
-                                    <a herf="" style="color: black;"><i class="fa-regular fa-circle-user"></i> Tài khoản của tôi</a>
-                                </li>
-                                <li class="header_navbar-user-item">
-                                    <a herf=""><i class="fa-regular fa-heart"></i> Sản phẩm yêu thích</a>
-                                </li>
-                                <li class="header_navbar-user-item">
-                                    <a herf=""><i class="fa-solid fa-location-dot"></i> Địa chỉ giao hàng</a>
-                                </li>
-                                <li class="header_navbar-user-item">
-                                    <a herf=""><i class="fa-solid fa-file-invoice-dollar"></i> Quản lý đơn mua</a>
-                                </li>
-                                <hr style="margin: 0" />
-                                <li class="header_navbar-user-item header_navbar-user-logout">
-                                    <a herf="" style="color: #306e51"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
-                                </li>
-                            </ul>
-                        </li>*@
+                                <ul class="header_navbar-user-menu">
+                                    <li class="header_navbar-user-item">
+                                        <a herf="" style="color: black;"><i class="fa-regular fa-circle-user"></i> Tài khoản của tôi</a>
+                                    </li>
+                                    <li class="header_navbar-user-item">
+                                        <a herf=""><i class="fa-regular fa-heart"></i> Sản phẩm yêu thích</a>
+                                    </li>
+                                    <li class="header_navbar-user-item">
+                                        <a herf=""><i class="fa-solid fa-location-dot"></i> Địa chỉ giao hàng</a>
+                                    </li>
+                                    <li class="header_navbar-user-item">
+                                        <a herf=""><i class="fa-solid fa-file-invoice-dollar"></i> Quản lý đơn mua</a>
+                                    </li>
+                                    <hr style="margin: 0" />
+                                    <li class="header_navbar-user-item header_navbar-user-logout">
+                                        <a herf="" style="color: #306e51"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </li>*@
 
                     </ul>
                     <div class="header_cart">
                         <div class="header_cart-wrap">
                             <a href="@Url.Action("Cart", "Cart")"><i class="header_cart-icon fa-solid fa-cart-shopping fa-xl"></i></a>
-                            
 
-                            <span class="header_cart-notice"> 
+
+                            <span class="header_cart-notice">
                                 3
                             </span>
                             <div class="header_cart-list">
@@ -127,7 +130,7 @@
 
                                 <ul class="header_cart-list-item">
                                     <li class="header_cart-item">
-                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
+                                        <img src="~/Content/Images/ProductIMG/SRMCerave.png" alt="" class="header_cart-img" />
                                         <div class="header_cart-item-info">
 
                                             <div class="header_cart-item-head">
@@ -152,7 +155,7 @@
 
                                     </li>
                                     <li class="header_cart-item">
-                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
+                                        <img src="~/Content/Images/ProductIMG/SRMCerave.png" alt="" class="header_cart-img" />
                                         <div class="header_cart-item-info">
 
                                             <div class="header_cart-item-head">
@@ -177,7 +180,7 @@
 
                                     </li>
                                     <li class="header_cart-item">
-                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
+                                        <img src="~/Content/Images/ProductIMG/SRMCerave.png" alt="" class="header_cart-img" />
                                         <div class="header_cart-item-info">
 
                                             <div class="header_cart-item-head">
@@ -203,12 +206,12 @@
                                     </li>
                                 </ul>
 
-                                <a class="header_cart-view-cart btn btn_giohang">Xem giỏ hàng</a>
+                                <a href="@Url.Action("Cart", "Cart")" class="header_cart-view-cart btn btn_giohang">Xem giỏ hàng</a>
                             </div>
                         </div>
-                        
+
                     </div>
-                   
+
 
                 </div>
             </div>
@@ -245,8 +248,8 @@
         <!-- Dropdown Menu Toàn Màn Hình -->
         <div class="fullscreen-dropdown" id="fullscreenDropdown">
             @*<button class="dropdown-close" id="dropdownClose">
-                <i class="fa-solid fa-xmark"></i>
-            </button>*@
+                    <i class="fa-solid fa-xmark"></i>
+                </button>*@
             <div class="dropdown-container">
                 <!-- Nội dung dropdown sẽ được thay đổi bằng JavaScript -->
                 <div class="dropdown-content" id="dropdownContent">
@@ -258,26 +261,26 @@
     </header>
 
     @*<div id="carouselExampleInterval" class="carousel slide w-100" data-bs-ride="carousel" style="margin-top: 123px">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="3000">
+                    <img style="border-radius: 0px" src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img style="border-radius: 0px" src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item" data-bs-interval="3000">
+                    <img style="border-radius: 0px" src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
+                </div>
             </div>
-            <div class="carousel-item" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>*@
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>*@
 
     <div class="index">
         @RenderBody()
@@ -323,7 +326,7 @@
                         <li>Hướng dẫn đặt hàng</li>
                         <li>Phương thức vận chuyển</li>
                         <li>Chính sách đổi trả</li>
-                       
+
 
                     </ul>
 
@@ -361,18 +364,18 @@
                         <div class="app-qr">
                             <img src="~/Content/Images/qr_appcode.png" width="100" height="100" />
                         </div>
-                        <div class="app-install" >
+                        <div class="app-install">
                             <div class="app">
                                 <i class="fa-brands fa-apple fa-2x social-icon" name="iconAppStore"></i>
                                 <label for="iconAppStore"><a class="icon-label" href="https://apps.apple.com/us/app/hasaki-vn/id1173985273?ls=1">App Store</a></label>
                             </div>
-                            
+
                             <div class="app">
                                 <img class="img-hover" name="iconGooglePlay" src="~/Content/Images/GPicon.png" width="30" />
                                 <label for="iconAppStore"><a class="icon-label" href="https://play.google.com/store/apps/details?id=vn.hasaki.buyer">Google Play</a></label>
 
                             </div>
-                            
+
                         </div>
 
 
@@ -388,11 +391,17 @@
 
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
     <script src="~/Content/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Content/css/js/dropdown.js"></script>
     <script src="~/Content/css/js/LoginRegister.js"></script>
     <script src="~/Content/css/js/flashsale.js"></script>
     <script src="~/Content/css/js/danhmucIndexScroll.js"></script>
+
+    @RenderSection("Scripts", required: false)
     <!--Modal layout-->
     <div class="modal">
         <div class="modal_overlay"></div>
@@ -488,7 +497,7 @@
             </div>
         </div>
     </div>
-    
+
 
 </body>
 </html>

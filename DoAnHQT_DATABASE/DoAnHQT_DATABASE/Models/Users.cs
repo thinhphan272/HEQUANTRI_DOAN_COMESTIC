@@ -48,6 +48,7 @@ namespace DoAnHQT_DATABASE.Models
         public string UpdatedBy { get; set; }
 
         public int? IsEnabled { get; set; }
+        public string SDT { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }

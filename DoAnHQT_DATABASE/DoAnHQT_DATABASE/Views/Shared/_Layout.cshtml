@@ -12,83 +12,95 @@
     <link rel="stylesheet" href="~/Content/css/Main.css" />
     <link rel="stylesheet" href="~/Content/css/loginRegister.css" />
 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
 </head>
 <body>
     <header class="fixed-top">
         <!--Thanh NAV-->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style="background-color: #306e51 ">
             <div class="container">
-                <a class="navbar-brand text-light" href="#">
+                <a class="navbar-brand text-light" href="@Url.Action("Index", "Home")">
                     <img class="img-hover d-inline-block align-text-top" src="~/Content/Images/logo1.png" alt="Logo" width="150" height="50">
 
                 </a>
 
-                <div class="header-search d-flex" >
-                    <div class="header-search-input-wrap">
-                        <input class="header-search-input" type="text" placeholder="Tìm kiếm sản phẩm ..." />
-                        <!--Search History-->
-                        <div class="header-search-history">
+                @using (Html.BeginForm("TimKiemTheoTen", "Home", new { name = "name" }))
+                {
+                    <div class="header-search d-flex">
+                        <div class="header-search-input-wrap">
+                            <input class="header-search-input" name="name" type="text" placeholder="Tìm kiếm sản phẩm ..." />
+                            <!--Search History-->
+                            <div class="header-search-history">
 
-                            <h5 class="header-search-history-heading">Lịch sử tìm kiếm</h5>
-                            <ul class="header-search-history-list">
-                                <li class="header-search-history-item">
-                                    <a href="">Kem chống nắng</a>
-                                </li>
-                                <li class="header-search-history-item">
-                                    <a href="">Sửa rửa mặt</a>
-                                </li>
-                            </ul>
+                                <h5 class="header-search-history-heading">Lịch sử tìm kiếm</h5>
+                                <ul class="header-search-history-list">
+                                    @{ if (Session["searchHistory"] != null)
+                                        {
+                                            foreach (var item in Session["searchHistory"] as List<string>)
+                                            {
+                                                <li class="header-search-history-item">
+                                                    <a href="@Url.Action("TimKiemTheoTen", "Home", new {name=item})">
+                                                        @item
+                                                    </a>
+                                                </li>
+
+                                            }
+                                        }
+                                    }
+
+
+                                </ul>
+                            </div>
                         </div>
+
+                        <button type="submit" class="header-search-btn">
+                            <i class="header-search-btn-icon fa-solid header_icon fa-search"></i>
+                        </button>
+
                     </div>
+                }
 
-                    <button class="header-search-btn">
-                        <i class="header-search-btn-icon fa-solid header_icon fa-search"></i>
-                    </button>
-                
-                </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav flex-grow-1 menu">
+                    <li class="d-flex ">
+                        <i class="fa-solid fa-house fa-xl header_icon align-self-center"></i>
 
+                        <label>
+                            @Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </label>
 
-                @*<form class="d-flex" role="search" style=" width: 400px">
-                    <input class="form-control" style="border-radius:3px" type="search" placeholder="Tìm kiếm sản phẩm ..." aria-label="Search" />
-                    <button class="btn btn-success " type="submit">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
-                </form>*@
+                    </li>
 
+                    <li class="d-flex ">
+                        <i class="fa-solid fa-phone fa-xl header_icon align-self-center"></i>
 
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav flex-grow-1 menu">
-                        <li class="d-flex ">
-                            <i class="fa-solid fa-house fa-xl header_icon align-self-center"></i>
-
-                            <label>
-                                @Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
-                            </label>
-
-                        </li>
-
-                        <li class="d-flex ">
-                            <i class="fa-solid fa-phone fa-xl header_icon align-self-center"></i>
-
-                            <label>
-                                @Html.ActionLink("Chăm sóc khách hàng", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
-                            </label>
+                        <label>
+                            @Html.ActionLink("Chăm sóc khách hàng", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+                        </label>
 
 
-                        </li>
-
+                    </li>
+                    @if (Session["User"] == null)
+                    {
                         <li class="d-flex loggin">
                             <i class="fa-solid fa-user fa-xl header_icon align-self-center"></i>
                             <label>
                                 @Html.ActionLink("Đăng nhập / Đăng ký", "About", "Home", new { area = "" }, new { @class = "nav-link" })
                             </label>
-
-
                         </li>
+                    }
+                    @{
+                        DoAnHQT_DATABASE.Models.Users user = Session["User"] as DoAnHQT_DATABASE.Models.Users;
+                    }
 
-                        @*<li class="header_navbar-user " style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px;"> 
-                            <img class="header_navbar-user-img" src="~/Content/Images/Avatar/user1.jpg"/>
-                            <a class="header_navbar-user-name">Phan Thịnh</a>
+                    @if (Session["User"] != null)
+                    {
+
+                        <li class="header_navbar-user " style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px;">
+                            <img class="header_navbar-user-img" src="~/Content/Images/Avatar/user1.jpg" />
+                            <a class="header_navbar-user-name">@user.Name</a>
 
                             <ul class="header_navbar-user-menu">
                                 <li class="header_navbar-user-item">
@@ -105,112 +117,23 @@
                                 </li>
                                 <hr style="margin: 0" />
                                 <li class="header_navbar-user-item header_navbar-user-logout">
-                                    <a herf="" style="color: #306e51"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                                    <a href="@Url.Action("DangXuat", "User")" style="color: #306e51"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
                                 </li>
                             </ul>
-                        </li>*@
+                        </li>
 
-                    </ul>
-                    <div class="header_cart">
-                        <div class="header_cart-wrap">
-                            <a href="@Url.Action("Cart", "Cart")"><i class="header_cart-icon fa-solid fa-cart-shopping fa-xl"></i></a>
-                            
-
-                            <span class="header_cart-notice"> 
-                                3
-                            </span>
-                            <div class="header_cart-list">
-                                <img src="~/Content/Images/no_cart.png" class="header_cart-no-cart-img" />
-                                <span class="header_cart-list-no-cart-msg">Chưa có sản phẩm</span>
-
-                                <h5 class="header_cart-heading">Sản phẩm đã thêm</h5>
-
-                                <ul class="header_cart-list-item">
-                                    <li class="header_cart-item">
-                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
-                                        <div class="header_cart-item-info">
-
-                                            <div class="header_cart-item-head">
-
-                                                <h5 class="header_cart-item-name">Sửa rửa mặt Cerave</h5>
-                                                <div class="header_cart-item-price-wrap">
-                                                    <span class="header_cart-item-price">350.000đ</span>
-                                                    <span class="header_cart-item-multiply">x</span>
-                                                    <span class="header_cart-item-qnt">1</span>
-                                                </div>
-
-                                            </div>
-                                            <div class="header_cart-item-body">
-                                                <span class="header_cart-item-description">
-                                                    Phân loại: Bạc
-                                                </span>
-                                                <span class="header_cart-item-remove"><button class="btn header_cart-item-remove-btn">Xóa</button></span>
-                                            </div>
+                    }
 
 
-                                        </div>
+                </ul>
 
-                                    </li>
-                                    <li class="header_cart-item">
-                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
-                                        <div class="header_cart-item-info">
-
-                                            <div class="header_cart-item-head">
-
-                                                <h5 class="header_cart-item-name">Sửa rửa mặt Cerave</h5>
-                                                <div class="header_cart-item-price-wrap">
-                                                    <span class="header_cart-item-price">350.000đ</span>
-                                                    <span class="header_cart-item-multiply">x</span>
-                                                    <span class="header_cart-item-qnt">1</span>
-                                                </div>
-
-                                            </div>
-                                            <div class="header_cart-item-body">
-                                                <span class="header_cart-item-description">
-                                                    Phân loại: Bạc
-                                                </span>
-                                                <span class="header_cart-item-remove"><button class="btn header_cart-item-remove-btn">Xóa</button></span>
-                                            </div>
+                @if (Session["User"] != null)
+                {
+                    @Html.Action("CartMini", "Cart")
+                }
 
 
-                                        </div>
-
-                                    </li>
-                                    <li class="header_cart-item">
-                                        <img src="~/Content/Images/ProductIMG/suaruamatcarave.png" alt="" class="header_cart-img" />
-                                        <div class="header_cart-item-info">
-
-                                            <div class="header_cart-item-head">
-
-                                                <h5 class="header_cart-item-name">Sửa rửa mặt Cerave</h5>
-                                                <div class="header_cart-item-price-wrap">
-                                                    <span class="header_cart-item-price">350.000đ</span>
-                                                    <span class="header_cart-item-multiply">x</span>
-                                                    <span class="header_cart-item-qnt">1</span>
-                                                </div>
-
-                                            </div>
-                                            <div class="header_cart-item-body">
-                                                <span class="header_cart-item-description">
-                                                    Phân loại: Bạc
-                                                </span>
-                                                <span class="header_cart-item-remove"><button class="btn header_cart-item-remove-btn">Xóa</button></span>
-                                            </div>
-
-
-                                        </div>
-
-                                    </li>
-                                </ul>
-
-                                <a class="header_cart-view-cart btn btn_giohang">Xem giỏ hàng</a>
-                            </div>
-                        </div>
-                        
-                    </div>
-                   
-
-                </div>
+            </div>
             </div>
         </nav>
         @*Thanh Menu*@
@@ -245,8 +168,8 @@
         <!-- Dropdown Menu Toàn Màn Hình -->
         <div class="fullscreen-dropdown" id="fullscreenDropdown">
             @*<button class="dropdown-close" id="dropdownClose">
-                <i class="fa-solid fa-xmark"></i>
-            </button>*@
+                    <i class="fa-solid fa-xmark"></i>
+                </button>*@
             <div class="dropdown-container">
                 <!-- Nội dung dropdown sẽ được thay đổi bằng JavaScript -->
                 <div class="dropdown-content" id="dropdownContent">
@@ -257,27 +180,6 @@
 
     </header>
 
-    @*<div id="carouselExampleInterval" class="carousel slide w-100" data-bs-ride="carousel" style="margin-top: 123px">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner.jpg" class="d-block w-100" alt="ưu đãi">
-            </div>
-            <div class="carousel-item" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner2.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" data-bs-interval="3000">
-                <img style="border-radius: 0px" src="~/Content/Images/banner3.jpg" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>*@
 
     <div class="index">
         @RenderBody()
@@ -321,7 +223,7 @@
                         <li>Hướng dẫn đặt hàng</li>
                         <li>Phương thức vận chuyển</li>
                         <li>Chính sách đổi trả</li>
-                       
+
 
                     </ul>
 
@@ -359,18 +261,18 @@
                         <div class="app-qr">
                             <img src="~/Content/Images/qr_appcode.png" width="100" height="100" />
                         </div>
-                        <div class="app-install" >
+                        <div class="app-install">
                             <div class="app">
                                 <i class="fa-brands fa-apple fa-2x social-icon" name="iconAppStore"></i>
                                 <label for="iconAppStore"><a class="icon-label" href="https://apps.apple.com/us/app/hasaki-vn/id1173985273?ls=1">App Store</a></label>
                             </div>
-                            
+
                             <div class="app">
                                 <img class="img-hover" name="iconGooglePlay" src="~/Content/Images/GPicon.png" width="30" />
                                 <label for="iconAppStore"><a class="icon-label" href="https://play.google.com/store/apps/details?id=vn.hasaki.buyer">Google Play</a></label>
 
                             </div>
-                            
+
                         </div>
 
 
@@ -386,107 +288,112 @@
 
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
     <script src="~/Content/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/css/js/script.js"></script>
     <script src="~/Content/css/js/dropdown.js"></script>
     <script src="~/Content/css/js/LoginRegister.js"></script>
     <script src="~/Content/css/js/flashsale.js"></script>
     <script src="~/Content/css/js/danhmucIndexScroll.js"></script>
+
+    @RenderSection("Scripts", required: false)
     <!--Modal layout-->
     <div class="modal">
         <div class="modal_overlay"></div>
-
         <div class="modal_body">
             <!-- Form Đăng ký (ẩn ban đầu) -->
-            <div class="auth-form register-form" style="display: none;">
-                <div class="auth-form-container">
-                    <div class="auth-form-header">
-                        <h3 class="auth-form-heading">Đăng ký</h3>
-                        <button class="auth-form-switch-btn btn switch-to-login">Đăng nhập</button>
-                    </div>
-
-                    <div class="auth-form_form">
-                        <div class="auth-form_group">
-                            <input type="text" class="auth-form_input" placeholder="Email của bạn" />
+            <form id="registerForm" action="@Url.Action("RegisterOnSubmit", "User")" method="post">
+                <div class="auth-form register-form" style="display: none;">
+                    <div class="auth-form-container">
+                        <div class="auth-form-header">
+                            <h3 class="auth-form-heading">Đăng ký</h3>
+                            <button type="button" class="auth-form-switch-btn btn switch-to-login">Đăng nhập</button>
                         </div>
-                        <div class="auth-form_group">
-                            <input type="password" class="auth-form_input" placeholder="Mật khẩu" />
-                        </div>
-                        <div class="auth-form_group">
-                            <input type="password" class="auth-form_input" placeholder="Nhập lại mật khẩu" />
-                        </div>
-                    </div>
 
-                    <div class="auth-form_aside">
-                        <p class="auth-form_policy-text">
-                            Bằng việc đăng ký bạn đã đồng ý với Hasaki về
-                            <a href="" class="auth-form_text-link">Điều khoản dịch vụ</a> &
-                            <a href="" class="auth-form_text-link">Chính sách bảo mật</a>
-                        </p>
-                    </div>
+                        <div id="register-error-msg" class="text-danger text-center mb-2" style="font-weight:bold;"></div>
 
-                    <div class="auth-form_controls">
-                        <button class="btn register_back-btn back-btn">TRỞ LẠI</button>
-                        <button class="btn register_back-btn register-btn">ĐĂNG KÝ</button>
+                        <div class="auth-form_form">
+                            <div class="auth-form_group">
+                                <input type="text" name="name" class="auth-form_input" placeholder="Tên của bạn" required />
+                            </div>
+                            <div class="auth-form_group">
+                                <input type="email" name="email" class="auth-form_input" placeholder="Email của bạn" required />
+                            </div>
+                            <div class="auth-form_group">
+                                <input type="password" name="password" class="auth-form_input" placeholder="Mật khẩu" required />
+                            </div>
+
+                            <div class="d-flex flex-column">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="Nam" name="gioiTinh" id="nam">
+                                    <label class="form-check-label" for="nam">Nam</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" value="Nữ" name="gioiTinh" id="nu" checked>
+                                    <label class="form-check-label" for="nu">Nữ</label>
+                                </div>
+                            </div>
+                            <div class="auth-form_group">
+                                <input type="text" name="address" class="auth-form_input" placeholder="Địa chỉ" />
+                            </div>
+                        </div>
+
+                        <div class="auth-form_aside">
+                            <p class="auth-form_policy-text">
+                                Bằng việc đăng ký bạn đã đồng ý với Hasaki về <a href="#" class="auth-form_text-link">Điều khoản dịch vụ</a> & <a href="#" class="auth-form_text-link">Chính sách bảo mật</a>
+                            </p>
+                        </div>
+
+                        <div class="auth-form_controls">
+                            <button type="button" class="btn register_back-btn back-btn">TRỞ LẠI</button>
+                            <button type="submit" class="btn register_back-btn register-btn">ĐĂNG KÝ</button>
+                        </div>
                     </div>
                 </div>
-
-                <div class="auth-form_socials">
-                    <a href="" class="btn auth-facebook btn--with-icon">
-                        <i class="auth-form_socials-icon auth-facebook-icon fa-brands fa-facebook-square"></i>
-                        <span class="auth-form_socials-title">Kết nối với Facebook</span>
-                    </a>
-                    <a href="" class="btn auth-google btn--with-icon">
-                        <img class="auth-form_socials-icon" src="~/Content/Images/gg-icon.png" alt="Google" />
-                        <span class="auth-form_socials-title">Kết nối với Google</span>
-                    </a>
-                </div>
-            </div>
+            </form>
 
             <!-- Form Đăng nhập (hiện ban đầu) -->
-            <div class="auth-form login-form">
-                <div class="auth-form-container">
-                    <div class="auth-form-header">
-                        <h3 class="auth-form-heading">Đăng nhập</h3>
-                        <button class="auth-form-switch-btn btn switch-to-register">Đăng ký</button>
+            <form id="loginForm" action="@Url.Action("LoginOnSubmit", "User")" method="post">
+                <div class="auth-form login-form">
+                    <div class="auth-form-container">
+                        <div class="auth-form-header">
+                            <h3 class="auth-form-heading">Đăng nhập</h3>
+                            <button type="button" class="auth-form-switch-btn btn switch-to-register">Đăng ký</button>
+                        </div>
+
+                        <div id="login-error-msg" class="text-danger text-center mb-2" style="font-weight:bold;"></div>
+
+                        <div class="auth-form_form">
+                            <div class="auth-form_group">
+                                <input type="text" name="email" class="auth-form_input" placeholder="Email của bạn" required />
+                            </div>
+                            <div class="auth-form_group">
+                                <input type="password" name="password" class="auth-form_input" placeholder="Mật khẩu" required />
+                            </div>
+                        </div>
+
+                        <div class="auth-form_aside">
+                            <div class="auth-form_help">
+                                <a href="" class="auth-form_help-link auth-form_help-forgot">Quên mật khẩu</a>
+                                <span class="auth-form_help-separate"></span>
+                                <a href="" class="auth-form_help-link">Cần trợ giúp?</a>
+                            </div>
+                        </div>
+
+                        <div class="auth-form_controls">
+                            <button type="button" class="btn register_back-btn back-btn">TRỞ LẠI</button>
+                            <button type="submit" class="btn register_back-btn register-btn">ĐĂNG NHẬP</button>
+                        </div>
                     </div>
 
-                    <div class="auth-form_form">
-                        <div class="auth-form_group">
-                            <input type="text" class="auth-form_input" placeholder="Email của bạn" />
-                        </div>
-                        <div class="auth-form_group">
-                            <input type="password" class="auth-form_input" placeholder="Mật khẩu" />
-                        </div>
-                    </div>
-
-                    <div class="auth-form_aside">
-                        <div class="auth-form_help">
-                            <a href="" class="auth-form_help-link auth-form_help-forgot">Quên mật khẩu</a>
-                            <span class="auth-form_help-separate"></span>
-                            <a href="" class="auth-form_help-link">Cần trợ giúp?</a>
-                        </div>
-                    </div>
-
-                    <div class="auth-form_controls">
-                        <button class="btn register_back-btn back-btn">TRỞ LẠI</button>
-                        <button class="btn register_back-btn register-btn">ĐĂNG NHẬP</button>
-                    </div>
                 </div>
+            </form>
 
-                <div class="auth-form_socials">
-                    <a href="" class="btn auth-facebook btn--with-icon">
-                        <i class="auth-form_socials-icon auth-facebook-icon fa-brands fa-facebook-square"></i>
-                        <span class="auth-form_socials-title">Kết nối với Facebook</span>
-                    </a>
-                    <a href="" class="btn auth-google btn--with-icon">
-                        <img class="auth-form_socials-icon" src="~/Content/Images/gg-icon.png" alt="Google" />
-                        <span class="auth-form_socials-title">Kết nối với Google</span>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
-    
 
 </body>
 </html>

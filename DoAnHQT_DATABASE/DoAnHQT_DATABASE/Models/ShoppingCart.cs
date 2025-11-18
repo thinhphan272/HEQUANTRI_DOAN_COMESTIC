@@ -5,6 +5,7 @@ namespace DoAnHQT_DATABASE.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("ShoppingCart")]
     public partial class ShoppingCart
@@ -25,5 +26,10 @@ namespace DoAnHQT_DATABASE.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShoppingCartItem> ShoppingCartItem { get; set; }
+        public decimal TongThanhTien { get {
+                return ShoppingCartItem.Sum(t => (decimal)t.Product.GiaDaGiam * t.Quantity).Value;
+            } }
+
+        public int TongSoLuong { get => ShoppingCartItem.Sum(t => t.Quantity.Value); }
     }
 }

@@ -5,6 +5,7 @@ namespace DoAnHQT_DATABASE.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("Product")]
     public partial class Product
@@ -61,10 +62,48 @@ namespace DoAnHQT_DATABASE.Models
         [StringLength(30)]
         public string UpdatedBy { get; set; }
 
+
+
+
+
         public virtual Brand Brand { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Discount> Discount { get; set; }
+
+        [NotMapped]
+        public double? DiscountRate
+        {
+            get
+            {
+                if (Discount != null)
+                {
+                    return Discount.First().DiscountRate;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set;
+        }
+
+        [NotMapped]
+        public double? GiaDaGiam
+        {
+            get
+            {
+                if (Discount != null)
+                {
+                    return (double)Price * (100 - DiscountRate) / 100;
+                }
+                else
+                {
+                    return (double)Price;
+                }
+            }
+            set;
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsReceiptNoteDetail> GoodsReceiptNoteDetail { get; set; }

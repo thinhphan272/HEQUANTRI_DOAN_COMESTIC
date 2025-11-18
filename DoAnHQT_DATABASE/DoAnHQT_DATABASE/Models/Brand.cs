@@ -24,7 +24,7 @@ namespace DoAnHQT_DATABASE.Models
         [StringLength(100)]
         public string Image { get; set; }
         [StringLength(100)]
-        public string ICon { get; set; }
+        public string Icon { get; set; }
 
         public int? IsDeleted { get; set; }
 

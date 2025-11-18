@@ -16,19 +16,19 @@
             <div class="grid_column-10">
                 <div class="home-filter">
                     <span class="home-filter_label">Sắp xếp theo</span>
-                    <button class="btn home-filter-btn">Phổ biến</button>
-                    <button class="btn home-filter-btn home-filter-btn-primary" style="background-color:var(--primary-color); color: white">Mới nhất</button>
-                    <button class="btn home-filter-btn">Bán chạy</button>
+                    @*<button class="btn home-filter-btn">Phổ biến</button>*@
+                    <a href="@Url.Action("SapXepMoiNhat", "Home")" class="btn home-filter-btn home-filter-btn-primary" style="background-color:var(--primary-color); color: white">Mới nhất</a>
+                    <a href="@Url.Action("SapXepBanChay", "Home")" class="btn home-filter-btn">Bán chạy</a>
 
                     <div class="select-input">
                         <span class="select-input_label">Giá</span>
                         <i class="select-input_icon fa fa-angle-down"></i>
                         <ul class="select-input_list">
                             <li class="select-input_item">
-                                <a href="" class="select-input_link">Giá: Thấp đến cao</a>
+                                <a href="@Url.Action("SapXepGia", "Home", new {order=1})" class="select-input_link">Giá: Thấp đến cao</a>
                             </li>
                             <li class="select-input_item">
-                                <a href="" class="select-input_link">Giá: Cao đến thấp</a>
+                                <a href="@Url.Action("SapXepGia", "Home", new {order=-1})" class="select-input_link">Giá: Cao đến thấp</a>
                             </li>
                         </ul>
                     </div>
@@ -57,7 +57,6 @@
                         <!--Card-->
                         @foreach (var item in Model)
                         {
-                          
                                 <div class="grid_column-2-4">
                                     <!--home-product-->
                                     <a href="@Url.Action("SanPhamDetail", "Home", new {id = item.ProductID.Trim()})" class="home-product-item card">
@@ -67,7 +66,8 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="home-product-item_origin">
-                                                <span class="home-product-item_brand">@item.Brand.BrandName
+                                                <span class="home-product-item_brand">
+                                                    @item.Brand.BrandName
                                                 </span>
                                                 <span class="home-product-item_origin-name">@item.Origin</span>
                                             </div>

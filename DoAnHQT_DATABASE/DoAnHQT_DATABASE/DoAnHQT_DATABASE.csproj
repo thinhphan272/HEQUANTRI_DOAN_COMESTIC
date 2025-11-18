@@ -5866,6 +5866,11 @@
     <Content Include="Content\Images\ProductIMG\SuaRuaMat\SRMSimple1.png" />
     <Content Include="Content\Images\ProductIMG\SuaRuaMat\suaruamatcarave.png" />
     <Content Include="Content\Images\qr_appcode.png" />
+    <Content Include="Content\Images\SanPhamDetailIMG\chinh_hang.png" />
+    <Content Include="Content\Images\SanPhamDetailIMG\doi_tra30.png" />
+    <Content Include="Content\Images\SanPhamDetailIMG\free_ship_48h.png" />
+    <Content Include="Content\Images\SanPhamDetailIMG\now-free-2h.png" />
+    <Content Include="Content\Images\SanPhamDetailIMG\now_free.png" />
     <Content Include="Content\Images\vnpay.jpg" />
     <Content Include="Content\css\Main.css" />
     <Content Include="favicon.ico" />
@@ -5961,6 +5966,7 @@
     <Content Include="Views\Home\ShowSanPham.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Cart\PaymentPage.cshtml" />
+    <Content Include="Views\Home\SanPhamDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,17 @@
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results (File rác khi chạy code)
+[Bb]in/
+[Oo]bj/
+*.dll
+*.pdb
+*.exe
+
+# Web/Project files
+packages/
+node_modules/

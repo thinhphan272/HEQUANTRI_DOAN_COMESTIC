@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-5 product-detail-image">
                         <div class="main-img">
-                            <img  id="mainImage" width="100%" src="~/Content/Images/ProductIMG/SRMLaRoChePoSay.png" />
+                            <img  id="mainImage" width="100%" src="~/Content/Images/ProductIMG/SRM_La_Roche_Possay.png" />
 
                         </div>
 
@@ -157,14 +157,14 @@
                                 4.9
                             </div>
                             <div class="product-detail-rating-star">
-                                
+
                                 <i class="fa fa-star" style="color: #f60"></i>
                                 <i class="fa fa-star" style="color: #f60"></i>
                                 <i class="fa fa-star" style="color: #f60"></i>
                                 <i class="fa fa-star" style="color: #f60"></i>
                                 <i class="fa fa-star" style="color: #f60"></i>
-                                
-                                
+
+
                             </div>
                             <div class="product-detail-rating-total-comment">
                                 142 sản phẩm
@@ -180,7 +180,7 @@
                                 <div class="col-auto total-rating-star-item me-2">
                                     5 <i class="fa fa-star"></i> (131)
                                 </div>
-                                <div class="col-auto total-rating-star-item me-2">   
+                                <div class="col-auto total-rating-star-item me-2">
                                     4 <i class="fa fa-star"></i> (131)
                                 </div>
                                 <div class="col-auto total-rating-star-item me-2">
@@ -197,7 +197,7 @@
                                     1 <i class="fa fa-star"></i> (131)
                                 </div>
                                 <div class="col-auto total-rating-star-item me-2">
-                                    Có hình ảnh 
+                                    Có hình ảnh
                                 </div>
                             </div>
                         </div>
@@ -213,12 +213,51 @@
                         </div>
                     </div>
                 </div>
+                <div id="reviewModal" class="modal-overlay" style="display: none;">
+                    <div class="modal-content-box">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Đánh giá sản phẩm này <span style="color: red">*</span></h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="star-rating-selection">
+                                <div class="stars-outer">
+                                    <i class="fa fa-star star-item" data-value="1"></i>
+                                    <i class="fa fa-star star-item" data-value="2"></i>
+                                    <i class="fa fa-star star-item" data-value="3"></i>
+                                    <i class="fa fa-star star-item" data-value="4"></i>
+                                    <i class="fa fa-star star-item" data-value="5"></i>
+                                </div>
+                                <span id="rating-text" class="rating-text">Rất hài lòng</span>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <label class="mb-1" style="font-weight: 600;">Mô tả nhận xét <span style="color: red">*</span></label>
+                                <div class="textarea-wrapper">
+                                    <textarea id="reviewContent" class="form-control review-textarea" placeholder="Nhập mô tả tại đây"></textarea>
+                                    <span class="char-count">Ký tự còn lại: 2500</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <button class="btn btn-outline-success btn-add-image">
+                                    <i class="fa fa-camera"></i> Thêm ảnh
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer-custom">
+                            <button id="btnCloseModal" class="btn-skip">Bỏ qua</button>
+                            <button id="btnSubmitReview" class="btn-send">Gửi</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="customer-comment mt-2">
-                    <div class="customer-comment-label" style="font-size: 1.3rem; font-weight: 500; text-align: center; color: var(--primary-color)"> 
+                    <div class="customer-comment-label" style="font-size: 1.3rem; font-weight: 500; text-align: center; color: var(--primary-color)">
                         Đánh giá từ khách hàng
                     </div>
                     <table class="table">
-                        
+
                         <tbody>
                             <tr>
 
@@ -299,7 +338,7 @@
                             <tr>
 
                                 <td>
-                                    <div class="customer-name">Chi khùng vl</div>
+                                    <div class="customer-name">Chi khùng</div>
                                     <div class="rating-comment-group">
                                         <div class="star-average-comment">
                                             <span style="font-size: 0.8rem">5</span>
@@ -327,7 +366,7 @@
                                             Hasaki
                                         </div>
                                         <div class="shop-reply-comment ">
-                                            Hasaki xin chào! Hasaki cảm ơn Chi khùng vl đã dành thời gian đánh giá. Sự hài lòng của khách hàng là động lực to lớn để Hasaki ngày càng phát triển hơn nữa về chất lượng dịch vụ. Cảm ơn bạn đã tin tưởng và mua sắm tại Hasaki!
+                                            Hasaki xin chào! Hasaki cảm ơn Chi khùng đã dành thời gian đánh giá. Sự hài lòng của khách hàng là động lực to lớn để Hasaki ngày càng phát triển hơn nữa về chất lượng dịch vụ. Cảm ơn bạn đã tin tưởng và mua sắm tại Hasaki!
                                         </div>
                                     </div>
                                 </td>
@@ -346,3 +385,78 @@
     </div>
 
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 1. Cấu hình biến
+        const modal = document.getElementById("reviewModal");
+        const openBtn = document.querySelector(".product-detail-add-new-rating-button"); // Class nút "Viết đánh giá" trong code cũ của bạn
+        const closeBtn = document.getElementById("btnCloseModal");
+        const stars = document.querySelectorAll(".star-item");
+        const ratingText = document.getElementById("rating-text");
+
+        // Text hiển thị tương ứng số sao
+        const ratingLabels = ["", "Rất tệ", "Tệ", "Bình thường", "Hài lòng", "Rất hài lòng"];
+
+        // 2. Xử lý Mở/Đóng Modal
+        if (openBtn) {
+            openBtn.addEventListener("click", function (e) {
+                e.preventDefault(); // Ngăn chặn hành vi mặc định nếu có
+                modal.style.display = "flex";
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+        }
+
+        // Đóng khi click ra ngoài vùng trắng
+        window.addEventListener("click", function (e) {
+            if (e.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // 3. Xử lý Chọn Sao
+        stars.forEach(star => {
+            // Hiệu ứng hover
+            star.addEventListener("mouseover", function () {
+                const value = parseInt(this.getAttribute("data-value"));
+                highlightStars(value, 'hover');
+            });
+
+            // Xóa hiệu ứng hover khi chuột rời đi (trở về trạng thái đã chọn)
+            star.addEventListener("mouseout", function () {
+                resetStars();
+            });
+
+            // Xử lý click chọn
+            star.addEventListener("click", function () {
+                const value = parseInt(this.getAttribute("data-value"));
+                // Lưu trạng thái active
+                stars.forEach(s => s.classList.remove("active"));
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add("active");
+                }
+                // Cập nhật text
+                ratingText.innerText = ratingLabels[value];
+            });
+        });
+
+        function highlightStars(value, className) {
+            stars.forEach(s => s.classList.remove(className));
+            for (let i = 0; i < value; i++) {
+                stars[i].classList.add(className);
+            }
+        }
+
+        function resetStars() {
+            stars.forEach(s => s.classList.remove('hover'));
+        }
+
+        // Mặc định chọn 5 sao khi mở lên
+        stars[4].click();
+    });
+</script>

@@ -128,10 +128,10 @@ namespace DoAnHQT_DATABASE.Controllers
             return View("Cart", cart);
         }
 
-        public ActionResult DatHang()
-        {
+        //public ActionResult DatHang()
+        //{
 
-        }
+        //}
 
 
     }

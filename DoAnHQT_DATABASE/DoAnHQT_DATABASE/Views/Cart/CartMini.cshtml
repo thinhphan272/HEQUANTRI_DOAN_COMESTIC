@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "CartMini";
+    
+    int soLuongGio = Model != null ? Model.ShoppingCartItem.Count() : 0;
+}
+
+@model DoAnHQT_DATABASE.Models.ShoppingCart
+  
+
+    <!--Cart sản phẩm mini-->
+    <div class="header_cart">
+        <div class="header_cart-wrap">
+            @if (Session["User"] != null)
+            {
+                <a href="@Url.Action("Cart", "Cart")"><i class="header_cart-icon fa-solid fa-cart-shopping fa-xl"></i></a>
+
+                <span class="header_cart-notice">
+                    @Model.TongSoLuong
+                </span>
+            }
+
+            <div class="header_cart-list">
+                @if (soLuongGio == 0)
+                {
+                    <img src="~/Content/Images/no_cart.png" class="header_cart-no-cart-img" />
+                    <span class="header_cart-list-no-cart-msg">Chưa có sản phẩm</span>
+                }
+                else
+                {
+                    <h5 class="header_cart-heading">Sản phẩm đã thêm</h5>
+
+                    <ul class="header_cart-list-item">
+                        @foreach (var item in Model.ShoppingCartItem)
+                        {
+                            <li class="header_cart-item">
+                                <img src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" alt="" class="header_cart-img" />
+                                <div class="header_cart-item-info">
+
+                                    <div class="header_cart-item-head">
+
+                                        <h5 class="header_cart-item-name">
+                                            @item.Product.ProductName
+                                        </h5>
+                                        <div class="header_cart-item-price-wrap">
+                                            <span class="header_cart-item-price">@item.Product.GiaDaGiam.Value.ToString("N0")đ</span>
+                                            <span class="header_cart-item-multiply">x</span>
+                                            <span class="header_cart-item-qnt">@item.Quantity</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="header_cart-item-body">
+
+                                        <span class="header_cart-item-remove">
+                                            <a href="@Url.Action("XoaTrongGio", "Cart", new {productID = item.ProductID.Trim()})" class="btn header_cart-item-remove-btn">
+                                            Xóa
+                                            </a>
+                                        </span>
+                                    </div>
+
+
+                                </div>
+
+                            </li>
+
+                        }
+                    </ul>
+                }
+
+                <a href="@Url.Action("Cart", "Cart")" class="header_cart-view-cart btn btn_giohang">Xem giỏ hàng</a>
+            </div>
+        </div>
+
+    </div>
+

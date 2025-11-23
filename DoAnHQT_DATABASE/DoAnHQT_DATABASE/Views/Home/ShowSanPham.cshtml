@@ -2,81 +2,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@model List<DoAnHQT_DATABASE.Models.Product>
+
 <div class="app_container" style="margin-top:123px;">
     <div class="" style="width: 1300px; margin: 0 auto">
         <div class="grid_row app_content">
-            <div class="grid_column-2">
-                <nav class="category">
-                    <h4 class="category_heading">
-                        <i class="category_heading-icon fa-solid fa-list"></i>
-                        Danh mục
-                    </h4>
-                    <ul class="category-list">
-                        <li class="category-item category-item-active">
-                            <a href="#" class="category-item_link">
-                                Chăm sóc da mặt
-                            </a>
-                            <ul class="submenu-list">
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Sửa rửa mặt</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Tẩy trang mặt</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Tẩy tế bào chết da mặt</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="category-item">
-                            <a href="#" class="category-item_link">
-                                Trang điểm
-                            </a>
-                            <ul class="submenu-list">
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Phấn phủ</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Kem lót</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Má hồng</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="category-item">
-                            <a href="#" class="category-item_link">
-                                Chăm sóc tóc và da đầu
-                            </a>
-                            <ul class="submenu-list">
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Dầu gội</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-item_link">Dầu xả</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
 
-                </nav>
+            <div class="grid_column-2">
+                @Html.Action("HienThiDanhMuc", "Home")
             </div>
+
+            <!--Lọc-->
             <div class="grid_column-10">
                 <div class="home-filter">
                     <span class="home-filter_label">Sắp xếp theo</span>
-                    <button class="btn home-filter-btn">Phổ biến</button>
-                    <button class="btn home-filter-btn home-filter-btn-primary" style="background-color:var(--primary-color); color: white">Mới nhất</button>
-                    <button class="btn home-filter-btn">Bán chạy</button>
+                    @*<button class="btn home-filter-btn">Phổ biến</button>*@
+                    <a href="@Url.Action("SapXepMoiNhat", "Home")" class="btn home-filter-btn home-filter-btn-primary" style="background-color:var(--primary-color); color: white">Mới nhất</a>
+                    <a href="@Url.Action("SapXepBanChay", "Home")" class="btn home-filter-btn">Bán chạy</a>
 
                     <div class="select-input">
                         <span class="select-input_label">Giá</span>
                         <i class="select-input_icon fa fa-angle-down"></i>
                         <ul class="select-input_list">
                             <li class="select-input_item">
-                                <a href="" class="select-input_link">Giá: Thấp đến cao</a>
+                                <a href="@Url.Action("SapXepGia", "Home", new {order=1})" class="select-input_link">Giá: Thấp đến cao</a>
                             </li>
                             <li class="select-input_item">
-                                <a href="" class="select-input_link">Giá: Cao đến thấp</a>
+                                <a href="@Url.Action("SapXepGia", "Home", new {order=-1})" class="select-input_link">Giá: Cao đến thấp</a>
                             </li>
                         </ul>
                     </div>
@@ -102,397 +54,95 @@
 
                 <div class="home-product">
                     <div class="grid_row">
+                        <!--Card-->
+                        @foreach (var item in Model)
+                        {
+                                <div class="grid_column-2-4">
+                                    <!--home-product-->
+                                    <a href="@Url.Action("SanPhamDetail", "Home", new {id = item.ProductID.Trim()})" class="home-product-item card">
+                                        <div class="home-product-item_img-div ">
+                                            <img src="@Url.Content("~/Content/Images/ProductIMG/" + item.Image)" class="card-img-top home-product-item_img" />
 
-                        <div class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMLaRoChePoSay.png" class="card-img-top home-product-item_img" />
-
-                                </div>
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
-
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
                                         </div>
+                                        <div class="card-body">
+                                            <div class="home-product-item_origin">
+                                                <span class="home-product-item_brand">
+                                                    @item.Brand.BrandName
+                                                </span>
+                                                <span class="home-product-item_origin-name">@item.Origin</span>
+                                            </div>
+                                            <p class="home-product-item_name">@item.ProductName</p>
+                                            <div class="home-product-item_price">
+                                                @{if (item.Discount != null)
+                                                    {
+                                                        decimal mucGiam = (decimal)item.Discount.ToList()[0].DiscountRate;
+                                                        decimal tienSauGiam = item.Price.Value * (100 - mucGiam) / 100;
+                                                        <span class="home-product-item_price-old">@item.Price.Value.ToString("N0")đ</span>
+                                                        <span class="home-product-item_price-current">@tienSauGiam.ToString("N0")đ</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="home-product-item_price-current">@item.Price.Value.ToString("N0")đ</span>
+                                                    }
+                                                }
+                                            </div>
 
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
+                                            <div class="home-product-item_action">
+                                                <span class="home-product-item_like home-product-item_like-liked">
+                                                    <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
+                                                    <i class="home-product-item_like-icon-fill fa fa-heart"></i>
+                                                </span>
+                                                <div class="home-product-item_rating">
+                                                    @{
+                                                        if (item.Rating != null)
+                                                        {
+                                                            int avgStars = (int)item.Rating.Average(t => t.Star);
+                                                            for (int i = 0; i < avgStars; i++)
+                                                            {
+                                                                <i class="home-product-item_star-gold fa fa-star"></i>
+                                                            }
+                                                        }
 
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div  class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
+                                                    }
 
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMCerave.png" class="card-img-top home-product-item_img" />
+                                                </div>
 
-                                </div>
 
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
+                                                @{
+                                                    int spDaBan = 0;
+                                                    if (item.OrderDetail != null)
+                                                    {
+                                                        spDaBan = item.OrderDetail.Count();
+                                                        <span class="home-product-item_sold">
+                                                            @spDaBan đã bán
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="home-product-item_sold">
+                                                            @spDaBan đã bán
+                                                        </span>
+                                                    }
+                                                }
+                                            </div>
 
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
+                                            <div class="home-product-item_favourite">
+                                                <i class="fa fa-check"></i>
+                                                Yêu thích
+                                            </div>
+                                            <div class="home-product-item_sale-off">
+                                                @if (item.Discount != null)
+                                                {
+                                                    <span class="home-product-item_sale-off-percent">@item.Discount.ToList()[0].DiscountRate.ToString()%</span>
+                                                    <span class="home-product-item_sale-off-label">GIẢM</span>
+                                                }
+
+                                            </div>
                                         </div>
-
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
-
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
+                                    </a>
                                 </div>
-                            </a>
-                        </div>
-
-                        <div class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMLaRoChePoSay.png" class="card-img-top home-product-item_img" />
-
-                                </div>
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
-
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                        </div>
-
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
-
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
-
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMCerave.png" class="card-img-top home-product-item_img" />
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
-
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                        </div>
-
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
-
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMLaRoChePoSay.png" class="card-img-top home-product-item_img" />
-
-                                </div>
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
-
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                        </div>
-
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
-
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
-
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMCerave.png" class="card-img-top home-product-item_img" />
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
-
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                        </div>
-
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
-
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMLaRoChePoSay.png" class="card-img-top home-product-item_img" />
-
-                                </div>
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
-
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                        </div>
-
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
-
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="grid_column-2-4">
-                            <!--home-product-->
-                            <a href="@Url.Action("SanPhamDetail", "Home")" class="home-product-item card">
-
-                                <div class="home-product-item_img-div ">
-                                    <img src="~/Content/Images/ProductIMG/SRMCerave.png" class="card-img-top home-product-item_img" />
-                                </div>
-
-                                <div class="card-body">
-                                    <div class="home-product-item_origin">
-                                        <span class="home-product-item_brand">CeraVe</span>
-                                        <span class="home-product-item_origin-name">Mỹ</span>
-                                    </div>
-                                    <p class="home-product-item_name">Sữa Rửa Mặt CeraVe Sạch Sâu Cho Da Thường Đến Da Dầu 473ml</p>
-                                    <div class="home-product-item_price">
-                                        <span class="home-product-item_price-old">490.000đ</span>
-                                        <span class="home-product-item_price-current">348.000đ</span>
-                                    </div>
-
-                                    <div class="home-product-item_action">
-                                        <span class="home-product-item_like">
-                                            <i class="home-product-item_like-icon-empty fa-regular fa-heart"></i>
-                                            <i class="home-product-item_like-icon-fill fa fa-heart"></i>
-                                        </span>
-                                        <div class="home-product-item_rating">
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                            <i class="home-product-item_star-gold fa fa-star"></i>
-                                        </div>
-
-                                        <span class="home-product-item_sold">
-                                            1,2k đã bán
-                                        </span>
-                                    </div>
-
-                                    <div class="home-product-item_favourite">
-                                        <i class="fa fa-check"></i>
-                                        Yêu thích
-                                    </div>
-                                    <div class="home-product-item_sale-off">
-                                        <span class="home-product-item_sale-off-percent">43%</span>
-                                        <span class="home-product-item_sale-off-label">GIẢM</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-
-
-
-
-
+                            
+                        }
 
                     </div>
                 </div>
@@ -501,52 +151,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        // Đợi cho đến khi toàn bộ trang được tải xong
-        document.addEventListener("DOMContentLoaded", function () {
-
-            // ===== 1. MÃ CHO DANH MỤC (TỪ KHỐI ĐẦU TIÊN) =====
-            const categoryItems = document.querySelectorAll('.category-item');
-
-            categoryItems.forEach(item => {
-                const link = item.querySelector('.category-item_link');
-                link.addEventListener('click', function (e) {
-                    e.preventDefault(); // Ngăn hành vi mặc định (tải lại trang)
-
-                    // Kiểm tra xem mục này đã active chưa
-                    const wasActive = item.classList.contains('category-item-active');
-
-                    // 1. Tắt active của TẤT CẢ các mục
-                    categoryItems.forEach(i => {
-                        i.classList.remove('category-item-active');
-                    });
-
-                    // 2. Bật active cho mục vừa click
-                    if (!wasActive) {
-                        item.classList.add('category-item-active');
-                    }
-                });
-            });
-
-            // ===== 2. MÃ MỚI CHO NÚT YÊU THÍCH (Trái tim) (TỪ KHỐI THỨ HAI) =====
-            const likeButtons = document.querySelectorAll('.home-product-item_like');
-
-            likeButtons.forEach(button => {
-                button.addEventListener('click', function (e) {
-                    // **Rất quan trọng:** Ngăn không cho click vào trái tim
-                    // bị coi là click vào thẻ <a> bọc ngoài sản phẩm.
-                    e.preventDefault();
-                    e.stopPropagation(); // Ngăn sự kiện lan truyền thêm
-
-                    // Tự động Thêm/Xóa class 'home-product-item_like-liked'
-                    this.classList.toggle('home-product-item_like-liked');
-                });
-            });
-
-            // ===== HẾT MÃ =====
-
-        });
-    </script>
-}

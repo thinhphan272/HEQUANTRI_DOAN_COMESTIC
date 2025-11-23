@@ -1,4 +1,4 @@
-namespace DoAnHQT_DATABASE.Models
+﻿namespace DoAnHQT_DATABASE.Models
 {
     using System;
     using System.Collections.Generic;
@@ -62,30 +62,38 @@ namespace DoAnHQT_DATABASE.Models
         [StringLength(30)]
         public string UpdatedBy { get; set; }
 
-
-
-
-
         public virtual Brand Brand { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Discount> Discount { get; set; }
+
+        // Khai báo biến lưu trữ giá trị (Backing fields)
+        private double? _discountRate;
+        private double? _giaDaGiam;
 
         [NotMapped]
         public double? DiscountRate
         {
             get
             {
-                if (Discount != null)
+                // 1. Ưu tiên: Nếu đã được gán giá trị (từ Service/SQL), trả về giá trị đó
+                if (_discountRate.HasValue)
+                {
+                    return _discountRate.Value;
+                }
+
+                // 2. Dự phòng: Nếu chưa gán, thử tính toán theo logic Entity Framework (kiểm tra list Discount)
+                if (Discount != null && Discount.Count() > 0)
                 {
                     return Discount.First().DiscountRate;
                 }
-                else
-                {
-                    return 0;
-                }
+
+                return 0;
             }
-            set;
+            set
+            {
+                _discountRate = value;
+            }
         }
 
         [NotMapped]
@@ -93,16 +101,25 @@ namespace DoAnHQT_DATABASE.Models
         {
             get
             {
-                if (Discount != null)
+                // 1. Ưu tiên: Nếu đã được gán giá trị (từ Service/SQL), trả về giá trị đó
+                if (_giaDaGiam.HasValue)
                 {
-                    return (double)Price * (100 - DiscountRate) / 100;
+                    return _giaDaGiam.Value;
                 }
-                else
+
+                // 2. Dự phòng: Tính toán dựa trên Price và DiscountRate hiện tại
+                if (Price.HasValue)
                 {
-                    return (double)Price;
+                    double rate = DiscountRate ?? 0; // Gọi lại getter DiscountRate ở trên
+                    return (double)Price.Value * (100 - rate) / 100;
                 }
+
+                return 0;
             }
-            set;
+            set
+            {
+                _giaDaGiam = value;
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,10 +1,22 @@
 ﻿
 @{
     ViewBag.Title = "SanPhamDetail";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    int soDanhGia = 0;
+    int sao5, sao4, sao3, sao2, sao1;
+    sao5 = sao4 = sao3 = sao2 = sao1 = 0;
+    float avgStar = (float)Model.Rating.Average(t => t.Star);
+    if (Model.Rating.Count() != 0)
+    {
+        soDanhGia = Model.Rating.Count();
+        sao5 = Model.Rating.Count(t => t.Star == 5);
+        sao4 = Model.Rating.Count(t => t.Star == 4);
+        sao3 = Model.Rating.Count(t => t.Star == 3);
+        sao2 = Model.Rating.Count(t => t.Star == 2);
+        sao1 = Model.Rating.Count(t => t.Star == 1);
+    }
 }
 
-<h2>SanPhamDetail</h2>
+@model DoAnHQT_DATABASE.Models.Product
 
 <div class="product-detail-container">
     <div class="" style="width: 1300px; margin: 0 auto">
@@ -13,65 +25,71 @@
                 <div class="row">
                     <div class="col-md-5 product-detail-image">
                         <div class="main-img">
-                            <img  id="mainImage" width="100%" src="~/Content/Images/ProductIMG/SRM_La_Roche_Possay.png" />
+                            <img id="mainImage" width="100%" src="@Url.Content("~/Content/Images/ProductIMG/" + Model.Image)" />
 
                         </div>
 
-                       
+
                     </div>
                     <div class="col-md-7 product-detail-content">
                         <div class="brand-and-ship">
                             <div class="now-free-img">
-                                <img height="100%" class="now-free-img-image" src="~/Content/Images/SanPhamDetailIMG/now_free.png"/>
+                                <img height="100%" class="now-free-img-image" src="~/Content/Images/SanPhamDetailIMG/now_free.png" />
 
                             </div>
                             <div class="product-detail-brand ms-2">
-                                LA ROCHE-POSAY
+                                @Model.Brand.BrandName
                             </div>
 
                         </div>
                         <div class="product-detail-name">
-                            Gel Rửa Mặt La Roche-Posay Dành Cho Da Dầu, Nhạy Cảm 400ml
+                            @Model.ProductName
                         </div>
                         <div class="rating-group">
                             <div class="star-average">
-                                <span>4.9</span>
+                                <span>@Model.Rating.Average(t => t.Star)</span>
 
                                 <i class="fa fa-star ms-1" style="font-size: 0.8rem"></i>
                             </div>
 
                             <div class="total-rating ms-1">
-                                142 đánh giá
+                                @Model.Rating.Count() đánh giá
                             </div>
-                            <div class="rating-group-divide ms-1" >
+                            <div class="rating-group-divide ms-1">
 
                                 |
                             </div>
                             <div class="product-detail-id ms-1">
-                                Mã sản phẩm: 204900056
+                                Mã sản phẩm: @Model.ProductID
                             </div>
                         </div>
 
                         <div class="product-detail-price">
                             <i class="fa fa-money-bill-1-wave" style="color: var(--primary-color)"></i>
-                            <span class="product-detail-price-money">430.000 đ</span>
+                            <span class="product-detail-price-money">@Model.Price.Value.ToString("N0") đ</span>
                             <span class="product-detail-price-VAT">(Đã bao gồm VAT) </span>
                         </div>
                         <div class="product-detail-capacity">
                             Dung tích:
-                            <span class="product-detail-capacity-value">400ml</span>
+                            <span class="product-detail-capacity-value">@Model.Capacity ml</span>
                         </div>
 
+                        <!--Tăng giảm số lượng-->
                         <div class="product-detail-change_quantity mt-2">
                             <span class="product-detail-change_quantity-label me-1">
-                                Số lượng: 
+                                Số lượng:
                             </span>
-                            <i class="fa fa-minus-circle me-1" style="color: #306e51"></i>
-                            
-                            <div class="product-detail-quantity-value me-1">
-                                1
-                            </div>
-                            <i class="fa fa-plus-circle" style="color: #306e51"></i>
+                            <button class="btn js-decrease">
+                                <i class="fa fa-minus-circle me-1" style="color: #306e51"></i>
+                            </button>
+
+                            <span class="js-quantity-number mx-2">1</span>
+
+                            <button class="btn js-increase">
+                                <i class="fa fa-plus-circle" style="color: #306e51"></i>
+                            </button>
+
+                            <input type="hidden" name="quantity" class="js-quantity-input" value="1">
                         </div>
 
                         <div class="brand-and-ship">
@@ -85,24 +103,33 @@
 
                         </div>
                         <div class="product-detail-shipping-info">
-                            Bạn muốn nhận hàng trước <span style="color: #f60">20h</span> hôm nay (<span style="color: #f60; font-weight: bold">Miễn phí</span>). 
+                            Bạn muốn nhận hàng trước <span style="color: #f60">20h</span> hôm nay (<span style="color: #f60; font-weight: bold">Miễn phí</span>).
                             Đặt hàng trong <span style="color: #f60">1 giờ 35 phút</span> tới và chọn giao hàng <span style="color: #f60">2H</span> ở bước thanh toán.
                         </div>
+                        <!--Thêm vào giỏ hàng-->
                         <div class="button-add-product-to-cart mt-2">
-                            <button class="btn" style="background-color: #306e51; color: white; height: 50px; font-weight: bold"><i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng</button>
-                            <button class="btn"  style="background-color: #306e51; font-size: 0.8rem; color: white; height: 50px; padding: 5px; font-weight: bold">MUA NGAY NOW FREE 2H<br /><span style="font-size: 0.9rem; margin-top: -30px; font-weight: 400">Trễ tặng 100k</span></button>
+                            <button class="btn js-add-to-cart"
+                                    data-product-id="@Model.ProductID"
+                                    style="background-color: #306e51; color: white; height: 50px; font-weight: bold">
+                                <i class="fa fa-cart-plus"></i> Thêm vào giỏ hàng
+                            </button>
+
+                            <button class="btn" style="background-color: #306e51; font-size: 0.8rem; color: white; height: 50px; padding: 5px; font-weight: bold">MUA NGAY NOW FREE 2H<br /><span style="font-size: 0.9rem; margin-top: -30px; font-weight: 400">Trễ tặng 100k</span></button>
                         </div>
+
+
+
                     </div>
                 </div>
 
-                
+
             </div>
 
             <div class="col-md-3 product-detail-delivery shadow ms-4">
                 <div class="product-detail-delivery-div">
                     <div class="product-detail-delivery-header">
                         <i class="fa-solid fa-minus"></i>
-                         MIỄN PHÍ VẬN CHUYỂN 
+                        MIỄN PHÍ VẬN CHUYỂN
                         <i class="fa-solid fa-minus"></i>
                     </div>
                     <div class="now-2h-delivery">
@@ -139,7 +166,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
             </div>
 
@@ -148,26 +175,23 @@
         <div class="row">
             <div class="col-md-9 rating-container shadow mt-4">
                 <div class="rating-container-header">
-                    Đánh giá (142)
+                    Đánh giá (@soDanhGia)
                 </div>
                 <div class="row rating-row">
                     <div class="col-md-2 product-detail-rating-total">
                         <div class="product-detail-rating-value">
                             <div class="product-detail-rating-number">
-                                4.9
+                                @avgStar
                             </div>
                             <div class="product-detail-rating-star">
-
-                                <i class="fa fa-star" style="color: #f60"></i>
-                                <i class="fa fa-star" style="color: #f60"></i>
-                                <i class="fa fa-star" style="color: #f60"></i>
-                                <i class="fa fa-star" style="color: #f60"></i>
-                                <i class="fa fa-star" style="color: #f60"></i>
-
+                                @for (int i = 0; i < Math.Round(avgStar); i++)
+                                {
+                                    <i class="fa fa-star" style="color: #f60"></i>
+                                }
 
                             </div>
                             <div class="product-detail-rating-total-comment">
-                                142 sản phẩm
+                                @soDanhGia sản phẩm
                             </div>
                         </div>
                     </div>
@@ -175,26 +199,26 @@
                         <div class="product-detail-star-total w-100">
                             <div class="row w-100" style="display: flex; justify-content: center">
                                 <div class="col-auto total-rating-star-item me-2">
-                                    Tất cả (142)
+                                    Tất cả (@soDanhGia)
                                 </div>
                                 <div class="col-auto total-rating-star-item me-2">
-                                    5 <i class="fa fa-star"></i> (131)
+                                    5 <i class="fa fa-star"></i> (@sao5)
                                 </div>
                                 <div class="col-auto total-rating-star-item me-2">
-                                    4 <i class="fa fa-star"></i> (131)
+                                    4 <i class="fa fa-star"></i> (@sao4)
                                 </div>
                                 <div class="col-auto total-rating-star-item me-2">
-                                    3 <i class="fa fa-star"></i> (131)
+                                    3 <i class="fa fa-star"></i> (@sao3)
                                 </div>
 
 
                             </div>
                             <div class="row w-100 mt-2" style="display: flex; justify-content: center">
                                 <div class="col-auto total-rating-star-item me-2">
-                                    2 <i class="fa fa-star"></i> (131)
+                                    2 <i class="fa fa-star"></i> (@sao2)
                                 </div>
                                 <div class="col-auto total-rating-star-item  me-2">
-                                    1 <i class="fa fa-star"></i> (131)
+                                    1 <i class="fa fa-star"></i> (@sao1)
                                 </div>
                                 <div class="col-auto total-rating-star-item me-2">
                                     Có hình ảnh
@@ -259,84 +283,54 @@
                     <table class="table">
 
                         <tbody>
+                            @{
+                                if (Model.Rating.Count > 0)
+                                {
+                                    foreach (var item in Model.Rating.ToList())
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="customer-name">@item.Users.Name</div>
+                                                <div class="rating-comment-group">
+                                                    <div class="star-average-comment">
+                                                        <span style="font-size: 0.8rem">@item.Star</span>
+
+                                                        <i class="fa fa-star ms-1" style="font-size: 0.5rem"></i>
+                                                    </div>
+
+
+                                                    <div class="rating-group-divide ms-1">
+
+                                                        |
+                                                    </div>
+                                                    <div class="product-detail-id ms-1">
+                                                        @item.CreatedAt.Value.ToString("yyyy-MM-dd")
+                                                    </div>
+                                                </div>
+                                                <div class="product-detail-name-comment" style="font-size: .8rem; color: #777777">
+                                                    @Model.ProductName
+                                                </div>
+                                                <div class="product-customer-comment">
+                                                    @item.Comment
+                                                </div>
+                                                <div class="product-reply-comment ms-5 mt-2">
+                                                    <div class="shop-label-name p-1" style="background-color: #306e51; color: white; font-size: .9rem; border-radius:5px; width: 60px; text-align: center">
+                                                        Hasaki
+                                                    </div>
+                                                    <div class="shop-reply-comment ">
+                                                        Hasaki xin chào! Hasaki cảm ơn @item.Users.Name đã dành thời gian đánh giá. Sự hài lòng của khách hàng là động lực to lớn để Hasaki ngày càng phát triển hơn nữa về chất lượng dịch vụ. Cảm ơn bạn đã tin tưởng và mua sắm tại Hasaki!
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+
+                                    }
+                                }
+                            }
+
+
                             <tr>
-
-                                <td>
-                                    <div class="customer-name">Phan Si Thinh</div>
-                                    <div class="rating-comment-group">
-                                        <div class="star-average-comment">
-                                            <span style="font-size: 0.8rem">5</span>
-
-                                            <i class="fa fa-star ms-1" style="font-size: 0.5rem"></i>
-                                        </div>
-
-
-                                        <div class="rating-group-divide ms-1">
-
-                                            |
-                                        </div>
-                                        <div class="product-detail-id ms-1">
-                                            2025-10-11
-                                        </div>
-                                    </div>
-                                    <div class="product-detail-name-comment" style="font-size: .8rem; color: #777777">
-                                        Gel Rửa Mặt La Roche-Posay Dành Cho Da Dầu, Nhạy Cảm 400ml
-                                    </div>
-                                    <div class="product-customer-comment">
-                                        mình sử dụng sản phẩm thấy rất ok luôn shop ơi
-                                    </div>
-                                    <div class="product-reply-comment ms-5 mt-2">
-                                        <div class="shop-label-name p-1" style="background-color: #306e51; color: white; font-size: .9rem; border-radius:5px; width: 60px; text-align: center">
-                                            Hasaki
-                                        </div>
-                                        <div class="shop-reply-comment ">
-                                            Hasaki xin chào! Hasaki cảm ơn Phan Si Thinh đã dành thời gian đánh giá. Sự hài lòng của khách hàng là động lực to lớn để Hasaki ngày càng phát triển hơn nữa về chất lượng dịch vụ. Cảm ơn bạn đã tin tưởng và mua sắm tại Hasaki!
-                                        </div>
-                                    </div>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-
-                                <td>
-                                    <div class="customer-name">Phan Si Thinh</div>
-                                    <div class="rating-comment-group">
-                                        <div class="star-average-comment">
-                                            <span style="font-size: 0.8rem">5</span>
-
-                                            <i class="fa fa-star ms-1" style="font-size: 0.5rem"></i>
-                                        </div>
-
-
-                                        <div class="rating-group-divide ms-1">
-
-                                            |
-                                        </div>
-                                        <div class="product-detail-id ms-1">
-                                            2025-10-11
-                                        </div>
-                                    </div>
-                                    <div class="product-detail-name-comment" style="font-size: .8rem; color: #777777">
-                                        Gel Rửa Mặt La Roche-Posay Dành Cho Da Dầu, Nhạy Cảm 400ml
-                                    </div>
-                                    <div class="product-customer-comment">
-                                        mình sử dụng sản phẩm thấy rất ok luôn shop ơi
-                                    </div>
-                                    <div class="product-reply-comment ms-5 mt-2">
-                                        <div class="shop-label-name p-1" style="background-color: #306e51; color: white; font-size: .9rem; border-radius:5px; width: 60px; text-align: center">
-                                            Hasaki
-                                        </div>
-                                        <div class="shop-reply-comment ">
-                                            Hasaki xin chào! Hasaki cảm ơn Phan Si Thinh đã dành thời gian đánh giá. Sự hài lòng của khách hàng là động lực to lớn để Hasaki ngày càng phát triển hơn nữa về chất lượng dịch vụ. Cảm ơn bạn đã tin tưởng và mua sắm tại Hasaki!
-                                        </div>
-                                    </div>
-                                </td>
-
-
-                            </tr>
-                            <tr>
-
                                 <td>
                                     <div class="customer-name">Chi khùng</div>
                                     <div class="rating-comment-group">
@@ -370,16 +364,14 @@
                                         </div>
                                     </div>
                                 </td>
-
-
                             </tr>
 
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="col-md-3" >
-               
+            <div class="col-md-3">
+
             </div>
         </div>
     </div>

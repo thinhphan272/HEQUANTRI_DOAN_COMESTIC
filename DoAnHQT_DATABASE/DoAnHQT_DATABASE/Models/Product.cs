@@ -76,9 +76,9 @@ namespace DoAnHQT_DATABASE.Models
         {
             get
             {
-                if (Discount != null)
+                if (Discount != null && Discount.Any())
                 {
-                    return Discount.First().DiscountRate;
+                    return Discount.FirstOrDefault()?.DiscountRate;
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace DoAnHQT_DATABASE.Models
         {
             get
             {
-                if (Discount != null)
+                if (Discount != null && Discount.Any())
                 {
                     return (double)Price * (100 - DiscountRate) / 100;
                 }

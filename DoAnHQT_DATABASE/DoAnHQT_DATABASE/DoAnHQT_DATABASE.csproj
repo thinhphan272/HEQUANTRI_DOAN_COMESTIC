@@ -6425,6 +6425,7 @@
     <Content Include="Views\Home\SanPhamDetail.cshtml" />
     <Content Include="Views\Home\HienThiDanhMuc.cshtml" />
     <Content Include="Views\Cart\CartMini.cshtml" />
+    <Content Include="Views\Cart\OrderSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

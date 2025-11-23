@@ -78,5 +78,7 @@ namespace DoAnHQT_DATABASE.Controllers
 
             return View("ShowSanPham", list);
         }
+
+       
     }
 }

@@ -16,6 +16,7 @@ namespace DoAnHQT_DATABASE.Controllers
         // GET: Cart
         QL_BANHANG_ONLINE db = new QL_BANHANG_ONLINE();
         CartService cartService = new CartService();
+        OrderService orderService = new OrderService();
         public ActionResult Cart()
         {
             Users user = Session["User"] as Users;
@@ -128,11 +129,40 @@ namespace DoAnHQT_DATABASE.Controllers
             return View("Cart", cart);
         }
 
-        //public ActionResult DatHang()
-        //{
+        public ActionResult DatHang(FormCollection form)
+        {
+            Users user = Session["User"] as Users;
+            string userID = user.UserID;
+            DateTime orderDate = DateTime.Now;
+            string address = form["address"];
+            string status = "Chờ giao hàng";
+            string userPayment = form["payment"];
 
-        //}
+            //Tao orderID
+            var lastOrder = db.Orders.OrderByDescending(t => t.OrderID).FirstOrDefault();
+            int newID = 1;
+            if (lastOrder != null)
+            {
+                string lastID = lastOrder.OrderID;
+                var match = Regex.Match(lastID, @"\d+");
+                if (match.Success)
+                    newID = int.Parse(match.Value) + 1;
+            }
+            string newOrderID = $"OD{newID:00}";
 
+            int ret = orderService.DatHang(newOrderID, userID, orderDate, address, status, userPayment, user.Name);
 
+            if (ret == 0)
+            {
+                ViewBag.OrderError = "Lỗi! Đặt hàng không thành công";
+                return View("PaymentPage");
+            }
+            return View("OrderSuccess");
+        }
+
+        public ActionResult OrderSuccess()
+        {
+            return View();
+        }
     }
 }

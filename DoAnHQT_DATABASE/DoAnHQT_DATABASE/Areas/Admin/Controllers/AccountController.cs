@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using DoAnHQT_DATABASE.Areas.Admin.Service;
+
+namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
+{
+    public class AccountController : Controller
+    {
+        AccountService accountService = new AccountService();
+        // GET: Admin/Account
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(string username, string password, string role)
+        {
+            bool isValid = accountService.Connect(username, password, role);
+            if (isValid)
+            {
+                Session["Role"] = role;
+
+                if (role == "Admin")
+                {
+                    // Chuyển hướng đến trang Admin
+                    return RedirectToAction("Index", "Dashboard");
+                }
+                else
+                {
+                    //Trang nhân viên
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Đăng nhập thất bại!";
+                return View("Login", new { area = "admin" });
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            string role = Session["Role"]?.ToString() ?? "";
+            if (string.IsNullOrWhiteSpace(role))
+            {
+                ViewBag.Error = "Bạn chưa đăng nhập!";
+                return View("Login", new { area = "admin" });
+            }
+            else
+            {
+                Session.Clear();
+                return RedirectToAction("Login", "Account", new { area = "admin" });
+            }
+        }
+    }
+}

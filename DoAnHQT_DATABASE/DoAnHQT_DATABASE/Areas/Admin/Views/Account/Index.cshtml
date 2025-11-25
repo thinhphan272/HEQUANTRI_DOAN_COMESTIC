@@ -1,0 +1,111 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<div id="createStaffForm" class="card mb-4 shadow-sm" style="display: none;">
+    <div class="card-header bg-primary text-white py-3">
+        <i class="fas fa-user-plus me-1"></i>
+        Tạo tài khoản nhân viên mới
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "Account", FormMethod.Post, new { @class = "form-horizontal", area = "Admin" }))
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Username" class="form-label fw-bold">Tên đăng nhập:</label>
+                        <input type="text" id="Username" name="username" class="form-control" required placeholder="Tên đăng nhập (dùng để Login)" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label for="Password" class="form-label fw-bold">Mật khẩu:</label>
+                        <input type="password" id="Password" name="password" class="form-control" required placeholder="Mật khẩu" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save me-2"></i>Lưu tài khoản
+                </button>
+                <button type="button" id="btnCancelCreate" class="btn btn-secondary">
+                    <i class="fas fa-times me-2"></i>Hủy
+                </button>
+            </div>
+        }
+    </div>
+</div>
+<div class="card mb-4 shadow-sm border-0">
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h2 class="mt-4">Quản lý nhân viên</h2>
+        <button type="button" id="btnShowCreate" class="btn btn-primary shadow-sm">
+            <i class="fas fa-plus me-2"></i>Thêm nhân viên
+        </button>
+    </div>
+    @ViewBag.Error
+    <div class="card-header bg-white py-3">
+        <i class="fas fa-table me-1"></i>
+        Danh sách tài khoản nhân viên
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle admin-table mb-0">
+                <thead>
+                    <tr>
+                        <th padding-left: 1.5rem;">Tên tài khoản</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (string user in Model)
+                    {
+                        <tr>
+                            <td style="padding-left: 1.5rem;">
+                                <div class="fw-bold text-primary">@user</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="@Url.Action("Delete", "Account", new {username = user, area = "admin"})" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>$(document).ready(function () {
+            const createForm = $('#createStaffForm');
+            const btnShow = $('#btnShowCreate');
+            const btnCancel = $('#btnCancelCreate');
+
+            // Ẩn/Hiện Form khi nhấn nút "Thêm nhân viên"
+            btnShow.on('click', function () {
+                // Dùng slideToggle cho hiệu ứng mượt mà
+                createForm.slideToggle(300);
+
+                // Thay đổi nội dung nút
+                if (btnShow.text().includes('Thêm')) {
+                    btnShow.html('<i class="fas fa-times me-2"></i> Đóng Form');
+                    // Cuộn lên đầu Form
+                    $('html, body').animate({
+                        scrollTop: createForm.offset().top - 20
+                    }, 500);
+                } else {
+                    btnShow.html('<i class="fas fa-plus me-2"></i> Thêm nhân viên');
+                }
+            });
+
+            // Ẩn Form khi nhấn nút "Hủy" bên trong Form
+            btnCancel.on('click', function () {
+                createForm.slideUp(300, function() {
+                    btnShow.html('<i class="fas fa-plus me-2"></i> Thêm nhân viên');
+                });
+            });
+        });</script>

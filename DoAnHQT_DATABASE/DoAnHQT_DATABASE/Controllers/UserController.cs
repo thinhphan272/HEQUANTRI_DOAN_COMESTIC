@@ -80,7 +80,7 @@ namespace DoAnHQT_DATABASE.Controllers
 
             try
             {
-                int ret = userService.DangNhap(email, password);
+                int ret = userService.DangNhap(email.Trim(), password);
 
                 if (ret == 1)
                 {

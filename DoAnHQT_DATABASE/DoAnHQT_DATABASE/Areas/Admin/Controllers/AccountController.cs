@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DoAnHQT_DATABASE.Areas.Admin.Service;
+using DoAnHQT_DATABASE.Areas.Admin.Security;
 
 namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
 {
@@ -40,7 +41,6 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
                 return View("Login", new { area = "admin" });
             }
         }
-
         public ActionResult Logout()
         {
             string role = Session["Role"]?.ToString() ?? "";
@@ -54,6 +54,42 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
                 Session.Clear();
                 return RedirectToAction("Login", "Account", new { area = "admin" });
             }
+        }
+        [CheckAthourize(Roles = "Admin")]
+        public ActionResult Index()
+        {
+            List<string> lstNhanViens = accountService.GetAllStaffs();
+            return View(lstNhanViens);
+        }
+
+        [CheckAthourize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult Create(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                ViewBag.Error = "Bạn chưa nhập đủ thông tin!";
+                return RedirectToAction("Index", new { area = "admin" });
+            }
+            else
+            {
+                bool check = accountService.AddStaff(username, password);
+                if (!check)
+                {
+                    ViewBag.Error = "Thêm không thành công";
+                }
+                return RedirectToAction("Index", new { area = "admin" });
+            }
+        }
+        [CheckAthourize(Roles = "Admin")]
+        public ActionResult Delete(string username)
+        {
+            bool check = accountService.DeleteStaff(username);
+            if (!check)
+            {
+                ViewBag.Error = "Xoá không thành công";
+            }
+            return RedirectToAction("Index", new { area = "admin" });
         }
     }
 }

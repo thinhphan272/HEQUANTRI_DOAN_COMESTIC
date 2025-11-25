@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DoAnHQT_DATABASE.Areas.Admin.Security;
 
 namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
 {
-    [CheckAthourize(Roles = "Admin, Nhân viên")]
-    public class OrderController : Controller
+    public class ExceptionController : Controller
     {
-        // GET: Admin/Order
-        public ActionResult Index()
+        // GET: Admin/Exception
+        public ActionResult Forbidden()
         {
             return View();
         }

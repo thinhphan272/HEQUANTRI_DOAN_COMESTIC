@@ -55,5 +55,40 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Account", new { area = "admin" });
             }
         }
+
+        public ActionResult Index()
+        {
+            List<string> lstNhanViens = accountService.GetAllStaffs();
+            return View(lstNhanViens);
+        }
+
+        [HttpPost]
+        public ActionResult Create(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                ViewBag.Error = "Bạn chưa nhập đủ thông tin!";
+                return RedirectToAction("Index", new { area = "admin" });
+            }
+            else
+            {
+                bool check = accountService.AddStaff(username, password);
+                if (!check)
+                {
+                    ViewBag.Error = "Thêm không thành công";
+                }
+                return RedirectToAction("Index", new { area = "admin" });
+            }
+        }
+
+        public ActionResult Delete(string username)
+        {
+            bool check = accountService.DeleteStaff(username);
+            if (!check)
+            {
+                ViewBag.Error = "Xoá không thành công";
+            }
+            return RedirectToAction("Index", new { area = "admin" });
+        }
     }
 }

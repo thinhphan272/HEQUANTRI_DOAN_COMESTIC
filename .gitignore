@@ -1,17 +1,29 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿# Bỏ qua thư mục tạm của Visual Studio (QUAN TRỌNG)
+.vs/
+**/.vs/
 
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/FileContentIndex
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DoAnHQT_DATABASE.csproj.AssemblyReference.cache
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/DocumentLayout.backup.json
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/DocumentLayout.json
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
-/.gitignore
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DoAnHQT_DATABASE.csproj.AssemblyReference.cache
-/.gitignore
-/.gitignore
+# Bỏ qua thư mục kết quả build (QUAN TRỌNG)
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Bỏ qua các file cấu hình user và cache
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Bỏ qua các file nhị phân không cần thiết
+*.dll
+*.pdb
+*.cache
+*.db
+*.db-shm
+*.db-wal
+
+# Bỏ qua folder backup (theo file cũ của bạn)
+backup/
+
+# --- LƯU Ý: KHÔNG ĐƯỢC CÓ DÒNG /.gitignore ---
+# (Chúng ta cần Git theo dõi file này để người khác cũng dùng được)

@@ -129,20 +129,22 @@
 
                 @foreach (var item in ViewBag.ProductTypeList as List<DoAnHQT_DATABASE.Models.ProductType>)
                 {
-                <div class="product-type-choice-item" style="background-color: #f1f1f5">
-                    <a href="@Url.Action("TimTheoLoai", "Home", new {id = item.ProductTypeID.Trim()})">
-                        <div class="product-type-choice-image-div">
-                            <img class="product-type-choice-image" src="@Url.Content("~/Content/Images/LoaiSanPhamIndex/" + item.Image)" />
+                    // THÊM DÒNG NÀY: Chỉ hiện những item có ParentID (tức là danh mục con)
+                    if (item.ProductTypeParentID != null)
+                    {
+                        <div class="product-type-choice-item" style="background-color: #f1f1f5;">
+                            <a href="@Url.Action("TimTheoLoai", "Home", new {id = item.ProductTypeID.Trim()})" style="text-decoration: none">
+                                <div class="product-type-choice-image-div">
+                                    <img class="product-type-choice-image" src="@Url.Content("~/Content/Images/LoaiSanPhamIndex/" + item.Image)" />
+                                </div>
+                                <div class="category-name mt-1">
+                                    <div class="category-name-content w-100">
+                                        @item.ProductTypeName<br />
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="category-name mt-1">
-                            <div class="category-name-content w-100">
-                                @item.ProductTypeName<br />
-                            </div>
-
-                        </div>
-
-                    </a>
-                </div>
+                    } // Kết thúc IF
                 }
                 <!-- Thêm các danh mục khác... -->
             </div>
@@ -166,12 +168,12 @@
             </div>
             <div class="col-md-8 brand-item-small">
                 <div class="row  brand-choice-row">
-                    @foreach (var item in ViewBag.BrandList as List<DoAnHQT_DATABASE.Models.Brand>)
+                    @foreach (var item in (ViewBag.BrandList as List<DoAnHQT_DATABASE.Models.Brand>).Take(8))
                     {
                         <div class="col-auto brand-choice-small-item" style="background-image: url(/Content/Images/Brand/@item.Image)">
                             <div style="width: 110px; margin: 0 auto; margin-top: 115px">
                                 <a href="@Url.Action("TimTheoBrand", "Home", new { id = item.BrandID.Trim()})">
-                                    <img width="100%" src="@Url.Content("~/Content/Images/Brand/"+item.Icon)" alt=""/>
+                                    <img width="100%" src="@Url.Content("~/Content/Images/Brand/"+item.Icon)" alt="" />
                                 </a>
                             </div>
 

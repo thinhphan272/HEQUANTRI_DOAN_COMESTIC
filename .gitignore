@@ -1,29 +1,31 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿# Bỏ qua thư mục tạm của Visual Studio (QUAN TRỌNG)
 
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/FileContentIndex
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060/SemanticSymbols.db-wal
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/FileContentIndex/a9b792c7-dff9-4ca5-a63b-77ad30a81337.vsidx
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/FileContentIndex/dc330603-29d9-4e3c-8380-9ec8fafca9ad.vsidx
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/fileList.bin
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/bin/DoAnHQT_DATABASE.dll
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/bin/DoAnHQT_DATABASE.pdb
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060/CodeChunks.db
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060/CodeChunks.db-shm
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060/CodeChunks.db-wal
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060/SemanticSymbols.db
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/CopilotIndices/17.14.1231.31060/SemanticSymbols.db-shm
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/DocumentLayout.backup.json
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/DocumentLayout.json
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DoAnHQT_DATABASE.csproj.AssemblyReference.cache
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/config/applicationhost.config
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/.suo
-/DoAnHQT_DATABASE/.vs/DoAnHQT_DATABASE/v17/fileList.bin
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-/DoAnHQT_DATABASE/DoAnHQT_DATABASE/obj/Debug/DoAnHQT_DATABASE.csproj.AssemblyReference.cache
-/.gitignore
-/backup
+packages/
+.vs/
+**/.vs/
+
+# Bỏ qua thư mục kết quả build (QUAN TRỌNG)
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Bỏ qua các file cấu hình user và cache
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Bỏ qua các file nhị phân không cần thiết
+*.dll
+*.pdb
+*.cache
+*.db
+*.db-shm
+*.db-wal
+
+# Bỏ qua folder backup (theo file cũ của bạn)
+backup/
+
+# --- LƯU Ý: KHÔNG ĐƯỢC CÓ DÒNG /.gitignore ---
+# (Chúng ta cần Git theo dõi file này để người khác cũng dùng được)

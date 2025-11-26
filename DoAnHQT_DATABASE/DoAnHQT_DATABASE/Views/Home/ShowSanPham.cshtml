@@ -75,7 +75,7 @@
                                             <div class="home-product-item_price">
                                                 @{if (item.Discount != null)
                                                     {
-                                                        decimal mucGiam = (decimal)item.Discount.ToList()[0].DiscountRate;
+                                                        decimal mucGiam = item.Discount.Count() != 0 ? (decimal)item.Discount.ToList()[0].DiscountRate : 0;
                                                         decimal tienSauGiam = item.Price.Value * (100 - mucGiam) / 100;
                                                         <span class="home-product-item_price-old">@item.Price.Value.ToString("N0")đ</span>
                                                         <span class="home-product-item_price-current">@tienSauGiam.ToString("N0")đ</span>
@@ -94,7 +94,7 @@
                                                 </span>
                                                 <div class="home-product-item_rating">
                                                     @{
-                                                        if (item.Rating != null)
+                                                        if (item.Rating.Count() != 0)
                                                         {
                                                             int avgStars = (int)item.Rating.Average(t => t.Star);
                                                             for (int i = 0; i < avgStars; i++)
@@ -131,7 +131,7 @@
                                                 Yêu thích
                                             </div>
                                             <div class="home-product-item_sale-off">
-                                                @if (item.Discount != null)
+                                                @if (item.Discount.Count() != 0)
                                                 {
                                                     <span class="home-product-item_sale-off-percent">@item.Discount.ToList()[0].DiscountRate.ToString()%</span>
                                                     <span class="home-product-item_sale-off-label">GIẢM</span>
@@ -151,3 +151,4 @@
         </div>
     </div>
 </div>
+

@@ -45,8 +45,11 @@
 <body>
     @{
         // Lấy tên controller hiện tại và chuyển sang chữ thường
-        string currentController = (ViewContext.RouteData.Values["controller"]?.ToString() ?? "").ToLower();
-        string role = Session["Role"]?.ToString() ?? "";
+        var controllerObj = ViewContext.RouteData.Values["controller"];
+        // Kiểm tra: nếu khác null thì ToString và Lower, ngược lại thì lấy chuỗi rỗng
+        string currentController = (controllerObj != null ? controllerObj.ToString() : "").ToLower();
+        var roleObj = Session["Role"];
+        string role = roleObj != null ? roleObj.ToString() : "";
     }
 
 

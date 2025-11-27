@@ -144,7 +144,7 @@ $(document).ready(function () {
             data: { productID: pId, sl: qnt }, // Tên tham số phải khớp với Controller (productID, sl)
             success: function (response) {
                 if (response.requiresLogin === true) {
-                    //alert(response.message);
+                    alert(response.message);
                     showLoginModal();
                 } else if (response.success === true) {
                     //alert(response.message);

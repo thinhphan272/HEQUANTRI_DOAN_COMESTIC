@@ -8,155 +8,164 @@
 @model DoAnHQT_DATABASE.Models.ShoppingCart
 
 <div class="payment-page" style="margin-top: 123px;">
+    @if (ViewBag.OrderError != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.OrderError
+        </div>
+    }
+
     <div class="payment-container " style=" width: 1300px; margin: 0 auto;">
+        @using (Html.BeginForm("DatHangOnSubmit", "Cart", FormMethod.Post))
+        {
+            <div class="row">
 
-        <div class="row">
-            <div class="col-md-8 mt-4">
-                <div class="delivery-address shadow mb-4" style="background-color: white">
-                    <span class="delivery-address-label">Địa chỉ nhận hàng</span>
-                    <div class="delivery-address-content">
-                        <div class="customer-address-info">
-                            <div class="customer-address-choice-and-name">
-                                <div class="address-choice">
-                                    Nhà riêng
+                <div class="col-md-8 mt-4">
+                    <div class="delivery-address shadow mb-4" style="background-color: white">
+                        <span class="delivery-address-label">Địa chỉ nhận hàng</span>
+                        <div class="delivery-address-content">
+                            <div class="customer-address-info">
+                                <div class="customer-address-choice-and-name">
+                                    <div class="address-choice">
+                                        Nhà riêng
+                                    </div>
+                                    <span class="customer-name-phone">@user.Name - @user.SDT</span>
                                 </div>
-                                <span class="customer-name-phone">@user.Name - @user.SDT</span>
+
+                                <span class="customer-address">@user.Address</span>
+                                <input type="text" id="userAddress" value="@user.Address" name="address" hidden />
                             </div>
-
-                            <span class="customer-address">@user.Address</span>
-                        </div>
-                        <a href="#" class="change-customer-infor" data-bs-toggle="modal" data-bs-target="#addressListModal">
-                            Thay đổi
-                        </a>
-
-                    </div>
-                </div>
-                <div class="form-of-payment shadow mb-4" style="background-color: white">
-                    <span class="form-of-payment-label">Hình thức thanh toán</span>
-                    <div class="form-of-payment-choice">
-                        <div id="selectedPaymentMethod" class="form-of-payment-choice-item d-flex">
-                            <div class="form-of-payment-img me-2">
-                                <img src="@Url.Content("/Content/Images/PaymentIMG/payCOD.png")" />
-                            </div>
-                            <span class="form-of-payment-choice-label align-self-center">Thanh toán khi nhận hàng (COD)</span>
-                        </div>
-
-                        <a href="#" class="change-payment-choice">
-                            Thay đổi
-                        </a>
-                    </div>
-                </div>
-                @*<div class="discount-code shadow mb-4" style="background-color: white">
-                        <span class="discount-code-label">Mã giảm giá</span>
-                        <a href="#" class="type-discount-code">
-                            Nhập mã giảm giá
-                        </a>
-                    </div>*@
-                <div class="cart-detail shadow mb-4" style=" background-color: white">
-                    <span class="cart-detail-label">Thông tin kiện hàng</span>
-                    <table class="table bg-light">
-
-                        <tbody>
-                            <!--Sản phẩm đơn hàng-->
-                            @foreach (var item in Model.ShoppingCartItem)
-                            {
-                                <tr>
-                                    <td class="align-middle" style="width: 600px;">
-                                        <div class="row cart-item">
-                                            <div class="col-md-2">
-                                                <div class="cart-item-image">
-                                                    <img width="100%" src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <h6 class="cart-item-brand">@item.Product.Brand.BrandName</h6>
-                                                <span class="cart-item-name">@item.Product.ProductName</span><br />
-                                                <span class="cart-item-capacity">@item.Product.Capacity.ToString()ml</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="align-middle text-end">@item.Quantity <i class="fa fa-x" style="font-size: 0.8rem;"></i> @item.Product.GiaDaGiam đ</td>
-
-                                </tr>
-                            }
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cart-note shadow mb-4" style="background-color: white">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="cart-note-textarea">
-
-                                <textarea placeholder="Ghi chú" class="form-control" id="exampleFormControlTextarea1" rows="2" style="background-color: rgba(240, 240, 244, 0.98); border-radius: 10px; min-width: 400px;"></textarea>
-                            </div>
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="cart-note-total">
-                                <div class="cart-note-total-label">
-                                    Tổng tiền (@Model.TongSoLuong)
-                                </div>
-                                <div class="cart-note-total-money">
-                                    @Model.TongThanhTien.ToString("N0") đ
-                                </div>
-                            </div>
-                            <!--Nút đặt hàng-->
-                            <a href="#" class="btn w-100 btn-order-submit mt-2" style="background-color: var(--primary-color); color: white; border-radius: 30px; font-size: 1.2rem; font-weight: 600">
-                                Đặt hàng
+                            <a href="#" class="change-customer-infor" data-bs-toggle="modal" data-bs-target="#addressListModal">
+                                Thay đổi
                             </a>
+
                         </div>
                     </div>
+                    <div class="form-of-payment shadow mb-4" style="background-color: white">
+                        <span class="form-of-payment-label">Hình thức thanh toán</span>
+                        <div class="form-of-payment-choice">
+                            <div id="selectedPaymentMethod" class="form-of-payment-choice-item d-flex">
+                                <div class="form-of-payment-img me-2">
+                                    <img src="@Url.Content("/Content/Images/PaymentIMG/payCOD.png")" />
+                                </div>
+                                <span class="form-of-payment-choice-label align-self-center">Thanh toán khi nhận hàng (COD)</span>
+                                <input type="text" id="userPayment" value="Thanh toán khi nhận hàng (COD)" name="payment" hidden />
+                            </div>
 
-                    <span style="font-size: 0.8rem;">Nhấn "Đặt hàng" đồng nghĩa việc bạn đồng ý tuân theo <a href="#" style="text-decoration: none">Chính sách xử lý dữ liệu cá nhân</a> & <a href="#" style="text-decoration: none">Điều khoản Hasaki</a> </span>
-                </div>
-            </div>
-            <div class="col-md-4 mt-4">
-
-                <!--Nút đặt hàng-->
-                <div class="payment-order-final shadow" style="background-color: white">
-                    <a href="#" class="btn w-100 btn-order-submit mt-2" style="background-color: var(--primary-color); color: white; border-radius: 30px; font-size: 1.2rem; font-weight: 600; line-height: 1.2rem; padding: 10px">Đặt hàng</a>
-
-                    <div class="cart-pay-body mt-3">
-                        <div class="payment-order mb-4" style="display: flex; justify-content: space-between">
-                            <span class="payment-order-label" style="font-size: 1.2rem; font-weight: 600;">Đơn hàng</span>
-                            <a href="@Url.Action("Cart", "Cart")" style="text-decoration: none">
+                            <a href="#" class="change-payment-choice" data-bs-toggle="modal" data-bs-target="#paymentMethodModal">
                                 Thay đổi
                             </a>
                         </div>
-                        <div class="cart-pay-total mb-2">
-                            <div class="cart-pay-total-label">Tạm tính:</div>
-                            <div class="cart-pay-total-money">@Model.TongThanhTien đ</div>
+                    </div>
 
+                    <div class="discount-code shadow mb-4" style="background-color: white">
+                        <span class="discount-code-label">Mã giảm giá</span>
+                        <a href="#" class="type-discount-code" data-bs-toggle="modal" data-bs-target="#discountModal">
+                            Nhập mã giảm giá
+                        </a>
+                    </div>
+                    <div class="cart-detail shadow mb-4" style=" background-color: white">
+                        <span class="cart-detail-label">Thông tin kiện hàng</span>
+                        <table class="table bg-light">
+
+                            <tbody>
+                                <!--Sản phẩm đơn hàng-->
+                                @foreach (var item in Model.ShoppingCartItem)
+                                {
+                                    <tr>
+                                        <td class="align-middle" style="width: 600px;">
+                                            <div class="row cart-item">
+                                                <div class="col-md-2">
+                                                    <div class="cart-item-image">
+                                                        <img width="100%" src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <h6 class="cart-item-brand">@item.Product.Brand.BrandName</h6>
+                                                    <span class="cart-item-name">@item.Product.ProductName</span><br />
+                                                    <span class="cart-item-capacity">@item.Product.Capacity.ToString()ml</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-end">@item.Quantity <i class="fa fa-x" style="font-size: 0.8rem;"></i> @item.Product.GiaDaGiam đ</td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-note shadow mb-4" style="background-color: white">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="cart-note-textarea">
+
+                                    <textarea placeholder="Ghi chú" class="form-control" id="exampleFormControlTextarea1" rows="2" style="background-color: rgba(240, 240, 244, 0.98); border-radius: 10px; min-width: 400px;"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="cart-note-total">
+                                    <div class="cart-note-total-label">
+                                        Tổng tiền (@Model.TongSoLuong)
+                                    </div>
+                                    <div class="cart-note-total-money">
+                                        @Model.TongThanhTien.ToString("N0") đ
+                                    </div>
+                                </div>
+                                <!--Nút đặt hàng-->
+                                <button type="submit" class="btn w-100 btn-order-submit mt-2" style="background-color: var(--primary-color); color: white; border-radius: 30px; font-size: 1.2rem; font-weight: 600">
+                                    Đặt hàng
+                                </button>
+                            </div>
                         </div>
-                        <div class="cart-pay-discount mb-2">
-                            <div class="cart-pay-discount-label">Giảm giá:</div>
-                            <div class="cart-pay-discount-money">-0 đ</div>
 
-                        </div>
-                        <div class="cart-pay-delivery mb-2" style="display: flex; justify-content: space-between">
-                            <div class="cart-pay-discount-label">Phí vận chuyển:</div>
-                            <div class="cart-pay-discount-money">0 đ</div>
-
-                        </div>
-                        <div class="cart-total-after-discount mb-2">
-                            <div class="cart-total-after-discount-label">Thành tiền (Đã VAT)</div>
-                            <div class="cart-total-after-discount-money" style="font-size: 1.2rem">@Model.TongThanhTien.ToString("N0") đ</div>
-                        </div>
-                        <hr style="margin: 10px 0;" />
-                        <span style="font-size: 0.8rem; text-align: center">Đã bao gồm VAT, phí đóng gói, phí vận chuyển và các chi phí khác vui lòng xem <a href="#" style="text-decoration: none;">Chính sách vận chuyển</a> </span>
-
-
-
+                        <span style="font-size: 0.8rem;">Nhấn "Đặt hàng" đồng nghĩa việc bạn đồng ý tuân theo <a href="#" style="text-decoration: none">Chính sách xử lý dữ liệu cá nhân</a> & <a href="#" style="text-decoration: none">Điều khoản Hasaki</a> </span>
                     </div>
                 </div>
+                <!--Nút đặt hàng-->
+                <div class="col-md-4 mt-4">
+                    <div class="payment-order-final shadow" style="background-color: white">
+                        <button type="submit" class="btn w-100 btn-order-submit mt-2" style="background-color: var(--primary-color); color: white; border-radius: 30px; font-size: 1.2rem; font-weight: 600; line-height: 1.2rem; padding: 10px">Đặt hàng</button>
+
+                        <div class="cart-pay-body mt-3">
+                            <div class="payment-order mb-4" style="display: flex; justify-content: space-between">
+                                <span class="payment-order-label" style="font-size: 1.2rem; font-weight: 600;">Đơn hàng</span>
+                                <a href="@Url.Action("Cart", "Cart")" style="text-decoration: none">
+                                    Thay đổi
+                                </a>
+                            </div>
+                            <div class="cart-pay-total mb-2">
+                                <div class="cart-pay-total-label">Tạm tính:</div>
+                                <div class="cart-pay-total-money">@Model.TongThanhTien đ</div>
+
+                            </div>
+                            <div class="cart-pay-discount mb-2">
+                                <div class="cart-pay-discount-label">Giảm giá:</div>
+                                <div class="cart-pay-discount-money">-0 đ</div>
+
+                            </div>
+                            <div class="cart-pay-delivery mb-2" style="display: flex; justify-content: space-between">
+                                <div class="cart-pay-discount-label">Phí vận chuyển:</div>
+                                <div class="cart-pay-discount-money">0 đ</div>
+
+                            </div>
+                            <div class="cart-total-after-discount mb-2">
+                                <div class="cart-total-after-discount-label">Thành tiền (Đã VAT)</div>
+                                <div class="cart-total-after-discount-money" style="font-size: 1.2rem">@Model.TongThanhTien.ToString("N0") đ</div>
+                            </div>
+                            <hr style="margin: 10px 0;" />
+                            <span style="font-size: 0.8rem; text-align: center">Đã bao gồm VAT, phí đóng gói, phí vận chuyển và các chi phí khác vui lòng xem <a href="#" style="text-decoration: none;">Chính sách vận chuyển</a> </span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        }
     </div>
 </div>
 
 <!--Model danh sách địa chỉ-->
-
 <div class="modal fade" id="addressListModal" tabindex="-1" aria-labelledby="addressListModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 700px;">
         <div class="modal-content">
@@ -166,7 +175,11 @@
             </div>
             <div class="modal-body">
                 <div class="d-flex align-items-center mb-3">
-                    <input class="form-check-input me-3" type="radio" name="addressSelect" id="address1" checked>
+                    <input class="form-check-input me-3" type="radio" name="addressSelect" id="address1" checked
+                           data-name="Phan Thịnh"
+                           data-phone="*******921"
+                           data-address="85/1, Lái Thiêu 113, Phường Lái Thiêu, Thị xã Thuận An, Bình Dương"
+                           data-type="Nhà riêng">
                     <div class="flex-grow-1">
                         <span class="customer-name-phone">Phan Thịnh - *******921</span>
                         <div class="mt-1">
@@ -181,21 +194,7 @@
                     </div>
                 </div>
                 <hr>
-                <div class="d-flex align-items-center mb-3">
-                    <input class="form-check-input me-3" type="radio" name="addressSelect" id="address2">
-                    <div class="flex-grow-1">
-                        <span class="customer-name-phone">Phan Thịnh - *******921</span>
-                        <div class="mt-1 pe-2">
-                            <span class="customer-address">85/1 đường Lái Thiêu 113, khu phố Hoà Long, thị xã Thuận An, tỉnh Bình Dương, Phường Lái Thiêu, Thị xã Thuận An, Bình Dương</span><br />
-                            <span class="address-choice ms-2">Nhà riêng</span>
-                        </div>
-                    </div>
-                    <div class="justify-content-end d-flex ">
-                        <a href="#" class="btn me-3 text-secondary text-decoration-none  align-self-center" onclick="openEditAddressModal('address2')" data-bs-dismiss="modal">Sửa</a>
-                        <i class="fa-solid fa-trash-can  align-self-center text-secondary"></i>
-                    </div>
-                </div>
-                <hr>
+
                 <div class="text-start mt-3">
                     <a href="#" class="text-success" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#addNewAddressModal" data-bs-dismiss="modal">
                         <i class="fa-solid fa-circle-plus me-2"></i>Thêm địa chỉ mới
@@ -204,7 +203,12 @@
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius: 20px; width: 145px; font-weight: bold; background-color: rgb(207, 234, 221); color: var(--primary-color)">Hủy</button>
-                <button type="button" class="btn btn-success" style="background-color: var(--primary-color); border-radius: 20px; width: 145px; font-weight: bold ">Tiếp tục</button>
+
+                <button type="button" class="btn btn-success"
+                        id="btnConfirmAddress"
+                        style="background-color: var(--primary-color); border-radius: 20px; width: 145px; font-weight: bold ">
+                    Tiếp tục
+                </button>
             </div>
         </div>
     </div>
@@ -224,7 +228,7 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Số điện thoại"
+                                <input type="text" id="newPhone" class="form-control" placeholder="Số điện thoại"
                                        style="background-color: #f3f4f6; border: none; height: 45px; border-radius: 8px;">
                                 <span class="input-group-text bg-transparent border-0" style="position: absolute; right: 10px; top: 10px; z-index: 4;">
                                     <i class="fa-regular fa-address-book text-secondary"></i>
@@ -232,13 +236,13 @@
                             </div>
                         </div>
                         <div class="col-md-6 mt-3 mt-md-0">
-                            <input type="text" class="form-control" placeholder="Họ và tên"
+                            <input type="text" id="newName" class="form-control" placeholder="Họ và tên"
                                    style="background-color: #f3f4f6; border: none; height: 45px; border-radius: 8px;">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" style="background-color: #f3f4f6; border: none; height: 45px; border-radius: 8px; color: #6c757d;">
+                        <select id="newCity" class="form-select" style="background-color: #f3f4f6; border: none; height: 45px; border-radius: 8px; color: #6c757d;">
                             <option selected disabled>Chọn Tỉnh/ TP, Quận/ Huyện</option>
                             <option value="1">Hồ Chí Minh</option>
                             <option value="2">Bình Dương</option>
@@ -247,7 +251,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <select class="form-select" style="background-color: #f3f4f6; border: none; height: 45px; border-radius: 8px; color: #6c757d;">
+                        <select id="newWard" class="form-select" style="background-color: #f3f4f6; border: none; height: 45px; border-radius: 8px; color: #6c757d;">
                             <option selected disabled>Chọn Phường/ Xã</option>
                             <option value="1">Phường Lái Thiêu</option>
                             <option value="2">Phường Bến Nghé</option>
@@ -255,7 +259,7 @@
                     </div>
 
                     <div class="mb-2">
-                        <input type="text" class="form-control" placeholder="Số nhà + Tên đường"
+                        <input type="text" id="newStreet" class="form-control" placeholder="Số nhà + Tên đường"
                                style="background-color: #f3f4f6; border: none; height: 45px; border-radius: 8px;">
                     </div>
 
@@ -295,7 +299,7 @@
                         style="border-radius: 25px; width: 140px; font-weight: bold; background-color: #dcfce7; color: var(--primary-color); border: none; padding: 10px;">
                     Hủy
                 </button>
-                <button type="button" class="btn text-white"
+                <button type="button" class="btn text-white" id="btnSaveNewAddress"
                         style="background-color: var(--primary-color); border-radius: 25px; width: 140px; font-weight: bold; padding: 10px;">
                     Tiếp tục
                 </button>
@@ -303,7 +307,6 @@
         </div>
     </div>
 </div>
-
 
 <!--MODAL sửa địa chỉ-->
 <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
@@ -316,20 +319,22 @@
             <div class="modal-body">
                 <div class="row mb-3">
                     <div class="col">
-                        <input type="text" class="form-control" value="*******921" disabled>
+                        <input type="text" id="editPhone" class="form-control" value="*******921" disabled>
                     </div>
                     <div class="col">
-                        <input type="text" class="form-control" value="Phan Thịnh">
+                        <input type="text" id="editName" class="form-control" value="Phan Thịnh">
                     </div>
                 </div>
 
-                <select class="form-select mb-3">
-                    <option selected>Bình Dương - Thị xã Thuận An</option>
+                <select id="editCity" class="form-select mb-3">
+                    <option selected value="1">Bình Dương - Thị xã Thuận An</option>
+                    <option value="2">Hồ Chí Minh</option>
                 </select>
-                <select class="form-select mb-3">
-                    <option selected>Phường Lái Thiêu</option>
+                <select id="editWard" class="form-select mb-3">
+                    <option selected value="1">Phường Lái Thiêu</option>
+                    <option value="2">Phường Bến Nghé</option>
                 </select>
-                <input type="text" class="form-control mb-3" value="85/1, Lái Thiêu 113">
+                <input type="text" id="editStreet" class="form-control mb-3" value="85/1, Lái Thiêu 113">
 
                 <p class="text-danger" style="font-size: 0.9rem;">Vui lòng ghi địa chỉ chính xác:</p>
                 <p style="font-size: 0.8rem;">Hãy chắc chắn vị trí trên bản đồ được ghim để Hasaki gửi hàng cho bạn nhé.</p>
@@ -362,12 +367,12 @@
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius: 20px; width: 145px; font-weight: bold; background-color: rgb(207, 234, 221); color: var(--primary-color)">Hủy</button>
-                <button type="button" class="btn btn-success" style="background-color: var(--primary-color); border-radius: 20px; width: 145px; font-weight: bold ">Tiếp tục</button>
+
+                <button type="button" class="btn btn-success" id="btnUpdateAddress" style="background-color: var(--primary-color); border-radius: 20px; width: 145px; font-weight: bold ">Tiếp tục</button>
             </div>
         </div>
     </div>
 </div>
-
 
 <!--MODAL HÌNH THỨC THANH TOÁN-->
 <div class="modal fade" id="paymentMethodModal" tabindex="-1" aria-hidden="true">
@@ -381,7 +386,7 @@
                 <div class="payment-option mb-3">
                     <div class="d-flex align-items-center">
                         <input class="form-check-input me-3" type="radio" name="paymentMethod" id="paymentCOD"
-                               value="COD" checked
+                               value="Thanh toán khi nhận hàng (COD)" checked
                                data-name="Thanh toán khi nhận hàng (COD)"
                                data-img="/Content/Images/PaymentIMG/payCOD.png"> <div class="form-of-payment-img me-2" style="width: 40px;">
                             <img src="/Content/Images/PaymentIMG/payCOD.png" style="width: 100%;" />
@@ -396,11 +401,9 @@
                     </div>
                 </div>
 
-                
-
                 <div class="payment-option mb-3 d-flex align-items-center">
                     <input class="form-check-input me-3" type="radio" name="paymentMethod" id="paymentVNPAY"
-                           value="VNPAY"
+                           value="Thanh toán trực tuyến VNPAY"
                            data-name="Thanh toán trực tuyến VNPAY"
                            data-img="@Url.Content("/Content/Images/PaymentIMG/payVNPay1.jpg")">
                     <div class="form-of-payment-img me-2" style="width: 40px;">
@@ -411,11 +414,10 @@
                     </label>
                 </div>
 
-               
 
                 <div class="payment-option mb-3 d-flex align-items-center">
                     <input class="form-check-input me-3" type="radio" name="paymentMethod" id="paymentPayoo"
-                           value="Payoo"
+                           value="Thanh toán trực tuyến MOMO"
                            data-name="Thanh toán trực tuyến MOMO"
                            data-img="/Content/Images/PaymentIMG/payMOMO1.png">
                     <div class="form-of-payment-img me-2" style="width: 40px;">
@@ -462,10 +464,8 @@
     </div>
 </div>
 
-
 <!--Xử lý phần địa chỉ giao hàng-->
 <script>
-    
     function openEditAddressModal(addressId) {
         // Có thể thêm logic load dữ liệu địa chỉ dựa trên addressId tại đây
         var editModal = new bootstrap.Modal(document.getElementById('editAddressModal'));
@@ -485,14 +485,22 @@
             var paymentName = selectedOption.getAttribute('data-name');
             var paymentImgSrc = selectedOption.getAttribute('data-img');
 
+            var paymentValue = selectedOption.value;
+
             // 3. Cập nhật giao diện trang PaymentPage
-            // Cập nhật tên phương thức 
+            // Cập nhật tên phương thức
             var labelElement = document.querySelector('#selectedPaymentMethod .form-of-payment-choice-label');
             if (labelElement) labelElement.innerText = paymentName;
 
-            // Cập nhật hình ảnh 
+            // Cập nhật hình ảnh
             var imgElement = document.querySelector('#selectedPaymentMethod img');
             if (imgElement) imgElement.src = paymentImgSrc;
+
+            var inputUserPayment = document.getElementById('userPayment');
+            if (inputUserPayment) {
+                inputUserPayment.value = paymentValue;
+                console.log("Phương thức thanh toán đã chọn:", inputUserPayment.value);
+            }
 
             // 4. Đóng modal
             var modalElement = document.getElementById('paymentMethodModal');
@@ -522,7 +530,6 @@
         }
     });
 </script>
-
 
 <!--Xử lý form thêm địa chỉ mới-->
 <script>
@@ -562,5 +569,199 @@
             selectedLabel.style.backgroundColor = "var(--primary-color)"; // Màu xanh chủ đạo
             selectedLabel.style.color = "white";                          // Chữ trắng
         });
+    });
+</script>
+
+<!--Xử lý sự kiện khi bấm nút "Tiếp tục" chọn địa chỉ-->
+<script>
+    document.getElementById('btnConfirmAddress').addEventListener('click', function () {
+        // 1. Tìm địa chỉ (radio button) đang được chọn
+        var selectedRadio = document.querySelector('input[name="addressSelect"]:checked');
+
+        if (selectedRadio) {
+            // 2. Lấy dữ liệu từ các attribute data- mà ta đã thêm ở Bước 1
+            var name = selectedRadio.getAttribute('data-name');
+            var phone = selectedRadio.getAttribute('data-phone');
+            var address = selectedRadio.getAttribute('data-address');
+            var type = selectedRadio.getAttribute('data-type');
+
+            // 3. Cập nhật giao diện bên ngoài (Phần hiển thị chính)
+
+            // Cập nhật Loại địa chỉ (Nhà riêng/Công ty)
+            var typeElement = document.querySelector('.customer-address-choice-and-name .address-choice');
+            if (typeElement) typeElement.innerText = type;
+
+            // Cập nhật Tên - SĐT
+            var namePhoneElement = document.querySelector('.customer-address-choice-and-name .customer-name-phone');
+            if (namePhoneElement) namePhoneElement.innerText = name + ' - ' + phone;
+
+            // Cập nhật Địa chỉ chi tiết text hiển thị
+            var addressElement = document.querySelector('.customer-address-info .customer-address');
+            if (addressElement) addressElement.innerText = address;
+
+            // 4. Cập nhật giá trị cho Input Hidden (Quan trọng để gửi về Server)////////////
+            var inputHidden = document.getElementById('userAddress');
+            if (inputHidden) {
+                inputHidden.value = address;
+                console.log("Địa chỉ mới đã lưu vào input:", inputHidden.value);
+            }
+
+            // 5. Đóng Modal
+            var modalElement = document.getElementById('addressListModal');
+            var modalInstance = bootstrap.Modal.getInstance(modalElement);
+            modalInstance.hide();
+        }
+    });
+</script>
+
+<!--Xử lý thêm địa chỉ-->
+<script>
+    document.getElementById('btnSaveNewAddress').addEventListener('click', function () {
+        // 1. Lấy giá trị từ các ô input
+        var name = document.getElementById('newName').value;
+        var phone = document.getElementById('newPhone').value;
+        var street = document.getElementById('newStreet').value;
+
+        // Lấy text từ thẻ Select (Ví dụ lấy "Hồ Chí Minh" chứ không lấy value="1")
+        var citySelect = document.getElementById('newCity');
+        var city = citySelect.options[citySelect.selectedIndex]?.text || ""; // Dấu ? để tránh lỗi nếu chưa chọn
+
+        var wardSelect = document.getElementById('newWard');
+        var ward = wardSelect.options[wardSelect.selectedIndex]?.text || "";
+
+        // Kiểm tra dữ liệu cơ bản (Validation)
+        if (!name || !phone || !street || citySelect.value === "" || wardSelect.value === "") {
+            alert("Vui lòng nhập đầy đủ thông tin địa chỉ!");
+            return; // Dừng lại không thực hiện tiếp
+        }
+
+        // 2. Xác định loại địa chỉ (Nhà riêng/Công ty)
+        var addressType = document.getElementById('typeHome').checked ? "Nhà riêng" : "Công ty";
+
+        // 3. Ghép chuỗi địa chỉ đầy đủ
+        // Logic ghép tùy thuộc vào data thực tế, ở đây mình ghép mẫu theo giao diện
+        var fullAddress = `${street}, ${ward}, ${city}`;
+
+        // 4. Cập nhật giao diện bên ngoài (Trang Checkout)
+
+        // Cập nhật Tên - SĐT
+        var namePhoneDisplay = document.querySelector('.customer-address-choice-and-name .customer-name-phone');
+        if (namePhoneDisplay) namePhoneDisplay.innerText = `${name} - ${phone}`;
+
+        // Cập nhật Địa chỉ hiển thị
+        var addressDisplay = document.querySelector('.customer-address-info .customer-address');
+        if (addressDisplay) addressDisplay.innerText = fullAddress;
+
+        // Cập nhật Label loại địa chỉ
+        var typeDisplay = document.querySelector('.customer-address-choice-and-name .address-choice');
+        if (typeDisplay) typeDisplay.innerText = addressType;
+
+        // 5. Cập nhật vào Input Hidden (Quan trọng để submit form về server)//////////////
+        var inputHidden = document.getElementById('userAddress');
+        if (inputHidden) {
+            inputHidden.value = fullAddress;
+            console.log("Đã cập nhật địa chỉ mới:", fullAddress);
+        }
+
+        // 6. Đóng Modal
+        var modalElement = document.getElementById('addNewAddressModal');
+        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (!modalInstance) {
+            modalInstance = new bootstrap.Modal(modalElement);
+        }
+        modalInstance.hide();
+    });
+</script>
+
+<!--Xử lý sửa địa chỉ-->
+<script>
+    // Biến toàn cục để lưu ID của địa chỉ đang được sửa (ví dụ: 'address1')
+    var currentEditingAddressId = null;
+
+    // --- PHẦN 1: HÀM MỞ MODAL SỬA (Được gọi từ onclick ở danh sách) ---
+    function openEditAddressModal(radioId) {
+        currentEditingAddressId = radioId; // Lưu lại ID để biết đang sửa cái nào
+
+        // 1. Lấy dữ liệu hiện tại từ nút radio trong danh sách
+        var radioElem = document.getElementById(radioId);
+        var oldName = radioElem.getAttribute('data-name');
+        var oldPhone = radioElem.getAttribute('data-phone');
+        var oldType = radioElem.getAttribute('data-type');
+        var oldAddress = radioElem.getAttribute('data-address');
+
+        // 2. Điền dữ liệu cũ vào Form Sửa
+        document.getElementById('editName').value = oldName;
+        document.getElementById('editPhone').value = oldPhone;
+        document.getElementById('editStreet').value = oldAddress.split(',')[0]; // Giả sử lấy phần đầu là số nhà
+
+        // Xử lý Radio Button loại địa chỉ (Nhà riêng/Công ty)
+        if (oldType === 'Nhà riêng') {
+            document.getElementById('editTypeHome').checked = true;
+            // Kích hoạt sự kiện change để đổi màu nút (nếu có script đổi màu)
+            document.getElementById('editTypeHome').dispatchEvent(new Event('change'));
+        } else {
+            document.getElementById('editTypeCompany').checked = true;
+            document.getElementById('editTypeCompany').dispatchEvent(new Event('change'));
+        }
+
+        // 3. Mở Modal Sửa
+        var editModal = new bootstrap.Modal(document.getElementById('editAddressModal'));
+        editModal.show();
+    }
+
+    // --- PHẦN 2: SỰ KIỆN BẤM NÚT "TIẾP TỤC" Ở FORM SỬA ---
+    document.getElementById('btnUpdateAddress').addEventListener('click', function () {
+        // 1. Lấy dữ liệu mới người dùng vừa nhập
+        var newName = document.getElementById('editName').value;
+        var newStreet = document.getElementById('editStreet').value;
+
+        // Lấy text từ dropdown
+        var citySelect = document.getElementById('editCity');
+        var newCity = citySelect.options[citySelect.selectedIndex].text;
+
+        var wardSelect = document.getElementById('editWard');
+        var newWard = wardSelect.options[wardSelect.selectedIndex].text;
+
+        // Lấy loại địa chỉ
+        var newType = document.getElementById('editTypeHome').checked ? "Nhà riêng" : "Công ty";
+
+        // Ghép chuỗi địa chỉ mới
+        var fullNewAddress = `${newStreet}, ${newWard}, ${newCity}`;
+
+        // 2. Cập nhật giao diện trang Checkout (Màn hình chính)
+        var namePhoneDisplay = document.querySelector('.customer-address-choice-and-name .customer-name-phone');
+        // Lưu ý: Phone đang disabled nên lấy lại giá trị cũ hoặc giá trị từ input
+        var phone = document.getElementById('editPhone').value;
+        if (namePhoneDisplay) namePhoneDisplay.innerText = `${newName} - ${phone}`;
+
+        var addressDisplay = document.querySelector('.customer-address-info .customer-address');
+        if (addressDisplay) addressDisplay.innerText = fullNewAddress;
+
+        var typeDisplay = document.querySelector('.customer-address-choice-and-name .address-choice');
+        if (typeDisplay) typeDisplay.innerText = newType;
+
+        // 3. Cập nhật Input Hidden (Quan trọng để gửi về server)/////////////////
+        var inputHidden = document.getElementById('userAddress');
+        if (inputHidden) {
+            inputHidden.value = fullNewAddress;
+            console.log("Đã cập nhật địa chỉ sau khi sửa:", fullNewAddress);
+        }
+
+        // 4. (Tùy chọn) Cập nhật ngược lại dữ liệu vào nút Radio trong danh sách
+        // để lần sau mở lại danh sách thấy dữ liệu mới
+        if (currentEditingAddressId) {
+            var originalRadio = document.getElementById(currentEditingAddressId);
+            originalRadio.setAttribute('data-name', newName);
+            originalRadio.setAttribute('data-address', fullNewAddress);
+            originalRadio.setAttribute('data-type', newType);
+
+            // Cập nhật text hiển thị trong modal danh sách (nếu cần thiết)
+            // Tìm phần tử hiển thị bên cạnh radio button đó để sửa text...
+        }
+
+        // 5. Đóng Modal Sửa
+        var modalElement = document.getElementById('editAddressModal');
+        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+        modalInstance.hide();
     });
 </script>

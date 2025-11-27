@@ -23,22 +23,25 @@ namespace DoAnHQT_DATABASE.Controllers
 
         public ActionResult TimTheoBrand(string id)
         {
-            return View("ShowSanPham", db.Product.ToList().FindAll(t => t.BrandID.Trim().Equals(id.Trim())));
+            return View("ShowSanPham", db.Product.ToList().FindAll(t => t.BrandID.Trim().Equals(id.Trim()) && t.IsAvailable == 0));
         }
 
         public ActionResult TimTheoLoai(string id)
         {
-            return View("ShowSanPham", db.Product.ToList().FindAll(t => t.ProductTypeID.Trim().Equals(id.Trim())));
+            List<Product> ls = db.Product.ToList().FindAll(t => t.ProductTypeID.Trim().Equals(id.Trim()) && t.IsAvailable == 0);
+            Session["DanhSachSanPhamHienTai"] = ls;
+            return View("ShowSanPham", ls);
         }
 
         public ActionResult ShowSanPham()
         {
-            return View(db.Product.ToList());
+            Session["DanhSachSanPhamHienTai"] = null;
+            return View(db.Product.Where(t => t.IsAvailable == 0).ToList());
         }
 
         public ActionResult HienThiDanhMuc()
         {
-            return PartialView(db.ProductType.ToList());
+            return PartialView(db.ProductType.Where(t => t.IsDeleted == 0).ToList());
         }
         public ActionResult SanPhamDetail(string id)
         {
@@ -49,12 +52,24 @@ namespace DoAnHQT_DATABASE.Controllers
         public ActionResult SapXepMoiNhat()
         {
             List<Product> list = productService.LocSanPham("CreatedAt", "Desc");
+            if (Session["DanhSachSanPhamHienTai"] != null)
+            {
+                List<Product> lsHienTai = Session["DanhSachSanPhamHienTai"] as List<Product>;
+                List<string> lsID = lsHienTai.Select(t => t.ProductID).ToList();
+                list = list.Where(t => lsID.Contains(t.ProductID)).ToList();
+            }
             return View("ShowSanPham", list);
         }
 
         public ActionResult SapXepBanChay()
         {
             List<Product> list = productService.LocSanPham("TotalSold", "Desc");
+            if (Session["DanhSachSanPhamHienTai"] != null)
+            {
+                List<Product> lsHienTai = Session["DanhSachSanPhamHienTai"] as List<Product>;
+                List<string> lsID = lsHienTai.Select(t => t.ProductID).ToList();
+                list = list.Where(t => lsID.Contains(t.ProductID)).ToList();
+            }
             return View("ShowSanPham", list);
         }
 
@@ -62,9 +77,16 @@ namespace DoAnHQT_DATABASE.Controllers
         {
             List<Product> list = new List<Product>();
             if (order == 1)
-                list = productService.LocSanPham("TotalSold", "ASC");
+                list = productService.LocSanPham("GiaDaGiam", "ASC");
             else
-                list = productService.LocSanPham("TotalSold", "Desc");
+                list = productService.LocSanPham("GiaDaGiam", "Desc");
+
+            if (Session["DanhSachSanPhamHienTai"] != null)
+            {
+                List<Product> lsHienTai = Session["DanhSachSanPhamHienTai"] as List<Product>;
+                List<string> lsID = lsHienTai.Select(t => t.ProductID).ToList();
+                list = list.Where(t => lsID.Contains(t.ProductID)).ToList();
+            }
             return View("ShowSanPham", list);
         }
 
@@ -78,5 +100,7 @@ namespace DoAnHQT_DATABASE.Controllers
 
             return View("ShowSanPham", list);
         }
+
+
     }
 }

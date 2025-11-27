@@ -61,7 +61,6 @@ namespace DoAnHQT_DATABASE.Services
                             string UserID,
                             DateTime OrderDate,
                             string Address,
-                            string Status,
                             string UserPaymentMethod,
                             string CreatedUser)
         {
@@ -75,7 +74,6 @@ namespace DoAnHQT_DATABASE.Services
                     cmd.Parameters.AddWithValue("@UserID", UserID);
                     cmd.Parameters.AddWithValue("@OrderDate", OrderDate);
                     cmd.Parameters.AddWithValue("@Address", Address);
-                    cmd.Parameters.AddWithValue("@Status", Status);
                     cmd.Parameters.AddWithValue("@UserPaymentMethod", UserPaymentMethod);
                     cmd.Parameters.AddWithValue("@CreatedUser", CreatedUser);
 

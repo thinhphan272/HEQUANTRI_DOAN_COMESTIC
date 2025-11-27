@@ -20,6 +20,9 @@ namespace DoAnHQT_DATABASE.Controllers
         public ActionResult Cart()
         {
             Users user = Session["User"] as Users;
+            if (user == null)
+                return RedirectToAction("Index", "Home");
+
             user = db.Users.FirstOrDefault(t => t.UserID.Equals(user.UserID));
             ShoppingCart cart = user.ShoppingCart.First();
 
@@ -37,6 +40,9 @@ namespace DoAnHQT_DATABASE.Controllers
         public ActionResult PaymentPage()
         {
             Users user = Session["User"] as Users;
+            if (user == null)
+                return RedirectToAction("Index", "Home");
+
             user = db.Users.FirstOrDefault(t => t.UserID.Equals(user.UserID));
             ShoppingCart cart = user.ShoppingCart.First();
 
@@ -56,7 +62,7 @@ namespace DoAnHQT_DATABASE.Controllers
 
                 //Tìm giỏ hàng hiện tại
                 var userCart = db.ShoppingCart.FirstOrDefault(t => t.UserID.Equals(userID));
-                string currentCartID = userCart.ShoppingCartID.ToString(); ;
+                string currentCartID = userCart.ShoppingCartID.ToString();
 
                 int ret = 0;
                 ShoppingCartItem cartItem = userCart.ShoppingCartItem.FirstOrDefault(t => t.ProductID.Equals(productID));
@@ -129,36 +135,54 @@ namespace DoAnHQT_DATABASE.Controllers
             return View("Cart", cart);
         }
 
-        public ActionResult DatHang(FormCollection form)
+        [HttpPost]
+        public ActionResult DatHangOnSubmit(FormCollection form)
         {
             Users user = Session["User"] as Users;
-            string userID = user.UserID;
-            DateTime orderDate = DateTime.Now;
-            string address = form["address"];
-            string status = "Chờ giao hàng";
-            string userPayment = form["payment"];
-
-            //Tao orderID
-            var lastOrder = db.Orders.OrderByDescending(t => t.OrderID).FirstOrDefault();
-            int newID = 1;
-            if (lastOrder != null)
+            if (user == null)
             {
-                string lastID = lastOrder.OrderID;
-                var match = Regex.Match(lastID, @"\d+");
-                if (match.Success)
-                    newID = int.Parse(match.Value) + 1;
+                return RedirectToAction("Index", "Home");
             }
-            string newOrderID = $"OD{newID:00}";
-
-            int ret = orderService.DatHang(newOrderID, userID, orderDate, address, status, userPayment, user.Name);
-
-            if (ret == 0)
+            try
             {
-                ViewBag.OrderError = "Lỗi! Đặt hàng không thành công";
+                string userID = user.UserID;
+                DateTime orderDate = DateTime.Now;
+                string address = form["address"].ToString();
+                string payment = form["payment"].ToString();
+                string createdUser = user.Name;
+
+                Orders lastOrder = db.Orders.OrderByDescending(t => t.UserID).First();
+                int newID = 1;
+                if (lastOrder != null)
+                {
+                    string lastIDString = lastOrder.OrderID;
+                    var match = Regex.Match(lastIDString, @"\d+");
+                    if (match.Success)
+                    {
+                        newID = int.Parse(match.Value) + 1;
+                    }
+                }
+                string newOrderID = $"OD{newID:000}";
+
+                // Thêm đơn hàng
+                int ret = orderService.DatHang(newOrderID, userID, orderDate, address, payment, createdUser);
+
+                if (ret != 0)
+                {
+                    return View("OrderSuccess");
+                }
+                {
+                    ViewBag.OrderError = "Đặt hàng không thành công!";
+                    return View("PaymentPage");
+                }    
+            }
+            catch(Exception e)
+            {
+                ViewBag.OrderError = "Đặt hàng không thành công!";
                 return View("PaymentPage");
             }
-            return View("OrderSuccess");
         }
+
 
         public ActionResult OrderSuccess()
         {

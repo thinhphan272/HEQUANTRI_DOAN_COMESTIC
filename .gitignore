@@ -1,4 +1,6 @@
 ﻿# Bỏ qua thư mục tạm của Visual Studio (QUAN TRỌNG)
+
+packages/
 .vs/
 **/.vs/
 

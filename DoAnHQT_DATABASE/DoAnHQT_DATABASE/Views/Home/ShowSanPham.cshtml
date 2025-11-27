@@ -73,7 +73,7 @@
                                             </div>
                                             <p class="home-product-item_name">@item.ProductName</p>
                                             <div class="home-product-item_price">
-                                                @{if (item.Discount != null)
+                                                @{if (item.GiaDaGiam != (double)item.Price)
                                                     {
                                                         decimal mucGiam = item.Discount.Count() != 0 ? (decimal)item.Discount.ToList()[0].DiscountRate : 0;
                                                         decimal tienSauGiam = item.Price.Value * (100 - mucGiam) / 100;

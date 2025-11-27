@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
-using System.Web;
 
 namespace DoAnHQT_DATABASE.Services
 {
@@ -17,7 +15,7 @@ namespace DoAnHQT_DATABASE.Services
         public List<Product> SanPhamGiamSauNhat(int sl)
         {
             List<Product> list = new List<Product>();
-            using(SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string sqlCmd = "SELECT * FROM dbo.F_LaySanPhamGiamSauNhat(@SL)";
                 using (SqlCommand cmd = new SqlCommand(sqlCmd, conn))
@@ -26,7 +24,7 @@ namespace DoAnHQT_DATABASE.Services
                     cmd.Parameters.AddWithValue("@SL", sl);
 
                     conn.Open();
-                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -37,7 +35,7 @@ namespace DoAnHQT_DATABASE.Services
                             sp.Price = (decimal)reader["Price"];
                             sp.DiscountRate = (double)reader["DiscountRate"];
                             sp.GiaDaGiam = (double)reader["GiaDaGiam"];
-                            
+
 
                             list.Add(sp);
                         }
@@ -48,21 +46,21 @@ namespace DoAnHQT_DATABASE.Services
         }
 
         public int ThemSanPham(string ProductID,
-	                            string ProductTypeID,
-	                            string ProductName,
-	                            string BrandID,
-	                            decimal Price,
+                                string ProductTypeID,
+                                string ProductName,
+                                string BrandID,
+                                decimal Price,
                                 string Origin,
-	                            string Description,
-	                            string Image,
-	                            double Capacity, 
-	                            int Quantity,
-	                            DateTime ExpirationDate,
+                                string Description,
+                                string Image,
+                                double Capacity,
+                                int Quantity,
+                                DateTime ExpirationDate,
                                 string CreatedUser)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                
+
                 using (SqlCommand cmd = new SqlCommand("P_Add_Product", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -127,7 +125,7 @@ namespace DoAnHQT_DATABASE.Services
 
         public int DisableSanPham(string ProductID)
         {
-           
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("P_Disable_Product", conn))
@@ -144,7 +142,7 @@ namespace DoAnHQT_DATABASE.Services
 
         public int EnableSanPham(string ProductID)
         {
-            
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("P_Enable_Product", conn))
@@ -207,7 +205,7 @@ namespace DoAnHQT_DATABASE.Services
                 using (SqlCommand cmd = new SqlCommand(sqlCmd, conn))
                 {
                     cmd.CommandType = CommandType.Text;
-                    
+
                     conn.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -219,7 +217,7 @@ namespace DoAnHQT_DATABASE.Services
                             sp.ProductTypeID = reader["ProductTypeID"].ToString();
                             sp.Image = reader["Image"].ToString();
                             sp.Price = (decimal)reader["Price"];
-                            sp.DiscountRate = (double)reader["DiscountRate"] ;
+                            sp.DiscountRate = (double)reader["DiscountRate"];
                             sp.GiaDaGiam = (double)reader["GiaDaGiam"];
                             sp.BrandID = reader["BrandID"].ToString();
                             sp.Brand = db.Brand.FirstOrDefault(t => t.BrandID.Equals(sp.BrandID));
@@ -237,7 +235,6 @@ namespace DoAnHQT_DATABASE.Services
             }
             return list;
         }
-
 
 
     }

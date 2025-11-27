@@ -42,21 +42,8 @@ namespace DoAnHQT_DATABASE.Controllers
 
                 int ret = userService.DangKy(newUserID, name, email, password, gioitinh, address, name);
 
-                //Thêm giỏ hàng
-                ShoppingCart lastCart = db.ShoppingCart.OrderByDescending(u => u.UserID).FirstOrDefault();
-                string lastedCartID = lastCart.ShoppingCartID.ToString();
-                newID = 1;
-                if (lastCart != null)
-                {
-                    string lastIDString = lastCart.ShoppingCartID;
-                    var match = Regex.Match(lastIDString, @"\d+");
-                    if (match.Success)
-                    {
-                        newID = int.Parse(match.Value) + 1;
-                    }
-                }
-                string newcartID = $"SC{newID:00}";
-                cartService.ThemGioHang(newcartID, newUserID);
+                // Them gio hang
+                ThemGioHang(newUserID);
 
                 if (ret == 0)
                     return Json(new { success = false, message = "Đăng ký không thành công (Có thể Email đã tồn tại)" });
@@ -87,6 +74,12 @@ namespace DoAnHQT_DATABASE.Controllers
                     Users user = db.Users.FirstOrDefault(t => t.Email.Equals(email));
                     Session["User"] = user;
 
+                    ShoppingCart userCart = db.ShoppingCart.FirstOrDefault(u => u.UserID.Equals(user.UserID));
+                    if (userCart == null)
+                    {
+                        ThemGioHang(user.UserID);
+                    }
+
                     return Json(new { success = true, message = "Đăng nhập thành công!" });
                 }
                 else
@@ -100,6 +93,24 @@ namespace DoAnHQT_DATABASE.Controllers
             }
         }
 
+        public int ThemGioHang(string newUserID)
+        {
+            //Thêm giỏ hàng
+            ShoppingCart lastCart = db.ShoppingCart.OrderByDescending(u => u.UserID).FirstOrDefault();
+            string lastedCartID = lastCart.ShoppingCartID.ToString();
+            int newID = 1;
+            if (lastCart != null)
+            {
+                string lastIDString = lastCart.ShoppingCartID;
+                var match = Regex.Match(lastIDString, @"\d+");
+                if (match.Success)
+                {
+                    newID = int.Parse(match.Value) + 1;
+                }
+            }
+            string newcartID = $"SC{newID:00}";
+            return cartService.ThemGioHang(newcartID, newUserID);
+        }
 
         public ActionResult DangXuat()
         {

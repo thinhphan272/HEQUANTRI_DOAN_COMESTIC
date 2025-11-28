@@ -6,6 +6,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.Linq;
+    using System.Web.Mvc;
 
     [Table("Product")]
     public partial class Product
@@ -26,7 +27,7 @@
         [StringLength(10)]
         public string ProductTypeID { get; set; }
 
-        [StringLength(30)]
+        [StringLength(255)]
         public string ProductName { get; set; }
 
         [StringLength(10)]
@@ -38,16 +39,19 @@
         [StringLength(30)]
         public string Origin { get; set; }
 
+        [AllowHtml]
         [StringLength(1000)]
+        [DisplayFormat(ConvertEmptyStringToNull = true)]
         public string Description { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         public string Image { get; set; }
 
         public double? Capacity { get; set; }
 
         public int? Quantity { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? ExpirationDate { get; set; }
 
         public int? IsAvailable { get; set; }

@@ -1,10 +1,12 @@
 namespace DoAnHQT_DATABASE.Models
 {
+    using DoAnHQT_DATABASE.Areas.Admin.Service;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class Orders
     {
@@ -46,5 +48,19 @@ namespace DoAnHQT_DATABASE.Models
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
 
         public virtual Users Users { get; set; }
+
+        public int TongSoLuong
+        {
+            get => OrderDetail.ToList().Sum(t => t.Quantity.Value);
+        }
+        public double TongThanhTien
+        {
+            //get => OrderDetail.Sum(t => (double)t.UnitPrice.Value * t.Quantity.Value);
+            get
+            {
+                OrderService orderService = new OrderService();
+                return orderService.TongThanhTienDonHang(OrderID);
+            }
+        }
     }
 }

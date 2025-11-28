@@ -23,6 +23,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             if (isValid)
             {
                 Session["Role"] = role;
+                Session["EmployeeName"] = username;
 
                 if (role == "Admin")
                 {

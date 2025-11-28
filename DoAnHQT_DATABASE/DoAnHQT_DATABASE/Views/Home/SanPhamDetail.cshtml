@@ -18,17 +18,16 @@
 
 @model DoAnHQT_DATABASE.Models.Product
 
-<div class="product-detail-container">
+<div class="product-detail-container" >
     <div class="" style="width: 1300px; margin: 0 auto">
-        <div class="row">
-            <div class="col-md-9 product-detail shadow">
+        <div class="row mt-5" >
+            <div class="col-md-9 product-detail shadow" >
                 <div class="row">
                     <div class="col-md-5 product-detail-image">
                         <div class="main-img">
                             <img id="mainImage" width="100%" src="@Url.Content("~/Content/Images/ProductIMG/" + Model.Image)" />
 
                         </div>
-
 
                     </div>
                     <div class="col-md-7 product-detail-content">
@@ -79,6 +78,7 @@
                             <span class="product-detail-change_quantity-label me-1">
                                 Số lượng:
                             </span>
+
                             <button class="btn js-decrease">
                                 <i class="fa fa-minus-circle me-1" style="color: #306e51"></i>
                             </button>
@@ -88,7 +88,7 @@
                             <button class="btn js-increase">
                                 <i class="fa fa-plus-circle" style="color: #306e51"></i>
                             </button>
-
+                            <span class="ms-3">@(Model.Quantity == 0 ? "Hết hàng" : "")</span>
                             <input type="hidden" name="quantity" class="js-quantity-input" value="1">
                         </div>
 

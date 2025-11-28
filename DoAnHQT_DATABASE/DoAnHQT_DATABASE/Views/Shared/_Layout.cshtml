@@ -62,78 +62,78 @@
                     </div>
                 }
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav flex-grow-1 menu">
-                    <li class="d-flex ">
-                        <i class="fa-solid fa-house fa-xl header_icon align-self-center"></i>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav flex-grow-1 menu">
+                        <li class="d-flex ">
+                            <i class="fa-solid fa-house fa-xl header_icon align-self-center"></i>
 
-                        <label>
-                            @Html.ActionLink("Trang chủ", "ShowSanPham", "Home", new { area = "" }, new { @class = "nav-link" })
-                        </label>
-
-                    </li>
-
-                    <li class="d-flex ">
-                        <i class="fa-solid fa-phone fa-xl header_icon align-self-center"></i>
-
-                        <label>
-                            @Html.ActionLink("Chăm sóc khách hàng", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
-                        </label>
-
-
-                    </li>
-                    @if (Session["User"] == null)
-                    {
-                        <li class="d-flex loggin">
-                            <i class="fa-solid fa-user fa-xl header_icon align-self-center"></i>
                             <label>
-                                @Html.ActionLink("Đăng nhập / Đăng ký", "About", "Home", new { area = "" }, new { @class = "nav-link" })
+                                @Html.ActionLink("Trang chủ", "ShowSanPham", "Home", new { area = "" }, new { @class = "nav-link" })
                             </label>
+
                         </li>
-                    }
-                    @{
-                        DoAnHQT_DATABASE.Models.Users user = Session["User"] as DoAnHQT_DATABASE.Models.Users;
-                    }
+
+                        <li class="d-flex ">
+                            <i class="fa-solid fa-phone fa-xl header_icon align-self-center"></i>
+
+                            <label>
+                                @Html.ActionLink("Chăm sóc khách hàng", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+                            </label>
+
+
+                        </li>
+                        @if (Session["User"] == null)
+                        {
+                            <li class="d-flex loggin">
+                                <i class="fa-solid fa-user fa-xl header_icon align-self-center"></i>
+                                <label>
+                                    @Html.ActionLink("Đăng nhập / Đăng ký", "About", "Home", new { area = "" }, new { @class = "nav-link" })
+                                </label>
+                            </li>
+                        }
+                        @{
+                            DoAnHQT_DATABASE.Models.Users user = Session["User"] as DoAnHQT_DATABASE.Models.Users;
+                        }
+
+                        @if (Session["User"] != null)
+                        {
+
+                            <li class="header_navbar-user " style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px;">
+                                <img class="header_navbar-user-img" src="~/Content/Images/Avatar/user1.jpg" />
+                                <a class="header_navbar-user-name">@user.Name</a>
+
+                                <ul class="header_navbar-user-menu">
+                                    <li class="header_navbar-user-item">
+                                        <a herf="" style="color: black;"><i class="fa-regular fa-circle-user"></i> Tài khoản của tôi</a>
+                                    </li>
+                                    <li class="header_navbar-user-item">
+                                        <a herf=""><i class="fa-regular fa-heart"></i> Sản phẩm yêu thích</a>
+                                    </li>
+                                    <li class="header_navbar-user-item">
+                                        <a herf=""><i class="fa-solid fa-location-dot"></i> Địa chỉ giao hàng</a>
+                                    </li>
+                                    <li class="header_navbar-user-item">
+                                        <a herf=""><i class="fa-solid fa-file-invoice-dollar"></i> Quản lý đơn mua</a>
+                                    </li>
+                                    <hr style="margin: 0" />
+                                    <li class="header_navbar-user-item header_navbar-user-logout">
+                                        <a href="@Url.Action("DangXuat", "User")" style="color: #306e51"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        }
+
+
+                    </ul>
 
                     @if (Session["User"] != null)
                     {
-
-                        <li class="header_navbar-user " style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 12px;">
-                            <img class="header_navbar-user-img" src="~/Content/Images/Avatar/user1.jpg" />
-                            <a class="header_navbar-user-name">@user.Name</a>
-
-                            <ul class="header_navbar-user-menu">
-                                <li class="header_navbar-user-item">
-                                    <a herf="" style="color: black;"><i class="fa-regular fa-circle-user"></i> Tài khoản của tôi</a>
-                                </li>
-                                <li class="header_navbar-user-item">
-                                    <a herf=""><i class="fa-regular fa-heart"></i> Sản phẩm yêu thích</a>
-                                </li>
-                                <li class="header_navbar-user-item">
-                                    <a herf=""><i class="fa-solid fa-location-dot"></i> Địa chỉ giao hàng</a>
-                                </li>
-                                <li class="header_navbar-user-item">
-                                    <a herf=""><i class="fa-solid fa-file-invoice-dollar"></i> Quản lý đơn mua</a>
-                                </li>
-                                <hr style="margin: 0" />
-                                <li class="header_navbar-user-item header_navbar-user-logout">
-                                    <a href="@Url.Action("DangXuat", "User")" style="color: #306e51"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
-                                </li>
-                            </ul>
-                        </li>
-
+                        @Html.Action("CartMini", "Cart")
                     }
 
 
-                </ul>
-
-                @if (Session["User"] != null)
-                {
-                    @Html.Action("CartMini", "Cart")
-                }
-
-
-            </div>
+                </div>
             </div>
         </nav>
         @*Thanh Menu*@
@@ -288,7 +288,7 @@
 
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 

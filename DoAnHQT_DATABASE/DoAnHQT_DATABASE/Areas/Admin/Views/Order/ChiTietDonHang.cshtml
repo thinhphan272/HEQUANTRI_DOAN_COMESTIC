@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model DoAnHQT_DATABASE.Models.Orders
+
+<div class="payment-page" style="margin-top: 123px;">
+    
+    <div class="payment-container " style=" width: 1300px; margin: 0 auto;">
+        
+            <div class="row">
+
+                <div class="col-md-8 mt-4">
+                    <div class="delivery-address shadow mb-4 p-4 rounded-4" style="background-color: white">
+                        <span class="delivery-address-label">Địa chỉ nhận hàng</span>
+                        <div class="delivery-address-content">
+                            <div class="customer-address-info">
+                                <div class="customer-address-choice-and-name">
+                                    <div class="address-choice">
+                                        Nhà riêng
+                                    </div>
+                                    <span class="customer-name-phone">@Model.Users.Name - @Model.Users.SDT</span>
+                                </div>
+
+                                <span class="customer-address">@Model.Address</span>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-of-payment shadow mb-4  p-4 rounded-4" style="background-color: white">
+                        <span class="form-of-payment-label">Hình thức thanh toán</span>
+                        <div class="form-of-payment-choice">
+                            <div id="selectedPaymentMethod" class="form-of-payment-choice-item d-flex">
+                                
+                                <span class="form-of-payment-choice-label align-self-center">@Model.UserPaymentMethod</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="cart-detail shadow mb-4  p-4 rounded-4" style=" background-color: white">
+                        <span class="cart-detail-label">Thông tin kiện hàng</span>
+                        <table class="table bg-light">
+
+                            <tbody>
+                                <!--Sản phẩm đơn hàng-->
+                                @foreach (var item in Model.OrderDetail)
+                                {
+                                    <tr>
+                                        <td class="align-middle" style="width: 600px;">
+                                            <div class="row cart-item">
+                                                <div class="col-md-2">
+                                                    <div class="cart-item-image">
+                                                        <img width="100%" src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-10">
+                                                    <h6 class="cart-item-brand">@item.Product.Brand.BrandName</h6>
+                                                    <span class="cart-item-name">@item.Product.ProductName</span><br />
+                                                    <span class="cart-item-capacity">@item.Product.Capacity.ToString()ml</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle text-end">@item.Quantity <i class="fa fa-x" style="font-size: 0.8rem;"></i> @item.Product.GiaDaGiam.Value.ToString("N0") đ</td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-note shadow mb-4  p-4 rounded-4" style="background-color: white">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="cart-note-total">
+                                    <div class="cart-note-total-label">
+                                        Tổng tiền (@Model.TongSoLuong)
+                                    </div>
+                                    <div class="cart-note-total-money">
+                                        @Model.TongThanhTien.ToString("N0") đ
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+               
+            </div>
+        
+    </div>
+</div>

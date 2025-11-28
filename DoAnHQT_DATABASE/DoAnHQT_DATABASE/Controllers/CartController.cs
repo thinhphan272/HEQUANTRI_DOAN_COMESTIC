@@ -151,7 +151,7 @@ namespace DoAnHQT_DATABASE.Controllers
                 string payment = form["payment"].ToString();
                 string createdUser = user.Name;
 
-                Orders lastOrder = db.Orders.OrderByDescending(t => t.UserID).First();
+                Orders lastOrder = db.Orders.OrderByDescending(t => t.OrderID).First();
                 int newID = 1;
                 if (lastOrder != null)
                 {
@@ -173,13 +173,13 @@ namespace DoAnHQT_DATABASE.Controllers
                 }
                 {
                     ViewBag.OrderError = "Đặt hàng không thành công!";
-                    return View("PaymentPage");
+                    return RedirectToAction("PaymentPage");
                 }    
             }
             catch(Exception e)
             {
                 ViewBag.OrderError = "Đặt hàng không thành công!";
-                return View("PaymentPage");
+                return RedirectToAction("PaymentPage");
             }
         }
 

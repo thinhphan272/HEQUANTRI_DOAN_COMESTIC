@@ -49,20 +49,20 @@ namespace DoAnHQT_DATABASE.Services
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("P_LOGIN", conn))
+                string sql = "SELECT dbo.F_LOGIN(@Email, @Password)";
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    SqlParameter ret = new SqlParameter();
-                    ret.Direction = ParameterDirection.ReturnValue;
-                    cmd.Parameters.Add(ret);
-
                     cmd.Parameters.AddWithValue("@Email", Email.Trim());
                     cmd.Parameters.AddWithValue("@Password", Password.Trim());
 
                     conn.Open();
-                    cmd.ExecuteNonQuery();
-                    return (int)ret.Value;
+                    object result =  cmd.ExecuteScalar();
+                    int ret = 0;
+                    if (result != null)
+                    {
+                        ret =  Convert.ToInt32(result);
+                    }
+                    return ret;
                 }
             }
         }

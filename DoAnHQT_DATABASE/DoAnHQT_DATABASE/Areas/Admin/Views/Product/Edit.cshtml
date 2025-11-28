@@ -2,12 +2,24 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+
 }
+
+@model DoAnHQT_DATABASE.Models.Product
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.tiny.cloud/1/ntjn1x7xodddb5xd6aojdl4pncz9ufjf77rzij4cz6ooerjt/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+
 <div class="container-fluid px-4">
+    @if (TempData["UpdateError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["UpdateError"].ToString()
+        </div>
+    }
+
     <div class="d-flex justify-content-between align-items-center my-4">
         <h2 class="mt-4">Chỉnh sửa sản phẩm</h2>
         <a href="@Url.Action("Index", "Product", new {area = "Admin"})" class="btn btn-secondary">
@@ -21,10 +33,11 @@
             Thông tin sản phẩm
         </div>
         <div class="card-body">
-            <form action="/Admin/Product/Edit" method="post" enctype="multipart/form-data">
+            @using (Html.BeginForm("EditOnSubmit", "Product", new { area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
 
-                <input type="hidden" name="ProductID" value="SP001">
-                <input type="hidden" name="OldImage" value="old-image.jpg">
+                @Html.TextBoxFor(model => model.ProductID, new { type = "hidden" })
+                @Html.TextBoxFor(model => model.Image, new { type = "hidden" })
 
                 <div class="row">
                     <div class="col-md-8">
@@ -32,63 +45,51 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="ProductName" class="form-label fw-bold">Tên sản phẩm</label>
-                                <input type="text" class="form-control" id="ProductName" name="ProductName"
-                                       value="Dầu Gội Bưởi Cocoon Giảm Gãy Rụng" placeholder="Nhập tên sản phẩm">
+                                @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProductName)
                             </div>
                             <div class="col-md-6">
                                 <label for="ProductTypeID" class="form-label fw-bold">Loại sản phẩm</label>
-                                <select class="form-select" id="ProductTypeID" name="ProductTypeID">
-                                    <option value="">-- Chọn loại --</option>
-                                    <option value="1" selected>Dầu gội - Dầu xả</option>
-                                    <option value="2">Sữa rửa mặt</option>
-                                    <option value="3">Toner - Nước hoa hồng</option>
-                                    <option value="4">Kem chống nắng</option>
-                                    <option value="5">Serum - Tinh chất</option>
-                                </select>
+                                @Html.DropDownListFor(model => model.ProductTypeID, ViewBag.ProductType as SelectList, new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.ProductTypeID)
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="BrandID" class="form-label fw-bold">Thương hiệu</label>
-                                <select class="form-select" id="BrandID" name="BrandID">
-                                    <option value="">-- Chọn thương hiệu --</option>
-                                    <option value="BR01" selected>Cocoon</option>
-                                    <option value="BR02">La Roche-Posay</option>
-                                    <option value="BR03">Cerave</option>
-                                    <option value="BR04">L'Oreal Paris</option>
-                                </select>
+                                @Html.DropDownListFor(model => model.BrandID, ViewBag.Brand as SelectList, new { @class = "form-select" })
+                                @Html.ValidationMessageFor(model => model.BrandID)
                             </div>
                             <div class="col-md-6">
                                 <label for="Origin" class="form-label fw-bold">Xuất xứ</label>
-                                <input type="text" class="form-control" id="Origin" name="Origin" value="Việt Nam">
+                                @Html.TextBoxFor(model => model.Origin, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Origin)
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="Price" class="form-label fw-bold">Giá bán (VNĐ)</label>
-                                <input type="number" class="form-control" id="Price" name="Price" value="150000">
+                                @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Price)
                             </div>
                             <div class="col-md-4">
                                 <label for="Quantity" class="form-label fw-bold">Số lượng kho</label>
-                                <input type="number" class="form-control" id="Quantity" name="Quantity" value="100">
+                                @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", type = "number" })
+                                @Html.ValidationMessageFor(model => model.Quantity)
                             </div>
                             <div class="col-md-4">
                                 <label for="Capacity" class="form-label fw-bold">Dung tích</label>
-                                <input type="text" class="form-control" id="Capacity" name="Capacity" value="500ml">
+                                @Html.TextBoxFor(model => model.Capacity, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Capacity)
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="txtDescription" class="form-label fw-bold">Mô tả chi tiết</label>
-                            <textarea class="form-control" id="txtDescription" name="Description" rows="10">
-                            <p>Đây là nội dung mô tả sản phẩm mẫu được lấy từ Database.</p>
-                            <ul>
-                            <li>Thành phần chính: Tinh dầu bưởi.</li>
-                            <li>Công dụng: Giảm gãy rụng, kích thích mọc tóc.</li>
-                                </ul>
-                            </textarea>
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", id = "txtDescription", rows = "10"})
+                            @Html.ValidationMessageFor(mode => mode.Description)
                         </div>
                     </div>
 
@@ -96,9 +97,8 @@
                         <div class="card mb-3">
                             <div class="card-header bg-light fw-bold">Hình ảnh sản phẩm</div>
                             <div class="card-body text-center">
-                                <img src="~/Content/Images/ProductIMG/SRMCerave.png" 
+                                <img src="@Url.Content("~/Content/Images/ProductIMG/" + Model.Image)"
                                      style="max-height: 250px; width: 100%; object-fit: contain; background: #f8f9fa;" />
-                                     
 
                                 <label for="imageUploadFile" class="btn btn-outline-primary btn-sm w-100 mb-2">
                                     <i class="fas fa-upload me-1"></i> Chọn ảnh mới
@@ -110,13 +110,17 @@
 
                         <div class="mb-3">
                             <label for="ExpirationDate" class="form-label fw-bold">Ngày hết hạn</label>
-                            <input type="date" class="form-control" id="ExpirationDate" name="ExpirationDate" value="2026-12-11">
+                            @Html.TextBoxFor(model => model.ExpirationDate,
+                           "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", id = "ExpirationDate" })
+                            @Html.ValidationMessageFor(model => model.ExpirationDate)
                         </div>
 
                         <div class="card bg-light border-0">
                             <div class="card-body">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="IsAvailableSwitch" name="IsAvailable" checked style="cursor: pointer;">
+                                    <input class="form-check-input" type="checkbox" value="1" id="IsAvailableSwitch" name="IsAvailable" style="cursor: pointer;"
+                                           @(Model.IsAvailable == 0 ? "checked" : "")>
+
                                     <label class="form-check-label fw-bold" for="IsAvailableSwitch">Đang kinh doanh</label>
                                 </div>
                                 <div class="form-text mt-2" style="font-size: 0.85rem;">
@@ -129,12 +133,13 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4 pt-3 border-top">
-                    <a href="@Url.Action("Index", "Product", new {area = "Admin"})" class="btn btn-light border me-2">Hủy bỏ</a>
+                    <a href="@Url.Action("Index", "Product", new { area = "Admin" })" class="btn btn-light border me-2">Hủy bỏ</a>
                     <button type="submit" class="btn btn-primary px-4 fw-bold">
                         <i class="fas fa-save me-2"></i>Cập nhật sản phẩm
                     </button>
                 </div>
-            </form>
+
+            }
         </div>
     </div>
 </div>

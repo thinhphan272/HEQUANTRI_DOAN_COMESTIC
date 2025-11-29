@@ -1,0 +1,103 @@
+﻿/* Alternative Design - Neon Style */
+.search-container-neon {
+    position: relative;
+    width: 600px;
+    max-width: 90vw;
+    margin-top: 60px;
+}
+
+.search-wrapper-neon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00ff88;
+    border-radius: 50px;
+    padding: 5px;
+    box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, inset 0 0 10px rgba(0, 255, 136, 0.2);
+    transition: all 0.3s ease;
+}
+
+    .search-wrapper-neon:hover,
+    .search-wrapper-neon:focus-within {
+        border-color: #00ffff;
+        box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff, inset 0 0 20px rgba(0, 255, 255, 0.3);
+        transform: scale(1.02);
+    }
+
+    .search-wrapper-neon .search-icon {
+        padding: 0 20px;
+        color: #00ff88;
+        font-size: 24px;
+        transition: all 0.3s ease;
+        text-shadow: 0 0 10px #00ff88;
+    }
+
+    .search-wrapper-neon:focus-within .search-icon {
+        color: #00ffff;
+        text-shadow: 0 0 20px #00ffff;
+    }
+
+.search-input-neon {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 20px 10px;
+    font-size: 18px;
+    color: #00ff88;
+    outline: none;
+}
+
+    .search-input-neon::placeholder {
+        color: rgba(0, 255, 136, 0.5);
+    }
+
+.search-button-neon {
+    background: #00ff88;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 35px;
+    margin-right: 5px;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px #00ff88;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .search-button-neon:hover {
+        background: #00ffff;
+        box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+        transform: scale(1.05);
+    }
+
+.label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Responsive */
+@@media (max-width: 768px) {
+    .title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .search-input,
+    .search-input-neon {
+        font-size: 16px;
+        padding: 15px 10px;
+    }
+
+    .search-button,
+    .search-button-neon {
+        padding: 12px 25px;
+        font-size: 14px;
+    }
+}

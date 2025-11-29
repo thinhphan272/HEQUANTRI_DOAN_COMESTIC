@@ -50,8 +50,21 @@
 
 <div class="container-fluid px-4">
     <div class="d-flex justify-content-between align-items-center my-4">
-        <h2 class="mt-4">Quản lý đơn hàng</h2>
-        
+        <h2 class="mt-4 text-white">Quản lý đơn hàng</h2>
+        <!-- Neon Style Search Bar -->
+        @using (Html.BeginForm("TimDonHang", "Order",FormMethod.Post, new { area = "admin", name = "keyword" }))
+        {
+            <div class="search-container-neon">
+                <div class="search-wrapper-neon">
+                    <div class="search-icon">⚡</div>
+                    <input type="text"
+                           class="search-input-neon"
+                           placeholder="Tìm kiếm tên mã khách hàng và mã đơn hàng"
+                           name="keyword">
+                    <button type="submit" class="search-button-neon">Tìm</button>
+                </div>
+            </div>
+        }
     </div>
 
     <div class="card mb-4 shadow-sm border-0">

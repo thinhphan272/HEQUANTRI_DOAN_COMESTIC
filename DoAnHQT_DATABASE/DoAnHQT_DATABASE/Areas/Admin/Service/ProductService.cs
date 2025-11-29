@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoAnHQT_DATABASE.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -139,6 +140,25 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
                 }
             }
         }
+
+        public int XoaDanhGiaSanPham(string ProductID, string UpdatedUser)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("P_NgungKinhDoanhSP", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ProductID", ProductID);
+                    cmd.Parameters.AddWithValue("@UpdatedUser", UpdatedUser);
+
+                    conn.Open();
+
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
 
 
     }

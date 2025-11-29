@@ -27,5 +27,13 @@ namespace DoAnHQT_DATABASE.Models
         public virtual Orders Orders { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public decimal TongTien
+        {
+            get
+            {
+                return Quantity.Value * UnitPrice.Value;
+            }
+        }
     }
 }

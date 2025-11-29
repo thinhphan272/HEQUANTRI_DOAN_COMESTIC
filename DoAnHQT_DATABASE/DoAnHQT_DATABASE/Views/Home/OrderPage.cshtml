@@ -1,0 +1,512 @@
+﻿
+@{
+    ViewBag.Title = "OrderPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    :root {
+        --hasaki-green: #3b7357;
+        --hasaki-green-hover: #2d5a44;
+        --hasaki-light-green: #e8f5e9;
+    }
+
+    /* Page Header */
+    .page-header {
+        background: linear-gradient(135deg, var(--hasaki-green) 0%, #2d5a44 100%);
+        color: white;
+        padding: 40px 0;
+        margin-bottom: 30px;
+    }
+
+    /* Tabs */
+    .order-tabs {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+        .order-tabs .nav-tabs {
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .order-tabs .nav-link {
+            color: #666;
+            border: none;
+            padding: 12px 24px;
+            font-weight: 500;
+            position: relative;
+        }
+
+            .order-tabs .nav-link:hover {
+                color: var(--hasaki-green);
+                border: none;
+            }
+
+            .order-tabs .nav-link.active {
+                color: var(--hasaki-green);
+                background-color: transparent;
+                border: none;
+                font-weight: 600;
+            }
+
+                .order-tabs .nav-link.active::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -2px;
+                    left: 0;
+                    right: 0;
+                    height: 3px;
+                    background-color: var(--hasaki-green);
+                }
+
+    .badge-count {
+        background-color: #dc3545;
+        color: white;
+        font-size: 11px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        margin-left: 5px;
+    }
+
+    /* Order Card */
+    .order-card {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 15px;
+    }
+
+    .order-id {
+        color: var(--hasaki-green);
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .order-date {
+        color: #999;
+        font-size: 13px;
+    }
+
+    /* Status Badge */
+    .status-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-confirmed {
+        background-color: #cfe2ff;
+        color: #084298;
+    }
+
+    .status-shipping {
+        background-color: #e7d4f7;
+        color: #6f42c1;
+    }
+
+    .status-delivered {
+        background-color: #d1e7dd;
+        color: #0a3622;
+    }
+
+    .status-cancelled {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+
+    /* Product Item in Order */
+    .order-product {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+        .order-product:last-child {
+            border-bottom: none;
+        }
+
+    .product-img {
+        width: 70px;
+        height: 70px;
+        background-color: #f8f8f8;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        flex-shrink: 0;
+    }
+
+    .product-info {
+        flex: 1;
+        margin: 0 15px;
+    }
+
+    .product-brand {
+        color: #666;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 3px;
+    }
+
+    .product-name {
+        color: #333;
+        font-weight: 500;
+        font-size: 14px;
+        margin-bottom: 3px;
+    }
+
+    .product-quantity {
+        color: #999;
+        font-size: 13px;
+    }
+
+    .product-price {
+        color: var(--hasaki-green);
+        font-weight: bold;
+        font-size: 15px;
+        text-align: right;
+    }
+
+    /* Order Footer */
+    .order-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #e0e0e0;
+        margin-top: 15px;
+    }
+
+    .order-total {
+        text-align: right;
+    }
+
+    .order-total-label {
+        color: #666;
+        font-size: 13px;
+        margin-bottom: 3px;
+    }
+
+    .order-total-amount {
+        color: var(--hasaki-green);
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    /* Buttons */
+    .btn-hasaki {
+        background-color: var(--hasaki-green);
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+        .btn-hasaki:hover {
+            background-color: var(--hasaki-green-hover);
+            color: white;
+        }
+
+    .btn-outline-hasaki {
+        background-color: white;
+        color: var(--hasaki-green);
+        border: 2px solid var(--hasaki-green);
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+
+        .btn-outline-hasaki:hover {
+            background-color: var(--hasaki-green);
+            color: white;
+        }
+
+    .btn-secondary-hasaki {
+        background-color: #f0f0f0;
+        color: #666;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+
+        .btn-secondary-hasaki:hover {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+    /* Search & Filter */
+    .search-box {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .search-input {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px 15px;
+    }
+
+        .search-input:focus {
+            border-color: var(--hasaki-green);
+            box-shadow: 0 0 0 0.2rem rgba(59, 115, 87, 0.25);
+        }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+        .empty-state i {
+            font-size: 80px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h5 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #999;
+        }
+</style>
+
+@model List<DoAnHQT_DATABASE.Models.Orders>
+
+<!-- Page Header -->
+<div class="page-header" style="margin-top: 120px;">
+    <div class="container">
+        <h2 class="mb-2"><i class="bi bi-bag-check me-2"></i>Đơn Hàng Của Tôi</h2>
+        <p class="mb-0 opacity-75">Quản lý và theo dõi tất cả đơn hàng của bạn</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container mb-5">
+    <!-- Search & Filter -->
+    <div class="search-box">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" class="form-control search-input border-start-0"
+                           placeholder="Tìm kiếm đơn hàng theo mã đơn, tên sản phẩm...">
+                </div>
+
+            </div>
+            <div class="col-md-6 mt-3 mt-md-0">
+                <div class="d-flex justify-content-end">
+                    <select class="form-select search-input me-2" style="width: auto;">
+                        <option>Tất cả thời gian</option>
+                        <option>7 ngày qua</option>
+                        <option>30 ngày qua</option>
+                        <option>90 ngày qua</option>
+                    </select>
+                    <select class="form-select search-input" style="width: auto;">
+                        <option>Sắp xếp mới nhất</option>
+                        <option>Sắp xếp cũ nhất</option>
+                        <option>Giá cao đến thấp</option>
+                        <option>Giá thấp đến cao</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Tabs -->
+    <div class="order-tabs">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active"
+                   href="#all"
+                   data-bs-toggle="tab">
+                    Tất cả <span class="badge-count">@Model.Count()</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pending" data-bs-toggle="tab">
+                    Chờ xử lý <span class="badge-count">0</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pending" data-bs-toggle="tab">
+                    Đã xác nhận
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pending" data-bs-toggle="tab">
+                    Đang giao <span class="badge-count">0</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pending" data-bs-toggle="tab">
+                    Đã giao
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#pending" data-bs-toggle="tab">
+                    Đã hủy
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="all">
+            @foreach (var item in Model)
+            {
+                <!-- Order Card  -->
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">@item.OrderID</span>
+                            <span class="mx-2">|</span>
+                            <span class="order-date">@item.OrderDate</span>
+                        </div>
+                        <span class="status-badge status-shipping">@item.Status</span>
+                    </div>
+
+                    <!-- Products -->
+                    @foreach (var orderDetail in item.OrderDetail)
+                    {
+                        <div class="order-product">
+                            <div>
+                                <img class="product-img" src="@Url.Content("~/Content/Images/ProductIMG/" + orderDetail.Product.Image)" alt="" />
+                            </div>
+                            <div class="product-info">
+                                <div class="product-brand">@orderDetail.Product.Brand.BrandName</div>
+                                <div class="product-name">@orderDetail.Product.ProductName</div>
+                                <div class="product-quantity">Số lượng: @orderDetail.Quantity</div>
+                            </div>
+                            <div class="product-price">@orderDetail.TongTien.ToString("N0") ₫</div>
+                        </div>
+                    }
+
+                    <div class="order-footer">
+                        <div>
+                            @{
+                                string status = item.Status.Trim().ToLower();
+
+                                if (status.Contains("chờ giao hàng") || status.Contains("chờ lấy hàng") || status.Contains("đã huỷ"))
+                                {
+                                    <button class="btn btn-outline-hasaki me-2">
+                                        <i class="bi bi-telephone me-1"></i>Liên hệ
+                                    </button>
+                                    <button class="btn btn-secondary-hasaki">
+                                        <i class="bi bi-arrow-clockwise me-1"></i>Mua lại
+                                    </button>
+                                    <a href="@Url.Action("OrderDetail", "Home", new {orderID = item.OrderID})" class="btn btn-secondary-hasaki">
+                                        <i class="bi bi-eye"></i>Xem chi tiết
+                                    </a>
+                                }
+                                else if (status.Contains("đang kiểm") || status.Contains("chờ xác nhận"))
+                                {
+                                    <button class="btn btn-outline-hasaki me-2">
+                                        <i class="bi bi-x-circle me-1"></i>Hủy đơn
+                                    </button>
+                                    <button class="btn btn-secondary-hasaki">
+                                        <i class="bi bi-pencil me-1"></i>Sửa đơn
+                                    </button>
+                                    <a href="@Url.Action("OrderDetail", "Home", new {orderID = item.OrderID})" class="btn btn-secondary-hasaki">
+                                        <i class="bi bi-eye"></i>Xem chi tiết
+                                    </a>
+                                }
+                                else if (status.Contains("đã giao hàng"))
+                                {
+                                    <button class="btn btn-hasaki me-2">
+                                        <i class="bi bi-star me-1"></i>Đánh giá
+                                    </button>
+                                    <button class="btn btn-secondary-hasaki">
+                                        <i class="bi bi-arrow-clockwise me-1"></i>Mua lại
+                                    </button>
+                                    <a href="@Url.Action("OrderDetail", "Home", new {orderID = item.OrderID})" class="btn btn-secondary-hasaki">
+                                        <i class="bi bi-eye"></i>Xem chi tiết
+                                    </a>
+                                }
+                            }
+
+
+
+                        </div>
+                        <div class="order-total">
+                            <div class="order-total-label">Tổng tiền:</div>
+                            <div class="order-total-amount">@item.TongThanhTien.ToString("N0") ₫</div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Trước</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Sau</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Other tabs would have similar content filtered by status -->
+        <div class="tab-pane fade" id="pending">
+            <div class="empty-state">
+                <i class="bi bi-clock-history"></i>
+                <h5>Không có đơn hàng chờ xử lý</h5>
+                <p class="text-muted">Các đơn hàng mới sẽ hiển thị ở đây</p>
+            </div>
+        </div>
+
+    </div>
+</div>

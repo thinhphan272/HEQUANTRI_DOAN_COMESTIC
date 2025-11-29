@@ -135,6 +135,7 @@
     <Compile Include="Areas\Admin\Service\BackupService.cs" />
     <Compile Include="Areas\Admin\Service\OrderService.cs" />
     <Compile Include="Areas\Admin\Service\ProductService.cs" />
+    <Compile Include="Areas\Admin\Service\UserService.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -171,6 +172,7 @@
     <Content Include="Areas\Admin\Data\assets\css\kaiadmin.min.css" />
     <Content Include="Areas\Admin\Data\assets\css\plugins.css" />
     <Content Include="Areas\Admin\Data\assets\css\plugins.min.css" />
+    <Content Include="Areas\Admin\Data\assets\css\styles.css" />
     <Content Include="Areas\Admin\Data\assets\fonts\fontawesome\fa-brands-400.svg" />
     <Content Include="Areas\Admin\Data\assets\fonts\fontawesome\fa-regular-400.svg" />
     <Content Include="Areas\Admin\Data\assets\fonts\fontawesome\fa-solid-900.svg" />
@@ -6480,6 +6482,9 @@
     <Content Include="Views\Home\HienThiDanhMuc.cshtml" />
     <Content Include="Views\Cart\CartMini.cshtml" />
     <Content Include="Views\Cart\OrderSuccess.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\OrderPage.cshtml" />
+    <Content Include="Views\Home\OrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

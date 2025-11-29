@@ -46,68 +46,96 @@
     }
 </style>
 
+@model List<DoAnHQT_DATABASE.Models.Users>
+
 <div class="container-fluid px-4">
+    @if (TempData["SuccessDisable"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessDisable"].ToString()
+        </div>
+    }
+    @if (TempData["ErrorDisable"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErrorDisable"].ToString()
+        </div>
+    }
+
     <div class="d-flex justify-content-between align-items-center my-4">
-        <h2 class="mt-4">Quản lý sản phẩm</h2>
-        <a class="btn btn-primary shadow-sm" href="@Url.Action("Create", "Product", new {area = "admin"})">
-            <i class="fas fa-plus me-2"></i>Thêm sản phẩm
-        </a>
+        <h2 class="mt-4 text-white">Quản lý khách hàng</h2>
+        <!-- Neon Style Search Bar -->
+        @using (Html.BeginForm("TimKiemUser", "User",FormMethod.Post, new { area = "admin", name = "keyword" }))
+        {
+            <div class="search-container-neon">
+                <div class="search-wrapper-neon">
+                    <div class="search-icon">⚡</div>
+                    <input type="text"
+                           class="search-input-neon"
+                           placeholder="Tìm kiếm tên hoặc mã khách hàng"
+                           name="keyword">
+                    <button type="submit" class="search-button-neon">Tìm</button>
+                </div>
+            </div>
+        }
+
     </div>
 
     <div class="card mb-4 shadow-sm border-0">
         <div class="card-header bg-white py-3">
             <i class="fas fa-table me-1"></i>
-            Danh sách sản phẩm hiện có
+            Danh sách khách hàng hiện có
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle admin-table mb-0">
                     <thead>
                         <tr>
-                            <th style="width: 25%; padding-left: 1.5rem;">Tên sản phẩm</th>
-                            <th style="width: 10%;">Loại</th>
-                            <th style="width: 10%;">Giá</th>
-                            <th style="width: 10%;">Tồn kho</th>
-                            <th style="width: 10%;">Hạn dùng</th>
-                            <th style="width: 10%;" class="text-center">Hình ảnh</th>
-                            <th class="text-center" style="width: 15%;">Thao tác</th>
+                            <th style="width: 20%; padding-left: 1.5rem;">Tên khách hàng</th>
+                            <th style="width: 15%;">Email</th>
+                            <th style="width: 8%;">Giới tính</th>
+                            <th style="width: 27%;">Địa chỉ</th>
+                            <th style="width: 10%;">Ngày tạo</th>
+                            <th class="text-center" style="width: 20%;">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="padding-left: 1.5rem;">
-                                <div class="fw-bold text-primary">Dầu Gội Bưởi Cocoon Không Sulfate</div>
-                                <small class="text-muted">Mã: SP001</small>
-                            </td>
-                            <td>
-                                <span class="badge bg-light text-dark border">Dầu gội</span>
-                            </td>
-                            <td>
-                                <span class="fw-bold text-danger">@String.Format("{0:N0}", 150000) ₫</span>
-                            </td>
-                            <td>
-                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">100</span>
-                            </td>
-                            <td class="text-muted">
-                                <i class="far fa-calendar-alt me-1"></i> 11/12/2026
-                            </td>
-                            <td class="text-center">
-                                <img src="~/Content/Images/ProductIMG/SRMCerave.png" class="product-thumbnail" alt="Product Image" />
-                            </td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center gap-2">
-                                    <a href="@Url.Action("Edit", "Product", new { area = "admin" })" class="btn btn-sm btn-outline-primary" title="Sửa">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-outline-info" title="Xem chi tiết">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-outline-danger" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="padding-left: 1.5rem;">
+                                    <div class="fw-bold text-primary @(item.IsEnabled != 0 ? "text-decoration-line-through" : "")">@item.Name</div>
+                                    <small class="text-muted">Mã: @item.UserID</small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">@item.Email</span>
+                                </td>
+                                <td>
+                                    <span class="fw-bold text-black">@item.Gender</span>
+                                </td>
+                                <td>
+                                    <span class="fw-bold text-black">@item.Address</span>
+                                </td>
+                                <td class="text-muted">
+                                    <i class="far fa-calendar-alt me-1"></i> @item.CreatedAt
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="#" class="btn btn-sm btn-outline-info" title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("EnableKhachHang", "User", new {area="admin", userID=item.UserID})" class="btn btn-sm btn-outline-success" title="Enable">
+                                            <i class="fa-solid fa-check"></i>
+                                        </a>
+                                        <a href="@Url.Action("DisableKhachHang", "User", new {area="admin", userID=item.UserID})" class="btn btn-sm btn-outline-danger" title="Disable">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+
                     </tbody>
                 </table>
             </div>

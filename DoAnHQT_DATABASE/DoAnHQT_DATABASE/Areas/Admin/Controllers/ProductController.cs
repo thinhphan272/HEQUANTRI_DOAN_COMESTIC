@@ -149,6 +149,9 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
                         productService.DisableSanPham(product.ProductID);
                         //Xóa tất cả sản phẩm hiện có trong giỏ
                         productService.XoaTatCaSPTrongGio(product.ProductID);
+                        //Xoa đánh giá sản phẩm
+                        ret = productService.XoaDanhGiaSanPham(product.ProductID, employeeName);
+                        
                     }
 
                     if (ret != 0)
@@ -172,13 +175,50 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
 
         public ActionResult DisableSanPham(string productID)
         {
-            productService.DisableSanPham(productID);
+            string userName = Session["EmployeeName"].ToString();
 
-            //Xóa tất cả sản phẩm hiện có trong giỏ
-            productService.XoaTatCaSPTrongGio(productID);
+            try
+            {
+                List<int> dsResult = new List<int>();
+                int ret = 0;
+                ret = productService.DisableSanPham(productID);
+                dsResult.Add(ret);
 
-            return RedirectToAction("Index", "Product");
+                //Xóa tất cả sản phẩm hiện có trong giỏ
+                ret = productService.XoaTatCaSPTrongGio(productID);
+                dsResult.Add(ret);
+
+                //Xoa đánh giá sản phẩm
+                ret = productService.XoaDanhGiaSanPham(productID, userName);
+                dsResult.Add(ret);
+
+                if (dsResult.Contains(0))
+                {
+                    TempData["DisableError"] = $"Disable sản phẩm mã {productID} không thành công";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["DisableSuccess"] = $"Disable sản phẩm mã {productID} thành công";
+                    return RedirectToAction("Index");
+                }
+                    
+            }
+            catch(Exception e)
+            {
+                TempData["DisableError"] = $"Disable sản phẩm mã {productID} không thành công \n {e.Message}";
+                return RedirectToAction("Index");
+            }
         }
+
+        [HttpPost]
+        public ActionResult TimSanPham(string keyword)
+        {
+            keyword = keyword.Trim().ToLower();
+            List<Product> ds = db.Product.ToList().FindAll(t => t.ProductName.Trim().ToLower().Contains(keyword) || t.ProductID.Trim().ToLower().Contains(keyword));
+            return View("Index", ds);
+        }
+
 
     }
 }

@@ -90,6 +90,7 @@ namespace DoAnHQT_DATABASE.Controllers
             return View("ShowSanPham", list);
         }
 
+        [HttpPost]
         public ActionResult TimKiemTheoTen(string name)
         {
             List<Product> list = productService.TimKiemTheoTen(name);
@@ -101,6 +102,32 @@ namespace DoAnHQT_DATABASE.Controllers
             return View("ShowSanPham", list);
         }
 
+        public ActionResult Contact()
+        {
+            return View();
+        }
 
+        public ActionResult OrderPage()
+        {
+            Users user = Session["User"] as Users;
+            if (user == null)
+            {
+                return View("Index");
+            }
+            List<Orders> ds = db.Orders.ToList().FindAll(t => t.UserID.Equals(user.UserID));
+
+            return View(ds);
+        }
+
+        //public ActionResult TimKiemDonHang()
+        //{
+
+        //}
+
+        public ActionResult OrderDetail(string orderID)
+        {
+            Orders order = db.Orders.FirstOrDefault(t => t.OrderID.Equals(orderID));
+            return View(order);
+        }
     }
 }

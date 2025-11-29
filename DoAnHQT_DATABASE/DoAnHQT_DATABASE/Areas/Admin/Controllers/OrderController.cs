@@ -34,7 +34,13 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             return View(order);
         }
 
-
+        [HttpPost]
+        public ActionResult TimDonHang(string keyword)
+        {
+            keyword = keyword.Trim().ToLower();
+            List<Orders> ds = db.Orders.ToList().FindAll(t => t.Users.Name.Trim().ToLower().Contains(keyword) || t.UserID.Trim().ToLower().Contains(keyword) || t.OrderID.Trim().ToLower().Contains(keyword));
+            return View("Index", ds);
+        }
 
 
     }

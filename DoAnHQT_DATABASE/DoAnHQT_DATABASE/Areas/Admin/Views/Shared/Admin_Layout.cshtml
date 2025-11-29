@@ -8,7 +8,12 @@
           rel="stylesheet" />
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="~/Areas/Admin/Data/assets/css/styles.css" rel="stylesheet" />
     <style>
+        body {
+            background-color: #494949;
+        }
+
         .sidebar {
             height: 100vh;
             background-color: #343a40;
@@ -63,19 +68,19 @@
                 <li class="nav-item">
                     <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})"><i class="fas fa-seedling me-2"></i> Quản lý sản phẩm</a>
                 </li>
-                <li class="nav-item @(currentController == "account" ? "active" : "")">
+                <li class="nav-item @(currentController == "order" ? "active" : "")">
                     <a class="nav-link" href="@Url.Action("Index", "Order", new {area = "admin"})"><i class="fas fa-shopping-cart me-2"></i> Quản lý đơn hàng</a>
                 </li>
-                <li class="nav-item @(currentController == "account" ? "active" : "")">
-                    <a class="nav-link" href="#customers"><i class="fas fa-users me-2"></i> Quản lý khách hàng</a>
+                <li class="nav-item @(currentController == "user" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "User", new {area = "admin"})"><i class="fas fa-users me-2"></i> Quản lý khách hàng</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @(currentController == "account" ? "active" : "")" href="@Url.Action("Index", "Account", new {area = "admin"})"><i class="fa-solid fa-person me-2"></i> Quản lý nhân viên</a>
                 </li>
-                <li class="nav-item @(currentController == "account" ? "active" : "")">
+                <li class="nav-item @(currentController == "discount" ? "active" : "")">
                     <a class="nav-link" href="@Url.Action("Index", "Discount", new {area = "admin"})"><i class="fas fa-tags me-2"></i> Quản lý khuyến mãi</a>
                 </li>
-                <li class="nav-item @(currentController == "account" ? "active" : "")">
+                <li class="nav-item @(currentController == "backup" ? "active" : "")">
                     <a class="nav-link" href="@Url.Action("Index", "Backup", new {area = "admin"})">
                         <i class="fa-solid fa-database me-2"></i> Backup & Restore </a>
                 </li>

@@ -1,0 +1,367 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px 0;
+    }
+
+    .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin-bottom: 30px;
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 15px 15px 0 0 !important;
+        padding: 20px;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+    .btn-success {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-success:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+    .form-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 2px solid #e0e0e0;
+        padding: 12px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+    .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+    .file-input-label {
+        display: block;
+        padding: 12px;
+        background: #f8f9fa;
+        border: 2px dashed #667eea;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-input-label:hover {
+            background: #e7f1ff;
+            border-color: #764ba2;
+        }
+
+        .file-input-label i {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+    .toggle-input {
+        margin-top: 10px;
+    }
+
+    .alert {
+        border-radius: 8px;
+        border: none;
+    }
+
+    .header-title {
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+</style>
+
+
+<div class="container-fluid px-4">
+    @if (ViewBag.BackupSuccess != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @ViewBag.BackupSuccess
+        </div>
+    }
+    @if (ViewBag.BackupError != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.BackupError
+        </div>
+    }
+
+    <h1 class="header-title"><i class="fas fa-database me-2"></i>Quản Lý Database Backup & Restore</h1>
+
+    <!-- Backup Section -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-save"></i> Database Backup
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("BackUpOnSubmit", "Backup", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="backupType" class="form-label">Backup Type</label>
+                        <select class="form-select" id="backupType" name="backupType" required>
+                            <option value="">Select Backup Type</option>
+                            <option value="full">Full Backup</option>
+                            <option value="differential">Differential Backup</option>
+                            <option value="log">Transaction Log Backup</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="databaseName" class="form-label">Database Name</label>
+                        <input type="text" class="form-control" id="databaseName" name="databaseName" placeholder="Enter database name" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Backup File Location</label>
+
+                </div>
+
+                <div id="backupTextInput" class="mb-3">
+                    <input type="text" class="form-control" id="backupPath" name="backupPath" placeholder="e.g., C:\Backups\database.bak">
+                </div>
+
+                <div class="mb-3">
+                    <label for="backupDescription" class="form-label">Description (Optional)</label>
+                    <textarea class="form-control" id="backupDescription" rows="3" placeholder="Add backup description..."></textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-save"></i> Create Backup
+                    </button>
+                </div>
+
+            }
+
+
+        </div>
+    </div>
+
+    <!-- Restore Section -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-undo"></i> Database Restore
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("RestoreOnSubmit", "Backup", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="restoreType" class="form-label">Restore Type</label>
+                        <select class="form-select" id="restoreType" required name="restoreType">
+                            <option value="">Select Restore Type</option>
+                            <option value="full">Full Restore</option>
+                            <option value="differential">Differential Restore</option>
+                            <option value="log">Transaction Log Restore</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="restoreDatabaseName" class="form-label">Target Database Name</label>
+                        <input type="text" class="form-control" id="restoreDatabaseName" name="restoreDatabaseName" placeholder="Enter database name" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Backup File Source</label>
+                </div>
+
+                <div id="restoreTextInput" class="mb-3">
+                    <input type="text" class="form-control" id="restorePath" placeholder="e.g., C:\Backups\database.bak" name="restorePath">
+                </div>
+
+                <div class="mb-3 input-group">
+                    <span class="input-group-text fw-bold" id="fileNumber">File number</span>
+                    <input type="number" class="form-control" id="fileNumber" name="fileNumber">
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="radio" class="form-check-input" id="overwriteDatabase" name="recovery" value="1">
+                    <label class="form-check-label" for="overwriteDatabase">
+                        Restoring database (RECOVERY)
+                    </label>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="radio" class="form-check-input" id="noRecovery" name="recovery" value="2">
+                    <label class="form-check-label" for="noRecovery">
+                        Leave database in restoring state (NORECOVERY)
+                    </label>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-undo"></i> Restore Database
+                    </button>
+                </div>
+
+            }
+        </div>
+    </div>
+
+    <!-- Status Alert -->
+    <div id="statusAlert" style="display: none;"></div>
+</div>
+
+<script>
+    // Toggle backup input type
+    document.querySelectorAll('input[name="backupInputType"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'file') {
+                document.getElementById('backupFileInput').style.display = 'block';
+                document.getElementById('backupTextInput').style.display = 'none';
+            } else {
+                document.getElementById('backupFileInput').style.display = 'none';
+                document.getElementById('backupTextInput').style.display = 'block';
+            }
+        });
+    });
+
+    // Toggle restore input type
+    document.querySelectorAll('input[name="restoreInputType"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'file') {
+                document.getElementById('restoreFileInput').style.display = 'block';
+                document.getElementById('restoreTextInput').style.display = 'none';
+            } else {
+                document.getElementById('restoreFileInput').style.display = 'none';
+                document.getElementById('restoreTextInput').style.display = 'block';
+            }
+        });
+    });
+
+    document.getElementById('restoreFile').addEventListener('change', function (e) {
+        const fileName = e.target.files[0]?.name || 'Click to select backup file to restore';
+        document.getElementById('restoreFileName').textContent = fileName;
+    });
+
+    // Show status message
+    function showStatus(message, type) {
+        const alertDiv = document.getElementById('statusAlert');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+        alertDiv.style.display = 'block';
+        setTimeout(() => {
+            alertDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    // Backup form submission
+    document.getElementById('backupForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const backupType = document.getElementById('backupType').value;
+        const databaseName = document.getElementById('databaseName').value;
+        const inputType = document.querySelector('input[name="backupInputType"]:checked').value;
+        const backupLocation = inputType === 'file'
+            ? document.getElementById('backupFile').files[0]?.name
+            : document.getElementById('backupPath').value;
+
+        if (!backupLocation) {
+            showStatus('Please specify a backup file location!', 'danger');
+            return;
+        }
+
+        // Simulate backup process
+        showStatus(`Creating ${backupType} backup for database "${databaseName}" to ${backupLocation}...`, 'info');
+
+        setTimeout(() => {
+            showStatus(`✓ Backup completed successfully for database "${databaseName}"!`, 'success');
+            this.reset();
+            document.getElementById('backupFileName').textContent = 'Click to select backup file location';
+        }, 2000);
+    });
+
+    // Restore form submission
+    document.getElementById('restoreForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const restoreType = document.getElementById('restoreType').value;
+        const databaseName = document.getElementById('restoreDatabaseName').value;
+        const inputType = document.querySelector('input[name="restoreInputType"]:checked').value;
+        const backupSource = inputType === 'file'
+            ? document.getElementById('restoreFile').files[0]?.name
+            : document.getElementById('restorePath').value;
+
+        if (!backupSource) {
+            showStatus('Please specify a backup file to restore!', 'danger');
+            return;
+        }
+
+        // Simulate restore process
+        showStatus(`Restoring ${restoreType} backup to database "${databaseName}" from ${backupSource}...`, 'info');
+
+        setTimeout(() => {
+            showStatus(`✓ Database "${databaseName}" restored successfully!`, 'success');
+            this.reset();
+            document.getElementById('restoreFileName').textContent = 'Click to select backup file to restore';
+        }, 2000);
+    });
+
+</script>

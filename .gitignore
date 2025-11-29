@@ -24,8 +24,6 @@ obj/
 *.db-shm
 *.db-wal
 
-# Bỏ qua folder backup (theo file cũ của bạn)
-backup/
 
 # --- LƯU Ý: KHÔNG ĐƯỢC CÓ DÒNG /.gitignore ---
 # (Chúng ta cần Git theo dõi file này để người khác cũng dùng được)

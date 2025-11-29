@@ -20,7 +20,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@OrderID", OrderID);
-                    cmd.Parameters.AddWithValue("@UpdatedUser", OrderID);
+                    cmd.Parameters.AddWithValue("@UpdatedUser", UpdatedUser);
 
                     conn.Open();
 

@@ -123,6 +123,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\BackupController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
     <Compile Include="Areas\Admin\Controllers\ExceptionController.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Security\CheckAthourize.cs" />
     <Compile Include="Areas\Admin\Service\AccountService.cs" />
+    <Compile Include="Areas\Admin\Service\BackupService.cs" />
     <Compile Include="Areas\Admin\Service\OrderService.cs" />
     <Compile Include="Areas\Admin\Service\ProductService.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -6445,6 +6447,7 @@
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Discount\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\ChiTietDonHang.cshtml" />
+    <Content Include="Areas\Admin\Views\Backup\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

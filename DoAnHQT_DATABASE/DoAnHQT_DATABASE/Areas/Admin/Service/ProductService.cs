@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 
@@ -141,11 +142,11 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
             }
         }
 
-        public int XoaDanhGiaSanPham(string ProductID, string UpdatedUser)
+        public int CancelOrderCuaSanPham(string ProductID, string UpdatedUser)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("P_NgungKinhDoanhSP", conn))
+                using (SqlCommand cmd = new SqlCommand("P_CancelOrderWhenDisable", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@ProductID", ProductID);
@@ -157,8 +158,6 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
                 }
             }
         }
-
-
 
 
     }

@@ -1,0 +1,260 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+         body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #2d5f4f 0%, #1a3d32 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+        }
+
+        /* Main Content */
+        .error-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .error-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 60px 50px;
+            max-width: 600px;
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(238, 90, 111, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .error-icon i {
+            font-size: 3.5rem;
+            color: white;
+        }
+
+        .error-code {
+            font-size: 5rem;
+            font-weight: 700;
+            color: #2d5f4f;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .error-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .error-details {
+            background-color: #f8f9fa;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            border-radius: 4px;
+        }
+
+        .error-details p {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .error-details p:last-child {
+            margin-bottom: 0;
+        }
+
+        .error-details strong {
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2d5f4f 0%, #1a3d32 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(45, 95, 79, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(45, 95, 79, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: #2d5f4f;
+            border: 2px solid #2d5f4f;
+        }
+
+        .btn-secondary:hover {
+            background-color: #2d5f4f;
+            color: white;
+        }
+
+        .help-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .help-title {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .help-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .help-link {
+            color: #2d5f4f;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .help-link:hover {
+            color: #1a3d32;
+            text-decoration: underline;
+        }
+
+
+</style>
+
+
+<!-- Main Error Content -->
+<div class="error-container" style="margin-top: 120px;">
+    <div class="error-content">
+        <div class="error-icon">
+            <i class="fas fa-server"></i>
+        </div>
+
+        <div class="error-code">500</div>
+        <h1 class="error-title">Lỗi Máy Chủ Nội Bộ</h1>
+        <p class="error-message">
+            Rất tiếc! Đã xảy ra lỗi không mong muốn trên máy chủ của chúng tôi.
+            Chúng tôi đang nỗ lực khắc phục sự cố này.
+        </p>
+
+        <div class="error-details">
+            <p><strong>Mã lỗi:</strong> SERVER_ERROR_500</p>
+            <p><strong>Thời gian:</strong> <span id="errorTime"></span></p>
+            <p><strong>Trạng thái:</strong> Đội ngũ kỹ thuật đang xử lý</p>
+        </div>
+
+        <div class="button-group">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">
+                <i class="fas fa-redo"></i>
+                Thử Lại
+            </a>
+        </div>
+
+        <div class="help-section">
+            <p class="help-title">Bạn cần hỗ trợ?</p>
+            <div class="help-links">
+                <a href="#" class="help-link">
+                    <i class="fas fa-headset"></i>
+                    Hỗ trợ khách hàng
+                </a>
+                <a href="#" class="help-link">
+                    <i class="fas fa-envelope"></i>
+                    Liên hệ Email
+                </a>
+                <a href="#" class="help-link">
+                    <i class="fas fa-phone"></i>
+                    Hotline: 1800 6324
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        // Display current time
+        const now = new Date();
+        const timeString = now.toLocaleString('vi-VN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        document.getElementById('errorTime').textContent = timeString;
+</script>

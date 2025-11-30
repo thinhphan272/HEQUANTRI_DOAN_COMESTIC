@@ -1,0 +1,421 @@
+﻿
+@{
+    ViewBag.Title = "UserDetail";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<style>
+
+    .header-bar {
+        background-color: #5f6368;
+        color: white;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .back-button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+    .main-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 24px;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 400;
+        color: #202124;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .detail-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        margin-bottom: 24px;
+        overflow: hidden;
+    }
+
+    .card-header-custom {
+        background-color: white;
+        padding: 20px 24px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .card-header-custom i {
+            font-size: 1.2rem;
+            color: #5f6368;
+        }
+
+        .card-header-custom h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #202124;
+        }
+
+    .card-body-custom {
+        padding: 24px;
+    }
+
+    .info-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .info-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .field-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #5f6368;
+        margin-bottom: 4px;
+    }
+
+    .field-value {
+        font-size: 1rem;
+        color: #202124;
+        padding: 12px 16px;
+        background-color: #f8f9fa;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+        .field-value.empty {
+            color: #9aa0a6;
+            font-style: italic;
+        }
+
+    .two-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 16px;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .status-active {
+        background-color: #e6f4ea;
+        color: #137333;
+    }
+
+    .status-inactive {
+        background-color: #fce8e6;
+        color: #c5221f;
+    }
+
+    .gender-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 16px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        background-color: #e8f0fe;
+        color: #1967d2;
+    }
+
+    .audit-section {
+        background-color: #f8f9fa;
+        padding: 16px;
+        border-radius: 4px;
+        border-left: 4px solid #5f6368;
+    }
+
+    .audit-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-size: 0.875rem;
+        color: #5f6368;
+    }
+
+        .audit-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .audit-item i {
+            font-size: 1rem;
+        }
+
+        .audit-item strong {
+            color: #202124;
+        }
+
+    .avatar-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        margin-bottom: 24px;
+    }
+
+    .avatar-placeholder {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+
+    .avatar-info {
+        flex: 1;
+    }
+
+        .avatar-info h2 {
+            margin: 0 0 8px 0;
+            font-size: 1.5rem;
+            color: #202124;
+        }
+
+        .avatar-info p {
+            margin: 0;
+            color: #5f6368;
+            font-size: 0.95rem;
+        }
+
+    @@media (max-width: 768px) {
+        .two-columns {
+            grid-template-columns: 1fr;
+        }
+
+        .avatar-section {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    .info-icon {
+        margin-right: 8px;
+        color: #5f6368;
+    }
+</style>
+
+@model DoAnHQT_DATABASE.Models.Users
+
+<!-- Header Bar -->
+<div class="header-bar">
+    <button class="back-button" onclick="window.history.back()">
+        <i class="bi bi-arrow-left"></i>
+        <span>Quay lại</span>
+    </button>
+</div>
+
+<div class="main-container">
+    <!-- Page Title -->
+    <h1 class="page-title text-white">Chi tiết Người dùng</h1>
+
+    <!-- Avatar and Basic Info -->
+    <div class="avatar-section">
+        <div class="avatar-placeholder">
+            @(Model.Name[0].ToString() + Model.Name[1].ToString())
+        </div>
+        <div class="avatar-info">
+            <h2>@Model.Name</h2>
+            <p><i class="bi bi-envelope me-2"></i>@Model.Email</p>
+            
+        </div>
+    </div>
+
+    <!-- Personal Information Card -->
+    <div class="detail-card">
+        <div class="card-header-custom">
+            <i class="bi bi-person-circle"></i>
+            <h3>Thông tin cá nhân</h3>
+        </div>
+        <div class="card-body-custom">
+            <div class="info-grid">
+                <div class="two-columns">
+                    <div class="info-field">
+                        <label class="field-label">Mã người dùng</label>
+                        <div class="field-value">
+                            <i class="bi bi-hash info-icon"></i>
+                            @Model.UserID
+                        </div>
+                    </div>
+                    <div class="info-field">
+                        <label class="field-label">Họ và tên</label>
+                        <div class="field-value">
+                            <i class="bi bi-person info-icon"></i>
+                            @Model.Name
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-columns">
+                    <div class="info-field">
+                        <label class="field-label">Email</label>
+                        <div class="field-value">
+                            <i class="bi bi-envelope info-icon"></i>
+                            @Model.Email
+                        </div>
+                    </div>
+                    <div class="info-field">
+                        <label class="field-label">Số điện thoại</label>
+                        <div class="field-value">
+                            <i class="bi bi-telephone info-icon"></i>
+                            @Model.SDT
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-columns">
+                    <div class="info-field">
+                        <label class="field-label">Giới tính</label>
+                        <div class="field-value">
+                            @if (Model.Gender.Equals("Nữ"))
+                            {
+                                <span class="gender-badge">
+                                    <i class="bi bi-gender-female"></i>
+                                    @Model.Gender
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="gender-badge">
+                                    <i class="bi bi-gender-male"></i>
+                                    @Model.Gender
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-field">
+                    <label class="field-label">Địa chỉ</label>
+                    <div class="field-value">
+                        <i class="bi bi-geo-alt info-icon"></i>
+                        @Model.Address
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Information Card -->
+    <div class="detail-card">
+        <div class="card-header-custom">
+            <i class="bi bi-shield-lock"></i>
+            <h3>Thông tin tài khoản</h3>
+        </div>
+        <div class="card-body-custom">
+            <div class="info-grid">
+                <div class="info-field">
+                    <label class="field-label">Mật khẩu</label>
+                    <div class="field-value">
+                        <i class="bi bi-lock info-icon"></i>
+                        ••••••••••••
+                    </div>
+                </div>
+
+                <div class="two-columns">
+                    <div class="info-field">
+                        <label class="field-label">Trạng thái kích hoạt</label>
+                        @if (Model.IsEnabled == 0)
+                        {
+                            <div class="field-value">
+                                <span class="status-badge status-active">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Đã kích hoạt (IsEnabled: 0)
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="field-value">
+                                <span class="status-badge status-inactive">
+                                    <i class="bi bi-x-circle"></i>
+                                    Chưa kích hoạt (IsEnabled: 1)
+                                </span>
+                            </div>
+                        }
+                    </div>
+                    <div class="info-field">
+                        <label class="field-label">Loại tài khoản</label>
+                        <div class="field-value">
+                            <i class="bi bi-person-badge info-icon"></i>
+                            Khách hàng
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audit Information Card -->
+    <div class="detail-card">
+        <div class="card-header-custom">
+            <i class="bi bi-clock-history"></i>
+            <h3>Thông tin kiểm tra</h3>
+        </div>
+        <div class="card-body-custom">
+            <div class="audit-section">
+                <div class="audit-item">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    <span><strong>Ngày tạo:</strong> @Model.CreatedAt</span>
+                </div>
+                <div class="audit-item">
+                    <i class="bi bi-person-fill"></i>
+                    <span><strong>Người tạo:</strong> @Model.CreatedBy</span>
+                </div>
+                <div class="audit-item">
+                    <i class="bi bi-pencil-square"></i>
+                    <span><strong>Cập nhật lần cuối:</strong> @Model.UpdatedAt</span>
+                </div>
+                <div class="audit-item">
+                    <i class="bi bi-person-fill-gear"></i>
+                    <span><strong>Người cập nhật:</strong> @Model.UpdatedBy</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

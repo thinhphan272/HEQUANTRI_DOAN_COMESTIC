@@ -19,6 +19,11 @@ namespace DoAnHQT_DATABASE.Controllers
         OrderService orderService = new OrderService();
         public ActionResult Cart()
         {
+            if (db == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
             Users user = Session["User"] as Users;
             if (user == null)
                 return RedirectToAction("Index", "Home");
@@ -33,12 +38,17 @@ namespace DoAnHQT_DATABASE.Controllers
         {
             Users user = Session["User"] as Users;
             user = db.Users.FirstOrDefault(t => t.UserID.Equals(user.UserID));
-            ShoppingCart cart = user.ShoppingCart.First();
+            ShoppingCart cart = user.ShoppingCart.First() != null ? user.ShoppingCart.First() : new ShoppingCart();
             return PartialView(cart);
         }
 
         public ActionResult PaymentPage()
         {
+            if (db == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
             Users user = Session["User"] as Users;
             if (user == null)
                 return RedirectToAction("Index", "Home");
@@ -113,7 +123,7 @@ namespace DoAnHQT_DATABASE.Controllers
 
                     if (type == 1)
                     {
-                        newQuantity++;
+                        ++newQuantity;
                     }
                     else if (type == -1)
                     {
@@ -169,7 +179,8 @@ namespace DoAnHQT_DATABASE.Controllers
 
                 if (ret != 0)
                 {
-                    return View("OrderSuccess");
+                    Orders order = db.Orders.FirstOrDefault(t => t.OrderID.Contains(newOrderID));
+                    return View("OrderSuccess", order);
                 }
                 {
                     ViewBag.OrderError = "Đặt hàng không thành công!";
@@ -184,9 +195,10 @@ namespace DoAnHQT_DATABASE.Controllers
         }
 
 
-        public ActionResult OrderSuccess()
+        public ActionResult OrderSuccess(string orderID)
         {
-            return View();
+            Orders order = db.Orders.FirstOrDefault(t => t.OrderID.Contains(orderID));
+            return View(order);
         }
     }
 }

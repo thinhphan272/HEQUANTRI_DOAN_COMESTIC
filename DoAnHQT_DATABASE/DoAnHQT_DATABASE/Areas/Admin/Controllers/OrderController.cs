@@ -17,6 +17,12 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
         // GET: Admin/Order
         public ActionResult Index()
         {
+            if (db == null)
+            {
+                TempData["DatabaseError"] = "Lỗi database";
+                return RedirectToAction("Error", "Exception");
+            }
+
             List<Orders> listOrders = db.Orders.ToList();
             return View(listOrders);
         }

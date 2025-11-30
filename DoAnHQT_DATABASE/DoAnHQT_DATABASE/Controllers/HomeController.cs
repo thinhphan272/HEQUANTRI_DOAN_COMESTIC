@@ -15,6 +15,11 @@ namespace DoAnHQT_DATABASE.Controllers
 
         public ActionResult Index()
         {
+            if (db == null)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+
             ViewBag.BrandList = db.Brand.ToList();
             ViewBag.ProductTypeList = db.ProductType.ToList();
             ViewBag.SanPhamGiamSau = productService.SanPhamGiamSauNhat(10);

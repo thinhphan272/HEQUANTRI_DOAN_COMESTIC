@@ -38,8 +38,8 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             }
             else
             {
-                ViewBag.Error = "Đăng nhập thất bại!";
-                return View("Login", new { area = "admin" });
+                TempData["DatabaseError"] = "Sai thông tin hoặc lỗi database";
+                return RedirectToAction("Error", "Exception");
             }
         }
         public ActionResult Logout()

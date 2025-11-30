@@ -137,6 +137,7 @@
     <Compile Include="Areas\Admin\Service\ProductService.cs" />
     <Compile Include="Areas\Admin\Service\UserService.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -6450,6 +6451,8 @@
     <Content Include="Areas\Admin\Views\Discount\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\ChiTietDonHang.cshtml" />
     <Content Include="Areas\Admin\Views\Backup\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\User\UserDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Exception\Error.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -6485,6 +6488,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\OrderPage.cshtml" />
     <Content Include="Views\Home\OrderDetail.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

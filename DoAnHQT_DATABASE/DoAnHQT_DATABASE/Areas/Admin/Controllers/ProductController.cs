@@ -16,10 +16,16 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
     {
         QL_BANHANG_ONLINE db = new QL_BANHANG_ONLINE();
         ProductService productService = new ProductService();
-
+        
         // GET: Admin/Product
         public ActionResult Index()
         {
+            if (db == null)
+            {
+                TempData["DatabaseError"] = "Lỗi database";
+                return RedirectToAction("Error", "Exception");
+            }
+
             List<Product> dssp = db.Product.ToList();
             return View(dssp);
         }
@@ -149,8 +155,8 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
                         productService.DisableSanPham(product.ProductID);
                         //Xóa tất cả sản phẩm hiện có trong giỏ
                         productService.XoaTatCaSPTrongGio(product.ProductID);
-                        //Xoa đánh giá sản phẩm
-                        ret = productService.XoaDanhGiaSanPham(product.ProductID, employeeName);
+                        //Cancle don hang co san pham
+                        productService.CancelOrderCuaSanPham(product.ProductID, employeeName);
                         
                     }
 
@@ -189,7 +195,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
                 dsResult.Add(ret);
 
                 //Xoa đánh giá sản phẩm
-                ret = productService.XoaDanhGiaSanPham(productID, userName);
+                ret = productService.CancelOrderCuaSanPham(productID, userName);
                 dsResult.Add(ret);
 
                 if (dsResult.Contains(0))

@@ -17,6 +17,12 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
         OrderService orderService = new OrderService();
         public ActionResult Index()
         {
+            if (db == null)
+            {
+                TempData["DatabaseError"] = "Lỗi database";
+                return RedirectToAction("Error", "Exception");
+            }
+
             ViewBag.TongSanPham = db.Product.Count();
             ViewBag.TongDonHang = db.Orders.Count();
             ViewBag.TongKhachHang = db.Users.Count();

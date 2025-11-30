@@ -1,0 +1,544 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .error-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 800px;
+        width: 100%;
+        overflow: hidden;
+        animation: slideIn 0.6s ease-out;
+    }
+
+    @@keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Header Section */
+    .error-header {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        padding: 30px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .error-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+    @@keyframes rotate {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .error-icon-wrapper {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 20px;
+    }
+
+    .error-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(10px);
+        animation: shake 1s ease-in-out infinite;
+    }
+
+    @@keyframes shake {
+        0%, 100% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(-5deg);
+        }
+
+        75% {
+            transform: rotate(5deg);
+        }
+    }
+
+    .error-icon i {
+        font-size: 3rem;
+        color: white;
+    }
+
+    .error-header h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .error-header p {
+        font-size: 1rem;
+        opacity: 0.95;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Body Section */
+    .error-body {
+        padding: 40px;
+    }
+
+    .error-message {
+        background: #fef2f2;
+        border-left: 4px solid #dc2626;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+        .error-message h2 {
+            color: #991b1b;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .error-message p {
+            color: #7f1d1d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+            .error-message p:last-child {
+                margin-bottom: 0;
+            }
+
+    .error-details {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+        .error-details h3 {
+            color: #1e293b;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    .detail-row {
+        display: flex;
+        padding: 12px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+    .detail-label {
+        font-weight: 600;
+        color: #475569;
+        min-width: 150px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .detail-value {
+        color: #1e293b;
+        flex: 1;
+        word-break: break-word;
+    }
+
+        .detail-value.error-code {
+            font-family: 'Courier New', monospace;
+            background: #fee2e2;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #991b1b;
+            display: inline-block;
+        }
+
+    .status-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .status-error {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .status-warning {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    /* Troubleshooting Section */
+    .troubleshooting {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+        .troubleshooting h3 {
+            color: #1e40af;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .troubleshooting ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .troubleshooting li {
+            padding: 10px 0;
+            color: #1e3a8a;
+            display: flex;
+            align-items: start;
+            gap: 10px;
+        }
+
+            .troubleshooting li i {
+                color: #3b82f6;
+                margin-top: 4px;
+            }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        flex: 1;
+        min-width: 180px;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+
+    .btn-secondary {
+        background: white;
+        color: #3b82f6;
+        border: 2px solid #3b82f6;
+    }
+
+        .btn-secondary:hover {
+            background: #eff6ff;
+        }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+        }
+
+    /* Footer */
+    .error-footer {
+        background: #f8fafc;
+        padding: 20px 40px;
+        text-align: center;
+        border-top: 1px solid #e2e8f0;
+    }
+
+        .error-footer p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .error-footer a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .error-footer a:hover {
+                text-decoration: underline;
+            }
+
+    /* Loading spinner for retry button */
+    .spinner {
+        display: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+    }
+
+    @@keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .btn.loading .spinner {
+        display: inline-block;
+    }
+
+    .btn.loading .btn-text {
+        display: none;
+    }
+
+    @@media (max-width: 768px) {
+        .error-body {
+            padding: 25px;
+        }
+
+        .error-header h1 {
+            font-size: 1.5rem;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .detail-row {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .detail-label {
+            min-width: auto;
+        }
+    }
+</style>
+
+
+<div class="error-container">
+    <!-- Header -->
+    <div class="error-header">
+        <div class="error-icon-wrapper">
+            <div class="error-icon">
+                <i class="fas fa-database"></i>
+            </div>
+        </div>
+        <h1>Lỗi Kết Nối Database</h1>
+        <p>Không thể kết nối đến cơ sở dữ liệu</p>
+    </div>
+
+    <!-- Body -->
+    <div class="error-body">
+        <!-- Error Message -->
+        <div class="error-message">
+            <h2>
+                <i class="fas fa-exclamation-triangle"></i>
+                Thông Báo Lỗi
+            </h2>
+            <p>
+                Hệ thống không thể thiết lập kết nối với cơ sở dữ liệu.
+                Điều này có thể do máy chủ database đang bảo trì, mạng không ổn định, hoặc thông tin xác thực không đúng.
+            </p>
+
+        </div>
+
+        <!-- Error Details -->
+        <div class="error-details">
+            <h3>
+                <i class="fas fa-info-circle"></i>
+                Chi Tiết Lỗi
+            </h3>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <i class="fas fa-hashtag"></i>
+                    Lỗi:
+                </div>
+                <div class="detail-value">
+                    <span class="error-code">
+                        @if (TempData["DatabaseError"] != null)
+                        {
+                            TempData["DatabaseError"].ToString();
+                        }
+                    </span>
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <i class="fas fa-clock"></i>
+                    Thời Gian:
+                </div>
+                <div class="detail-value" id="errorTime"></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <i class="fas fa-server"></i>
+                    Database Server:
+                </div>
+                <div class="detail-value">@ViewBag.ServerName</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <i class="fas fa-database"></i>
+                    Database Name:
+                </div>
+                <div class="detail-value">@ViewBag.DatabaseName</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">
+                    <i class="fas fa-signal"></i>
+                    Trạng Thái:
+                </div>
+                <div class="detail-value">
+                    <span class="status-indicator status-error">
+                        <i class="fas fa-times-circle"></i>
+                        Không Kết Nối Được
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="troubleshooting">
+            <h3>
+                <i class="fas fa-tools"></i>
+                Các Bước Khắc Phục
+            </h3>
+            <ul>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Kiểm tra kết nối mạng và đảm bảo máy chủ database đang chạy</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Xác minh thông tin cấu hình database (host, port, username, password)</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Kiểm tra firewall và đảm bảo cổng database không bị chặn</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Xem log hệ thống để biết thêm thông tin chi tiết về lỗi</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle"></i>
+                    <span>Liên hệ với đội ngũ IT nếu vấn đề vẫn tiếp diễn</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <a href="@Url.Action("Login", "Account", new {area="admin"})" class="btn btn-primary" id="retryBtn">
+                <span class="spinner"></span>
+                <span class="btn-text">
+                    <i class="fas fa-redo"></i>
+                    Thử Kết Nối Lại
+                </span>
+            </a>
+
+            <a href="@Url.Action("Index", "Backup", new {area="admin"})" class="btn btn-danger">
+                <i class="fas fa-cog"></i>
+                Restore Database
+            </a>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    // Display current time
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleString('vi-VN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        document.getElementById('errorTime').textContent = timeString;
+    }
+    updateTime();
+
+
+</script>

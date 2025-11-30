@@ -1,7 +1,382 @@
 ﻿
 @{
     ViewBag.Title = "OrderSuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
 
-<h2 style="margin-top:200px; margin-bottom: 200px; margin-left: 200px;">ĐẶT HÀNG THÀNH CÔNG</h2>
 
+    /* Success Section */
+    .success-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+
+    .success-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    .success-header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        padding: 40px 30px;
+        text-align: center;
+        color: white;
+    }
+
+    .success-icon {
+        width: 100px;
+        height: 100px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        animation: scaleUp 0.5s ease-out;
+    }
+
+    @@keyframes scaleUp {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .success-icon i {
+        font-size: 3.5rem;
+        color: white;
+    }
+
+    .success-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .success-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+
+    .success-body {
+        padding: 30px;
+    }
+
+    .order-info-box {
+        background: #f0fdf4;
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #d1fae5;
+    }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+    .info-label {
+        font-weight: 600;
+        color: #065f46;
+    }
+
+    .info-value {
+        color: #047857;
+        font-weight: 700;
+    }
+
+    .delivery-section {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2d5f4f;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .section-title i {
+            color: #10b981;
+        }
+
+    .delivery-info p {
+        margin-bottom: 8px;
+        color: #495057;
+    }
+
+    .delivery-info strong {
+        color: #212529;
+    }
+
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+        margin-top: 20px;
+    }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #d1fae5;
+        }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #10b981;
+        }
+
+        .timeline-item.pending::before {
+            background: #e5e7eb;
+            border-color: #9ca3af;
+        }
+
+    .timeline-text {
+        font-size: 0.95rem;
+        color: #495057;
+    }
+
+    .timeline-time {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+
+    .btn-custom {
+        padding: 14px 30px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        border: none;
+        font-size: 1rem;
+    }
+
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #2d5f4f 0%, #1a3d32 100%);
+        color: white;
+    }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(45, 95, 79, 0.3);
+        }
+
+    .btn-outline-custom {
+        background: white;
+        color: #2d5f4f;
+        border: 2px solid #2d5f4f;
+    }
+
+        .btn-outline-custom:hover {
+            background: #2d5f4f;
+            color: white;
+        }
+
+    .button-group {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .promo-section {
+        background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .promo-section h4 {
+            color: #9a3412;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .promo-section p {
+            color: #7c2d12;
+            margin-bottom: 15px;
+        }
+
+    .promo-code {
+        background: white;
+        border: 2px dashed #ea580c;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #ea580c;
+        display: inline-block;
+    }
+
+    @@media (max-width: 768px) {
+        .success-title {
+            font-size: 1.5rem;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+
+        .btn-custom {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .header-icons {
+            gap: 10px;
+        }
+
+        .header-icon-item span {
+            display: none;
+        }
+    }
+</style>
+
+
+@model DoAnHQT_DATABASE.Models.Orders
+
+<!-- Success Content -->
+<div class="success-container" style="margin-top:120px;">
+    <div class="success-card">
+        <!-- Success Header -->
+        <div class="success-header">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1 class="success-title">Đặt Hàng Thành Công!</h1>
+            <p class="success-subtitle">Cảm ơn bạn đã tin tưởng mua sắm tại Hasaki.vn</p>
+        </div>
+
+        <!-- Success Body -->
+        <div class="success-body">
+            <!-- Order Info -->
+            <div class="order-info-box">
+                <div class="info-row">
+                    <span class="info-label">Mã đơn hàng:</span>
+                    <span class="info-value">@Model.OrderID</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Ngày đặt hàng:</span>
+                    <span class="info-value">@Model.OrderDate</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Tổng tiền:</span>
+                    <span class="info-value" style="font-size: 1.3rem;">@Model.TongThanhTien.ToString("N0")đ</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Phương thức thanh toán:</span>
+                    <span class="info-value">@Model.UserPaymentMethod</span>
+                </div>
+            </div>
+
+            <!-- Delivery Section -->
+            <div class="delivery-section">
+                <h3 class="section-title">
+                    <i class="fas fa-shipping-fast"></i>
+                    Thông Tin Giao Hàng
+                </h3>
+                <div class="delivery-info">
+                    <p><strong>Người nhận:</strong> @Model.Users.Name</p>
+                    <p><strong>Số điện thoại:</strong> @Model.Users.SDT</p>
+                    <p><strong>Địa chỉ:</strong> @Model.Address</p>
+                    <p><strong>Thời gian giao hàng dự kiến:</strong> @Model.OrderDate - 30/12/2025</p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="timeline mt-4">
+                    <div class="timeline-item">
+                        <div class="timeline-text"><strong>Đơn hàng đã được đặt</strong></div>
+                        <div class="timeline-time">@Model.OrderDate</div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-text">Đang xác nhận đơn hàng</div>
+                        <div class="timeline-time">Dự kiến: 04/12/2025 - 18:00</div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-text">Đang đóng gói và chuẩn bị hàng</div>
+                        <div class="timeline-time">Dự kiến: 05/12/2025</div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-text">Đang vận chuyển</div>
+                        <div class="timeline-time">Dự kiến: 15/12/2025</div>
+                    </div>
+                    <div class="timeline-item pending">
+                        <div class="timeline-text">Giao hàng thành công</div>
+                        <div class="timeline-time">Dự kiến: 30/12/2025</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promo Section -->
+            <div class="promo-section">
+                <h4><i class="fas fa-gift"></i> Quà Tặng Đặc Biệt</h4>
+                <p>Nhận ngay mã giảm giá <strong>100K</strong> cho đơn hàng tiếp theo!</p>
+                <div class="promo-code">NEWORDER100K</div>
+                <p class="mt-3 mb-0"><small>Áp dụng cho đơn hàng từ 500.000đ</small></p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <a href="@Url.Action("OrderDetail", "Home", new {orderID = Model.OrderID})" class="btn-custom btn-primary-custom">
+                    <i class="fas fa-list"></i>
+                    Xem Chi Tiết Đơn Hàng
+                </a>
+                <a href="@Url.Action("ShowSanPham", "Home")" class="btn-custom btn-outline-custom">
+                    <i class="fas fa-home"></i>
+                    Về Trang Chủ
+                </a>
+                <a href="@Url.Action("ShowSanPham", "Home")" class="btn-custom btn-outline-custom">
+                    <i class="fas fa-shopping-bag"></i>
+                    Tiếp Tục Mua Sắm
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

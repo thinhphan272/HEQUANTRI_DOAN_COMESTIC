@@ -62,9 +62,10 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             return View("Index", ds);
         }
 
-        public ActionResult UserDetail()
+        public ActionResult UserDetail(string userID)
         {
-            return View()
+            Users user = db.Users.FirstOrDefault(t => t.UserID.Equals(userID));
+            return View(user);
         }
 
     }

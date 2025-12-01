@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "DetailDiscountPage";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+}
+
+<style>
+
+    .card {
+        border: none;
+        box-shadow: 0 0 20px rgba(0,0,0,0.08);
+        border-radius: 10px;
+    }
+
+    .card-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px 10px 0 0 !important;
+        padding: 20px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 8px;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 10px 30px;
+        font-weight: 600;
+        transition: transform 0.2s;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+    .btn-secondary {
+        padding: 10px 30px;
+        font-weight: 600;
+    }
+
+    .required::after {
+        content: " *";
+        color: #dc3545;
+    }
+
+    .info-badge {
+        background-color: #e7f3ff;
+        color: #0056b3;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 0.85rem;
+        display: inline-block;
+    }
+
+    .brand-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+</style>
+
+@model DoAnHQT_DATABASE.Models.Discount
+
+<!-- Main Content -->
+
+<div class="header">
+    <div class="d-flex justify-content-between align-items-center px-4 my-3">
+        <h4 class="mb-0 text-white"><i class="bi bi-pencil-square me-2"></i>Discount Detail</h4>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="bi bi-tag me-2"></i>Discount Information</h5>
+    </div>
+    <div class="card-body p-4">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="discountID" class="form-label required">Discount ID</label>
+                <input type="text" class="form-control" id="discountID" maxlength="10" readonly name="discountID"
+                       value="@Model.DiscountID" style="background-color: #e9ecef;">
+                <small class="text-muted">This field is read-only</small>
+            </div>
+            <div class="col-md-6">
+                <label for="productID" class="form-label required">Product</label>
+                <input type="text" class="form-control" readonly
+                       value="@Model.Product.ProductName" style="background-color: #e9ecef;">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label for="discountName" class="form-label required">Tên Discount</label>
+                <input type="text" class="form-control" id="discountName" name="discountName"
+                       value="@Model.DiscountName" readonly>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="startDate" class="form-label required">Ngày bắt đầu</label>
+                <input type="datetime-local" class="form-control" id="startDate" name="startDate"
+                       value="@Model.StartDate.Value.ToString("yyyy-dd-MMTHH:mm")" readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="endDate" class="form-label required">Ngày kết thúc</label>
+                <input type="datetime-local" class="form-control" id="endDate" name="endDate"
+                       value="@Model.EndDate.Value.ToString("yyyy-dd-MMTHH:mm")" readonly>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="discountRate" class="form-label required">Phần trăm Discount (%)</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="discountRate" name="discountRate"
+                           min="0" max="100" step="0.5" value="@Model.DiscountRate" readonly>
+                    <span class="input-group-text">%</span>
+                </div>
+                <small class="text-muted">Enter a value between 0 and 100</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <div class="info-badge">
+                    <i class="bi bi-info-circle me-1"></i>
+                    <span id="statusBadge">Active</span>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Created At</label>
+                <input type="text" class="form-control" value="@Model.CreatedAt" readonly style="background-color: #e9ecef;">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Created By</label>
+                <input type="text" class="form-control" value="@Model.CreatedBy" readonly style="background-color: #e9ecef;">
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label class="form-label">Updated At</label>
+                <input type="text" class="form-control" id="updatedAt" readonly value="@Model.UpdatedAt" style="background-color: #e9ecef;">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Updated By</label>
+                <input type="text" class="form-control" value="@Model.UpdatedBy" readonly style="background-color: #e9ecef;">
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between pt-3">
+            <a href="@Url.Action("Index", "Discount", new {area="admin"})" class="btn btn-secondary">
+                <i class="bi bi-arrow-left me-2"></i>Back to List
+            </a>
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-2"></i>Update Discount
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+    // Update status badge based on dates
+    function updateStatus() {
+        const startDate = new Date(document.getElementById('startDate').value);
+        const endDate = new Date(document.getElementById('endDate').value);
+        const now = new Date();
+        const statusBadge = document.getElementById('statusBadge');
+
+        if (now < startDate) {
+            statusBadge.textContent = 'Scheduled';
+            statusBadge.parentElement.style.backgroundColor = '#fff3cd';
+            statusBadge.parentElement.style.color = '#856404';
+        } else if (now >= startDate && now <= endDate) {
+            statusBadge.textContent = 'Active';
+            statusBadge.parentElement.style.backgroundColor = '#d4edda';
+            statusBadge.parentElement.style.color = '#155724';
+        } else {
+            statusBadge.textContent = 'Expired';
+            statusBadge.parentElement.style.backgroundColor = '#f8d7da';
+            statusBadge.parentElement.style.color = '#721c24';
+        }
+    }
+
+    document.getElementById('startDate').addEventListener('change', updateStatus);
+    document.getElementById('endDate').addEventListener('change', updateStatus);
+    updateStatus();
+</script>

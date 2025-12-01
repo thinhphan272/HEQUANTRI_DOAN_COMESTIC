@@ -57,11 +57,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             }
         }
         [CheckAthourize(Roles = "Admin")]
-        public ActionResult Index()
-        {
-            List<string> lstNhanViens = accountService.GetAllStaffs();
-            return View(lstNhanViens);
-        }
+        
 
         [CheckAthourize(Roles = "Admin")]
         [HttpPost]
@@ -91,6 +87,12 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
                 ViewBag.Error = "Xoá không thành công";
             }
             return RedirectToAction("Index", new { area = "admin" });
+        }
+
+        public ActionResult Index()
+        {
+            List<string> lstNhanViens = accountService.GetAllStaffs();
+            return View(lstNhanViens);
         }
     }
 }

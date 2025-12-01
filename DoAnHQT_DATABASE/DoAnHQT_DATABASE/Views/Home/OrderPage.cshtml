@@ -436,36 +436,30 @@
 
                                 if (status.Contains("chờ giao hàng") || status.Contains("chờ lấy hàng") || status.Contains("đã huỷ"))
                                 {
-                                    <button class="btn btn-outline-hasaki me-2">
+                                    <a href="@Url.Action("Contant", "Home")" class="btn btn-outline-hasaki me-2">
                                         <i class="bi bi-telephone me-1"></i>Liên hệ
-                                    </button>
-                                    <button class="btn btn-secondary-hasaki">
-                                        <i class="bi bi-arrow-clockwise me-1"></i>Mua lại
-                                    </button>
+                                    </a>
+                                    
                                     <a href="@Url.Action("OrderDetail", "Home", new {orderID = item.OrderID})" class="btn btn-secondary-hasaki">
                                         <i class="bi bi-eye"></i>Xem chi tiết
                                     </a>
                                 }
                                 else if (status.Contains("đang kiểm") || status.Contains("chờ xác nhận"))
                                 {
-                                    <button class="btn btn-outline-hasaki me-2">
+                                    <a href="@Url.Action("HuyDonHang", "Home", new {orderID = item.OrderID})" class="btn btn-outline-hasaki me-2">
                                         <i class="bi bi-x-circle me-1"></i>Hủy đơn
-                                    </button>
-                                    <button class="btn btn-secondary-hasaki">
-                                        <i class="bi bi-pencil me-1"></i>Sửa đơn
-                                    </button>
+                                    </a>
+
                                     <a href="@Url.Action("OrderDetail", "Home", new {orderID = item.OrderID})" class="btn btn-secondary-hasaki">
                                         <i class="bi bi-eye"></i>Xem chi tiết
                                     </a>
                                 }
                                 else if (status.Contains("đã giao hàng"))
                                 {
-                                    <button class="btn btn-hasaki me-2">
-                                        <i class="bi bi-star me-1"></i>Đánh giá
-                                    </button>
-                                    <button class="btn btn-secondary-hasaki">
-                                        <i class="bi bi-arrow-clockwise me-1"></i>Mua lại
-                                    </button>
+                                   
+                                    <a href="@Url.Action("ShowSanPham", "Home")" class="btn btn-secondary-hasaki">
+                                        <i class="bi bi-arrow-clockwise me-1"></i>Mua hàng tiếp
+                                    </a>
                                     <a href="@Url.Action("OrderDetail", "Home", new {orderID = item.OrderID})" class="btn btn-secondary-hasaki">
                                         <i class="bi bi-eye"></i>Xem chi tiết
                                     </a>

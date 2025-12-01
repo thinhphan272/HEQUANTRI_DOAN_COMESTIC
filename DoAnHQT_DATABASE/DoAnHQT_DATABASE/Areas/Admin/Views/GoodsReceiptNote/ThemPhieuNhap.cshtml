@@ -6,7 +6,7 @@
     string EmployeeName = TempData["EmployeeName"] != null ? TempData["EmployeeName"].ToString() : "";
     DateTime ReceiptDate = TempData["receiptDate"] != null ? DateTime.Parse(TempData["receiptDate"].ToString()) : DateTime.Now;
     string SupplierID = TempData["supplierID"] != null ? TempData["supplierID"].ToString() : "";
-    List <DoAnHQT_DATABASE.Models.Supplier> lsSupplier = ViewBag.SupplierList as List<DoAnHQT_DATABASE.Models.Supplier>;
+    List<DoAnHQT_DATABASE.Models.Supplier> lsSupplier = ViewBag.SupplierList as List<DoAnHQT_DATABASE.Models.Supplier>;
 }
 <style>
 
@@ -204,7 +204,7 @@
                         <i class="fas fa-box"></i>
                         Product Details
                     </h5>
-                    
+
                     <button type="button" class="btn btn-add-product" onclick="addProductRow()">
                         <i class="fas fa-plus"></i> Add Product
                     </button>
@@ -223,7 +223,9 @@
             </div>
         }
 
-
+        <a href="@Url.Action("Index", "Discount", new {area="admin"})" class="btn btn-secondary m-3">
+            <i class="bi bi-arrow-left me-2"></i>Back to List
+        </a>
     </div>
 </div>
 

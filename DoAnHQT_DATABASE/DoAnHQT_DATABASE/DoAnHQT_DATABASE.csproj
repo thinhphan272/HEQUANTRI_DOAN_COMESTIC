@@ -6462,6 +6462,8 @@
     <Content Include="Areas\Admin\Views\Discount\AddDiscountPage.cshtml" />
     <Content Include="Areas\Admin\Views\GoodsReceiptNote\Index.cshtml" />
     <Content Include="Areas\Admin\Views\GoodsReceiptNote\ThemPhieuNhap.cshtml" />
+    <Content Include="Areas\Admin\Views\GoodsReceiptNote\ChiTietPhieuNhap.cshtml" />
+    <Content Include="Areas\Admin\Views\GoodsReceiptNote\UpdatePhieuNhap.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

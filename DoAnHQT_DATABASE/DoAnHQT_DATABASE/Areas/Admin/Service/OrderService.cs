@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoAnHQT_DATABASE.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -20,6 +21,34 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@OrderID", OrderID);
+                    cmd.Parameters.AddWithValue("@UpdatedUser", UpdatedUser);
+
+                    conn.Open();
+
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public int UpdateDonHang(string OrderID,
+	                            string UserID,
+	                            DateTime OrderDate,
+                                string Address,
+	                            string Status,
+	                            string UserPaymentMethod,
+	                            string UpdatedUser)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("P_Update_Order", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@OrderID", OrderID);
+                    cmd.Parameters.AddWithValue("@UserID", UserID);
+                    cmd.Parameters.AddWithValue("@OrderDate", OrderDate);
+                    cmd.Parameters.AddWithValue("@Address", Address);
+                    cmd.Parameters.AddWithValue("@Status", Status);
+                    cmd.Parameters.AddWithValue("@UserPaymentMethod", UserPaymentMethod);
                     cmd.Parameters.AddWithValue("@UpdatedUser", UpdatedUser);
 
                     conn.Open();
@@ -77,6 +106,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
             }
             return 0;
         }
+
 
 
     }

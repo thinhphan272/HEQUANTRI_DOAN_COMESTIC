@@ -12,7 +12,7 @@ namespace DoAnHQT_DATABASE.Controllers
     {
         QL_BANHANG_ONLINE db = new QL_BANHANG_ONLINE();
         ProductService productService = new ProductService();
-
+        OrderService orderService = new OrderService();
         public ActionResult Index()
         {
             if (db == null)
@@ -122,6 +122,24 @@ namespace DoAnHQT_DATABASE.Controllers
             List<Orders> ds = db.Orders.ToList().FindAll(t => t.UserID.Equals(user.UserID));
 
             return View(ds);
+        }
+
+        public ActionResult HuyDonHang(string orderID)
+        {
+            Users user = Session["User"] as Users;
+            if (user == null)
+            {
+                return View("Index");
+            }
+            try
+            {
+                int ret = orderService.HuyDonHang(orderID, user.Name);
+                return RedirectToAction("OrderPage", "Home");
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("OrderPage", "Home");
+            }
         }
 
         //public ActionResult TimKiemDonHang()

@@ -125,7 +125,110 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             }
         }
 
+        public ActionResult ChiTietPhieuNhap(string grnID)
+        {
+            GoodsReceiptNote grn = db.GoodsReceiptNote.FirstOrDefault(t => t.GoodsReceiptNoteID.Equals(grnID));
+            return View(grn);
+        }
 
+        public ActionResult XoaPhieuNhap(string grnID)
+        {
+            try
+            {
+                int ret = goodsReceiptNoteService.XoaPhieuNhap(grnID);
+                if (ret != 0)
+                {
+                    TempData["DeleteSuccess"] = $"Xóa thành công {grnID}";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["DeleteError"] = $"Xóa thành công {grnID}";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch(Exception e)
+            {
+                TempData["DeleteError"] = $"Xóa thành công {grnID} \n {e.Message}";
+                return RedirectToAction("Index");
+            }
+        }
+
+        public ActionResult UpdatePhieuNhap(string grnID)
+        {
+            ViewBag.SupplierList = db.Supplier.ToList();
+            GoodsReceiptNote grn = db.GoodsReceiptNote.FirstOrDefault(t => t.GoodsReceiptNoteID.Equals(grnID));
+            return View(grn);
+        }
+
+        public ActionResult XoaSanPhamPhieuNhap(string productID, string grnID)
+        {
+            GoodsReceiptNote grn = db.GoodsReceiptNote.FirstOrDefault(t => t.GoodsReceiptNoteID.Equals(grnID));
+            ViewBag.SupplierList = db.Supplier.ToList();
+            try
+            {
+                
+                int ret = goodsReceiptNoteService.XoaSanPhamPhieuNhap(productID, grnID);
+                return View("UpdatePhieuNhap", grn);
+            }
+            catch (Exception e)
+            {
+                return View("UpdatePhieuNhap", grn);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpDateSanPhamPhieuNhapSubmit(FormCollection form)
+        {
+            string productID = form["productID"].ToString();
+            decimal unitPrice = decimal.Parse(form["unitPrice"]);
+            int quantity = int.Parse(form["quantity"]);
+            string grnID = form["grnID"].ToString();
+
+            GoodsReceiptNote grn = db.GoodsReceiptNote.FirstOrDefault(t => t.GoodsReceiptNoteID.Equals(grnID));
+            ViewBag.SupplierList = db.Supplier.ToList();
+            try
+            {
+                int ret = goodsReceiptNoteService.ChinhSuaSanPhamPhieuNhap(productID, grnID, unitPrice, quantity);
+                return View("UpdatePhieuNhap", grn);
+            }
+            catch(Exception e)
+            {
+                return View("UpdatePhieuNhap", grn);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdatePhieuNhapOnSubmit(FormCollection form)
+        {
+            DateTime receiptDate = DateTime.Parse(form["receiptDate"]);
+            string grnID = form["grnID"].ToString();
+            string supplierID = form["supplierID"].ToString();
+            string employeeName = Session["EmployeeName"].ToString();
+
+            GoodsReceiptNote grn = db.GoodsReceiptNote.FirstOrDefault(t => t.GoodsReceiptNoteID.Equals(grnID));
+            ViewBag.SupplierList = db.Supplier.ToList();
+            try
+            {
+                int ret = goodsReceiptNoteService.SuaPhieuNhap(grnID, supplierID, receiptDate, employeeName);
+                if (ret != 0)
+                {
+                    TempData["UpdateSucess"] = "Cập nhật phiếu nhập thành công";
+                    return View("UpdatePhieuNhap", grn);
+                }
+                else
+                {
+                    TempData["UpdateError"] = "Cập nhật phiếu nhập thất bại";
+                    return View("UpdatePhieuNhap", grn);
+                }
+                
+            }
+            catch (Exception e)
+            {
+                TempData["UpdateError"] = $"Cập nhật phiếu nhập thất bại \n {e.Message}";
+                return  View("UpdatePhieuNhap", grn);
+            }
+        }
 
     }
 }

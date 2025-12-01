@@ -5,6 +5,7 @@ namespace DoAnHQT_DATABASE.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("GoodsReceiptNote")]
     public partial class GoodsReceiptNote
@@ -39,5 +40,13 @@ namespace DoAnHQT_DATABASE.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GoodsReceiptNoteDetail> GoodsReceiptNoteDetail { get; set; }
+
+        public double TongThanhTien
+        {
+            get
+            {
+                return (double)GoodsReceiptNoteDetail.Sum(t => t.Quantity.Value * t.UnitPrice.Value);
+            }
+        }
     }
 }

@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewBag.Title = "UpdatePhieuNhap";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+    List<DoAnHQT_DATABASE.Models.Supplier> lsSupplier = ViewBag.SupplierList as List<DoAnHQT_DATABASE.Models.Supplier>;
+}
+
+<style>
+
+    .main-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        margin-top: 2rem;
+        overflow: hidden;
+    }
+
+    .card-header-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border: none;
+    }
+
+    .form-section {
+        padding: 2rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+    .section-title {
+        color: #667eea;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .section-title i {
+            margin-right: 0.5rem;
+        }
+
+    .readonly-field {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+
+    .product-row {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        transition: all 0.3s;
+        border-left: 4px solid #667eea;
+    }
+
+        .product-row:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .product-row.deleted {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+            opacity: 0.7;
+        }
+
+    .btn-add-product {
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+    }
+
+        .btn-add-product:hover {
+            background: #764ba2;
+            color: white;
+        }
+
+    .btn-remove {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 5px;
+    }
+
+    .btn-restore {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 5px;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+    .total-section {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
+
+    .total-amount {
+        font-size: 1.5rem;
+        color: #667eea;
+        font-weight: 700;
+    }
+
+    .badge-new {
+        background: #28a745;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+    }
+
+    .badge-updated {
+        background: #ffc107;
+        color: #000;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+    }
+
+    .alert-info-custom {
+        background: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+@model DoAnHQT_DATABASE.Models.GoodsReceiptNote
+
+<!-- Main Content -->
+<div class="container mb-5">
+    @if (TempData["UpdateSucess"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["UpdateSucess"]
+        </div>
+    }
+    @if (TempData["UpdateError"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["UpdateError"]
+        </div>
+    }
+
+    <div class="main-card">
+        <div class="card-header-custom">
+            <h4 class="mb-0"><i class="fas fa-file-edit"></i> Edit Receipt Note #@Model.GoodsReceiptNoteID</h4>
+        </div>
+
+        @using (Html.BeginForm("UpdatePhieuNhapOnSubmit", "GoodsReceiptNote", FormMethod.Post))
+        {
+            <!-- Alert Info -->
+            <div class="form-section">
+                <div class="alert-info-custom">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Note:</strong> Receipt Note ID không thể thay đổi. Có thể đổi ngày, nhà cung cấp và chi tiết sản phẩm.
+                </div>
+            </div>
+
+            <!-- Receipt Information Section -->
+            <div class="form-section">
+                <h5 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Receipt Information
+                </h5>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Receipt Note ID</label>
+                        <input type="text" class="form-control readonly-field" name="grnID" id="grnID" value="@Model.GoodsReceiptNoteID" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Receipt Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="receiptDate"
+                               name="receiptDate" value="@Model.ReceiptDate.Value.ToString("yyyy-dd-MM")" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="productID" class="form-label required">Supplier ID<span class="text-danger">*</span></label>
+                        <select class="form-select" id="supplierID" required name="supplierID">
+                            <option value="">Select Product</option>
+                            @foreach (var item in lsSupplier)
+                            {
+                                <option value="@item.SupplierID" @(item.SupplierID.Contains(Model.SupplierID) ? "selected" : "")>
+                                    @item.Name
+                                </option>
+                            }
+
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Updated By <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="updatedUser" value="@Model.UpdatedBy" maxlength="50" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-section">
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="@Url.Action("Index", "GoodsReceiptNote")" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        <i class="fas fa-save"></i> Update Receipt Note
+                    </button>
+                </div>
+            </div>
+        }
+
+
+        <!-- Product Details Section -->
+        <div class="form-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="section-title mb-0">
+                    <i class="fas fa-box"></i>
+                    Product Details
+                </h5>
+               
+            </div>
+
+            <div id="productList">
+                @foreach (var item in Model.GoodsReceiptNoteDetail)
+                {
+                    using (Html.BeginForm("UpDateSanPhamPhieuNhapSubmit", "GoodsReceiptNote", FormMethod.Post, new { area = "admin" }))
+                    {
+                        <input type="text" name="grnID" value="@Model.GoodsReceiptNoteID" hidden />
+                        <div class="row align-items-end">
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">
+                                    Product ID <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control product-id-input"
+                                       name="productID"
+                                       value="@item.ProductID"
+                                       readonly>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Unit Price (đ) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control unit-price"
+                                       name="unitPrice"
+                                       value="@item.UnitPrice.Value"
+                                       step="1" min="0" required>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Quantity <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control quantity"
+                                       name="quantity"
+                                       value="@item.Quantity"
+                                       min="1" required>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Subtotal</label>
+                                <input type="text" class="form-control subtotal" readonly value="@((item.UnitPrice * item.Quantity))đ">
+                            </div>
+                            <div class="col-md-1 mb-2">
+                                <button class="btn btn-primary" type="submit">Save</button>
+
+                                <a href="@Url.Action("XoaSanPhamPhieuNhap", "GoodsReceiptNote", new { productID = item.ProductID, grnID = item.GoodsReceiptNoteID})" class="btn btn-remove w-100">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="total-section">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0">Total Amount:</span>
+                    <span class="total-amount" id="totalAmount">@Model.TongThanhTien.ToString()đ</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+

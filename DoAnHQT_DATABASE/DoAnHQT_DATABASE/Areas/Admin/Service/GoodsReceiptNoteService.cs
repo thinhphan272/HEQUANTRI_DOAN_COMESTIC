@@ -127,7 +127,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
             }
         }
 
-        public int XoaSuaSanPhamPhieuNhap(string ProductID,
+        public int XoaSanPhamPhieuNhap(string ProductID,
                                         string GoodsReceiptNoteID)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

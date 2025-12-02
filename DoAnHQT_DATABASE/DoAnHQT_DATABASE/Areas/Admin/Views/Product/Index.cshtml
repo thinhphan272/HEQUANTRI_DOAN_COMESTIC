@@ -1,139 +1,364 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model List<DoAnHQT_DATABASE.Models.Product>
+
+@{
+    ViewBag.Title = "Quản Lý Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-
-    /* 1. Tinh chỉnh ảnh thumbnail */
-    .product-thumbnail {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 6px; /* Bo tròn nhẹ góc ảnh */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Đổ bóng nhẹ cho ảnh */
+    :root {
+        --hasaki-dark: #2d5f4f;
+        --hasaki-green: #10b981;
+        --text-muted: #6c757d;
+        --bg-light: #f8f9fa;
     }
 
-    /* 2. Căn giữa nội dung */
-    .table.align-middle td,
-    .table.align-middle th {
-        vertical-align: middle;
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f0f2f5;
     }
 
-    /* 3. Style cho tiêu đề bảng */
-    .admin-table thead th {
-        background-color: #f8f9fa; /* Màu nền xám rất nhạt */
-        color: #6c757d; /* Màu chữ xám đậm */
-        font-weight: 600;
-        font-size: 0.85rem;
-        text-transform: uppercase; /* Chữ in hoa */
-        border-bottom: 2px solid #dee2e6;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+    /* --- Page Header & Search --- */
+    .page-header {
+        background-color: white;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
-    /* 4. Hiệu ứng khi di chuột vào hàng */
-    .admin-table tbody tr:hover {
-        background-color: #fdfdfd;
+    .page-title h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--hasaki-dark);
+        margin: 0;
     }
 
-    /* 5. Giới hạn mô tả (nếu dùng) */
-    .text-truncate-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+    .search-box .input-group {
+        width: 350px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        border-radius: 50px;
         overflow: hidden;
-        font-size: 0.9rem;
-        color: #555;
     }
-    
-</style>
 
-@model List<DoAnHQT_DATABASE.Models.Product>
+    .search-box input {
+        border: none;
+        padding-left: 1.5rem;
+        height: 45px;
+        background: #f8f9fa;
+    }
 
-<div class="container-fluid px-4">
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <h2 class="mt-4 text-white">Quản lý sản phẩm</h2>
-
-        <!-- Neon Style Search Bar -->
-        @using (Html.BeginForm("TimSanPham", "Product", new {area="admin", name="keyword"}))
-        {
-            <div class="search-container-neon">
-                <div class="search-wrapper-neon">
-                    <div class="search-icon">⚡</div>
-                    <input type="text"
-                           class="search-input-neon"
-                           placeholder="Tìm kiếm tên hoặc mã sản phẩm"
-                           name="keyword">
-                    <button type="submit" class="search-button-neon">Tìm</button>
-                </div>
-            </div>
+        .search-box input:focus {
+            background: white;
+            box-shadow: none;
         }
 
-        <a class="btn btn-primary shadow-sm" href="@Url.Action("Create", "Product", new {area = "admin"})">
-            <i class="fas fa-plus me-2"></i>Thêm sản phẩm
-        </a>
+    .search-box button {
+        background-color: var(--hasaki-dark);
+        color: white;
+        border: none;
+        padding: 0 1.5rem;
+        transition: all 0.3s;
+    }
+
+        .search-box button:hover {
+            background-color: #1a4236;
+        }
+
+    /* --- Nút Thêm Mới --- */
+    .btn-create {
+        background-color: var(--hasaki-green);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-create:hover {
+            background-color: #059669;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    /* --- Table Card --- */
+    .table-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        overflow: hidden;
+        border: none;
+    }
+
+    .admin-table thead th {
+        background-color: #f1f5f9;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        padding: 1rem 1.5rem;
+        border: none;
+        white-space: nowrap;
+    }
+
+    .admin-table tbody td {
+        padding: 1rem 1.5rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.95rem;
+    }
+
+    .admin-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* --- Product Image --- */
+    .product-img-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+        position: relative;
+    }
+
+    .product-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+    }
+
+    .product-img-wrapper:hover .product-img {
+        transform: scale(1.1);
+    }
+
+    /* --- Product Info --- */
+    .product-name {
+        font-weight: 600;
+        color: #334155;
+        display: block;
+        margin-bottom: 2px;
+        line-height: 1.3;
+    }
+
+    .product-id {
+        font-size: 0.75rem;
+        color: #94a3b8;
+        font-family: monospace;
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    /* --- Badges --- */
+    .badge-custom {
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.75rem;
+    }
+
+    .badge-type {
+        background-color: #e0f2fe;
+        color: #0284c7;
+    }
+
+    .badge-stock {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+
+    .badge-stock-low {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+    /* Khi tồn kho thấp */
+
+    .price-text {
+        font-weight: 700;
+        color: var(--hasaki-dark);
+        font-size: 1rem;
+    }
+
+    /* --- Row Disabled (Ngừng kinh doanh) --- */
+    .row-disabled {
+        background-color: #f8f9fa;
+        opacity: 0.7;
+    }
+
+        .row-disabled .product-name {
+            text-decoration: line-through;
+            color: #94a3b8;
+        }
+
+    /* --- Action Buttons --- */
+    .btn-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        border: none;
+        margin: 0 2px;
+    }
+
+    .btn-edit {
+        background-color: #eff6ff;
+        color: #3b82f6;
+    }
+
+        .btn-edit:hover {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+    .btn-delete {
+        background-color: #fef2f2;
+        color: #ef4444;
+    }
+
+        .btn-delete:hover {
+            background-color: #ef4444;
+            color: white;
+        }
+</style>
+
+<div class="container-fluid py-4">
+
+    <div class="page-header">
+        <div class="page-title">
+            <h2><i class="fas fa-boxes me-2"></i>Quản Lý Sản Phẩm</h2>
+            <p class="text-muted mb-0 small mt-1">Danh sách sản phẩm và quản lý tồn kho</p>
+        </div>
+
+        <div class="d-flex gap-3 align-items-center">
+            <div class="search-box">
+                @using (Html.BeginForm("TimSanPham", "Product", new { area = "admin", name = "keyword" }, FormMethod.Get, new { @class = "d-flex" }))
+                {
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword" placeholder="Tìm tên, mã sản phẩm...">
+                        <button type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                }
+            </div>
+
+            <a class="btn-create" href="@Url.Action("Create", "Product", new {area = "admin"})">
+                <i class="fas fa-plus"></i> Thêm Mới
+            </a>
+        </div>
     </div>
 
-    <div class="card mb-4 shadow-sm border-0">
-        <div class="card-header bg-white py-3">
-            <i class="fas fa-table me-1"></i>
-            Danh sách sản phẩm hiện có
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle admin-table mb-0">
-                    <thead>
-                        <tr>
-                            <th style="width: 25%; padding-left: 1.5rem;">Tên sản phẩm</th>
-                            <th style="width: 10%;">Loại</th>
-                            <th style="width: 10%;">Giá</th>
-                            <th style="width: 10%;">Tồn kho</th>
-                            <th style="width: 10%;">Hạn dùng</th>
-                            <th style="width: 10%;" class="text-center">Hình ảnh</th>
-                            <th class="text-center" style="width: 15%;">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table admin-table mb-0">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 1.5rem;">Sản phẩm</th>
+                        <th>Phân loại</th>
+                        <th>Giá bán</th>
+                        <th class="text-center">Tồn kho</th>
+                        <th>Hạn sử dụng</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
                         {
-                            <tr>
+                            bool isDisabled = (item.IsAvailable != 0); // 0: Available, 1: Disabled
+                            bool isLowStock = (item.Quantity < 10); // Cảnh báo nếu tồn kho < 10
+
+                            <tr class="@(isDisabled ? "row-disabled" : "")">
                                 <td style="padding-left: 1.5rem;">
-                                    <div class="fw-bold text-primary @(item.IsAvailable != 0 ? "text-decoration-line-through" : "")">
-                                        @item.ProductName
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="product-img-wrapper">
+                                            <img src="@Url.Content("~/Content/Images/ProductIMG/" + item.Image)" class="product-img" alt="@item.ProductName" onerror="this.src='https://placehold.co/60x60?text=No+Img'" />
+                                        </div>
+                                        <div>
+                                            <span class="product-name">@item.ProductName</span>
+                                            <span class="product-id">@item.ProductID</span>
+                                            @if (isDisabled)
+                                            {
+                                                <span class="badge bg-secondary ms-2" style="font-size: 0.65rem">Ngừng bán</span>
+                                            }
+                                        </div>
                                     </div>
-                                    <small class="text-muted">Mã: @item.ProductID</small>
                                 </td>
-                                <td>
-                                    <span class="badge bg-light text-dark border">@item.ProductType.ProductTypeName</span>
+
+                                <td style="padding: 0">
+                                    <span class="badge-custom badge-type">
+                                        @item.ProductType.ProductTypeName
+                                    </span>
                                 </td>
-                                <td>
-                                    <span class="fw-bold text-danger">@String.Format("{0:N0}", item.Price) ₫</span>
+
+                                <td style="padding: 0">
+                                    <span class="price-text">@String.Format("{0:N0}", item.Price) ₫</span>
                                 </td>
-                                <td>
-                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">@item.Quantity</span>
-                                </td>
-                                <td class="text-muted">
-                                    <i class="far fa-calendar-alt me-1"></i> @item.ExpirationDate
-                                </td>
+
                                 <td class="text-center">
-                                    <img src="@Url.Content("~/Content/Images/ProductIMG/" + item.Image)" class="product-thumbnail" alt="Product Image" />
+                                    <span class="badge-custom @(isLowStock ? "badge-stock-low" : "badge-stock")">
+                                        @item.Quantity
+                                    </span>
                                 </td>
+
+                                <td style="padding: 0;">
+                                    <div class="text-muted small">
+                                        <i class="far fa-calendar-alt me-1"></i> @string.Format("{0:dd/MM/yyyy}", item.ExpirationDate)
+                                    </div>
+                                </td>
+
                                 <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a href="@Url.Action("Edit", "Product", new { area = "admin",productID = item.ProductID })" class="btn btn-sm btn-outline-primary" title="Sửa">
-                                            <i class="fas fa-pencil-alt"></i>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="@Url.Action("Edit", "Product", new { area = "admin", productID = item.ProductID })"
+                                           class="btn-icon btn-edit" title="Chỉnh sửa">
+                                            <i class="fas fa-pen"></i>
                                         </a>
-                                        <a href="@Url.Action("DisableSanPham", "Product", new {area = "admin", productID = item.ProductID})" class="btn btn-sm btn-outline-danger" title="Xóa">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+
+                                        @if (!isDisabled)
+                                        {
+                                            <a href="@Url.Action("DisableSanPham", "Product", new { area = "admin", productID = item.ProductID })"
+                                               class="btn-icon btn-delete" title="Ngừng kinh doanh"
+                                               onclick="return confirm('Bạn có chắc muốn ngừng kinh doanh sản phẩm này?');">
+                                                <i class="fas fa-ban"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                        }
                                     </div>
                                 </td>
                             </tr>
                         }
-
-                    </tbody>
-                </table>
-            </div>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <img src="https://cdn-icons-png.flaticon.com/512/7486/7486754.png" width="80" class="mb-3 opacity-50" alt="No data">
+                                <p class="text-muted fw-bold">Không tìm thấy sản phẩm nào</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

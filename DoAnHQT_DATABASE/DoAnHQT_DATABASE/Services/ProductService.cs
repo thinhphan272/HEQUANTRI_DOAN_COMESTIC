@@ -68,6 +68,7 @@ namespace DoAnHQT_DATABASE.Services
                             sp.Image = reader["Image"].ToString();
                             sp.Price = (decimal)reader["Price"];
                             sp.BrandID = reader["BrandID"].ToString();
+                            sp.Origin = reader["Origin"].ToString();
                             sp.Brand = db.Brand.FirstOrDefault(t => t.BrandID.Equals(sp.BrandID));
                             sp.Discount = db.Discount.ToList().FindAll(t => t.ProductID.Equals(sp.ProductID));
                             sp.GoodsReceiptNoteDetail = db.GoodsReceiptNoteDetail.ToList().FindAll(t => t.ProductID.Equals(sp.ProductID));
@@ -109,9 +110,14 @@ namespace DoAnHQT_DATABASE.Services
                             sp.GiaDaGiam = (double)reader["GiaDaGiam"];
                             sp.BrandID = reader["BrandID"].ToString();
                             sp.Brand = db.Brand.FirstOrDefault(t => t.BrandID.Equals(sp.BrandID));
-                            sp.Discount = db.Discount.ToList().FindAll(t => t.ProductID.Equals(sp.ProductID));
+                            sp.Discount = db.Discount.ToList().FindAll(t => t.ProductID.Trim().Equals(sp.ProductID.Trim()));
+                            if (sp.Discount.Count > 0)
+                            {
+                                double tiLeGiam = (double)sp.Discount.ElementAt(0).DiscountRate; 
+                                sp.GiaDaGiam = (double)sp.Price * (1 - tiLeGiam / 100); 
+                            }
                             sp.GoodsReceiptNoteDetail = db.GoodsReceiptNoteDetail.ToList().FindAll(t => t.ProductID.Equals(sp.ProductID));
-                            sp.OrderDetail = db.OrderDetail.ToList().FindAll(t => t.Equals(sp.ProductID));
+                            sp.OrderDetail = db.OrderDetail.ToList().FindAll(t => t.ProductID.Trim().Equals(sp.ProductID.Trim()));
                             sp.ProductType = db.ProductType.FirstOrDefault(t => t.ProductTypeID.Equals(sp.ProductTypeID));
                             sp.Rating = db.Rating.ToList().FindAll(t => t.ProductID.Equals(sp.ProductID));
                             sp.ShoppingCartItem = db.ShoppingCartItem.ToList().FindAll(t => t.ProductID.Equals(sp.ProductID));

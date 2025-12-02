@@ -10,7 +10,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
 {
     public class BackupService
     {
-        string connectionString = $"Data Source=localhost;Initial Catalog=master;User ID=sa;Password=123;";
+        string connectionString = $"Data Source=LAPTOP-6U5MG7PD\\SQLEXPRESS;Initial Catalog=master;User ID=sa;Password=123;";
 
         public int BackUpFull(string DatabaseName, string BackupDirectory)
         {

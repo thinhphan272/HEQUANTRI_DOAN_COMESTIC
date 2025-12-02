@@ -49,5 +49,29 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
         }
 
 
+        
+        [HttpPost]
+        public ActionResult UpdateStatus(string orderID, string status)
+        {
+            
+            string userName = Session["EmployeeName"] != null ? Session["EmployeeName"].ToString() : "Admin";
+
+            
+            bool result = orderService.UpdateOrderStatus(orderID, status, userName);
+
+            if (result)
+            {
+                TempData["SuccessMessage"] = "Cập nhật trạng thái thành công!";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Cập nhật thất bại! Vui lòng thử lại.";
+            }
+
+            
+            return RedirectToAction("ChiTietDonHang", new { orderID = orderID });
+        }
+
+
     }
 }

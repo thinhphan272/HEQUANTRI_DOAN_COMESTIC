@@ -68,6 +68,7 @@ namespace DoAnHQT_DATABASE.Controllers
 
         public ActionResult SapXepBanChay()
         {
+            
             List<Product> list = productService.LocSanPham("TotalSold", "Desc");
             if (Session["DanhSachSanPhamHienTai"] != null)
             {

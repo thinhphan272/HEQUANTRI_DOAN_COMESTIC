@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DoAnHQT_DATABASE.Areas.Admin.Service;
 using DoAnHQT_DATABASE.Areas.Admin.Security;
+using DoAnHQT_DATABASE.Areas.Admin.Models;
 
 namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
 {
@@ -38,8 +39,13 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             }
             else
             {
-                TempData["DatabaseError"] = "Sai thông tin hoặc lỗi database";
-                return RedirectToAction("Error", "Exception");
+                // Dùng dòng này để xem lỗi cụ thể là gì
+                ViewBag.Error = "Lỗi đăng nhập: " + "Vui lòng kiểm tra Username/Password hoặc Server SQL chưa chạy.";
+
+                // Quan trọng: Trả về View() để giữ lại màn hình và hiện lỗi, KHÔNG dùng Redirect
+                return View();
+                //TempData["DatabaseError"] = "Sai thông tin hoặc lỗi database";
+                //return RedirectToAction("Error", "Exception");
             }
         }
         public ActionResult Logout()
@@ -59,8 +65,26 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
         [CheckAthourize(Roles = "Admin")]
         public ActionResult Index()
         {
-            List<string> lstNhanViens = accountService.GetAllStaffs();
+            
+            List<StaffViewModel> lstNhanViens = accountService.GetAllStaffs();
             return View(lstNhanViens);
+        }
+
+        [CheckAthourize(Roles = "Admin")]
+        public ActionResult Unlock(string username)
+        {
+            bool check = accountService.UnlockStaff(username);
+            if (!check) ViewBag.Error = "Mở khóa thất bại";
+            return RedirectToAction("Index", new { area = "admin" });
+        }
+
+        
+        [CheckAthourize(Roles = "Admin")]
+        public ActionResult Lock(string username)
+        {
+            bool check = accountService.LockStaff(username);
+            if (!check) ViewBag.Error = "Khóa thất bại";
+            return RedirectToAction("Index", new { area = "admin" });
         }
 
         [CheckAthourize(Roles = "Admin")]

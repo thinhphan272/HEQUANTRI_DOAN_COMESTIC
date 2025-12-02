@@ -130,6 +130,7 @@
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Areas\Admin\Models\StaffViewModel.cs" />
     <Compile Include="Areas\Admin\Security\CheckAthourize.cs" />
     <Compile Include="Areas\Admin\Service\AccountService.cs" />
     <Compile Include="Areas\Admin\Service\BackupService.cs" />

@@ -78,6 +78,33 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
             return 0;
         }
 
+        public bool UpdateOrderStatus(string orderID, string newStatus, string updatedUser)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // Câu lệnh SQL cập nhật trạng thái
+                    string query = "UPDATE Orders SET Status = @Status, UpdatedAt = GETDATE(), UpdatedBy = @UpdatedUser WHERE OrderID = @OrderID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Status", newStatus);
+                        cmd.Parameters.AddWithValue("@UpdatedUser", updatedUser);
+                        cmd.Parameters.AddWithValue("@OrderID", orderID);
+
+                        int rows = cmd.ExecuteNonQuery();
+                        return rows > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi nếu cần
+                return false;
+            }
+        }
+
 
     }
 }

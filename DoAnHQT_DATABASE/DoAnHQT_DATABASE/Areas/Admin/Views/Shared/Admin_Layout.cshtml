@@ -3,130 +3,328 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard - Hasaki</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          rel="stylesheet" />
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link href="~/Areas/Admin/Data/assets/css/styles.css" rel="stylesheet" />
+    <title>@ViewBag.Title - Hasaki Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            background-color: #494949;
+        :root {
+            --sidebar-width: 260px;
+            --header-height: 70px;
+            --hasaki-dark: #1a4236; /* Xanh đậm làm nền Sidebar */
+            --hasaki-green: #10b981; /* Xanh tươi làm điểm nhấn */
+            --hasaki-hover: #2d5f4f; /* Màu khi hover */
+            --bg-body: #f3f4f6;
+            --text-light: #e2e8f0;
         }
 
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-body);
+            overflow-x: hidden;
+        }
+
+        /* --- 1. SIDEBAR --- */
         .sidebar {
+            width: var(--sidebar-width);
             height: 100vh;
-            background-color: #343a40;
+            background: var(--hasaki-dark);
             color: white;
             position: fixed;
-            left: 0;
             top: 0;
-            width: 250px;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
         }
 
-            .sidebar .nav-link {
-                color: white;
-                padding: 1rem;
+        .sidebar-brand {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+
+            .sidebar-brand img {
+                height: 35px;
+                margin-right: 12px;
             }
 
-                .sidebar .nav-link:hover {
-                    background-color: #495057;
-                }
+        .sidebar-menu {
+            padding: 1rem 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
 
-                .sidebar .nav-link.active {
-                    background-color: #0d6efd;
-                }
+            /* Thanh cuộn cho sidebar */
+            .sidebar-menu::-webkit-scrollbar {
+                width: 5px;
+            }
 
+            .sidebar-menu::-webkit-scrollbar-thumb {
+                background: rgba(255,255,255,0.2);
+                border-radius: 3px;
+            }
+
+        .nav-item {
+            padding: 0 1rem;
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+            .nav-link i {
+                width: 25px;
+                font-size: 1.1rem;
+                margin-right: 10px;
+                text-align: center;
+            }
+
+            .nav-link:hover {
+                background-color: var(--hasaki-hover);
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .nav-link.active {
+                background-color: var(--hasaki-green);
+                color: white;
+                box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            }
+
+        /* --- 2. HEADER TOP --- */
+        .main-header {
+            height: var(--header-height);
+            background: white;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+            transition: all 0.3s;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--hasaki-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* --- 3. MAIN CONTENT --- */
         .main-content {
-            margin-left: 250px;
-            padding: 20px;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            margin-top: var(--header-height);
+            min-height: calc(100vh - var(--header-height));
         }
 
-        .card {
-            margin-bottom: 20px;
+        /* Nút Logout */
+        .logout-section {
+            padding: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
         }
+
+        .btn-logout {
+            width: 100%;
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            transition: 0.2s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+            .btn-logout:hover {
+                background: #ef4444;
+                color: white;
+            }
     </style>
 </head>
 <body>
     @{
-        // Lấy tên controller hiện tại và chuyển sang chữ thường
-        string currentController = (ViewContext.RouteData.Values["controller"]?.ToString() ?? "").ToLower();
-        string role = Session["Role"]?.ToString() ?? "";
+        // Lấy controller hiện tại để active menu
+        var controllerObj = ViewContext.RouteData.Values["controller"];
+        string currentController = (controllerObj != null ? controllerObj.ToString() : "").ToLower();
+
+        var roleObj = Session["Role"];
+        string role = (roleObj != null ? roleObj.ToString() : "");
+        string empName = Session["EmployeeName"] != null ? Session["EmployeeName"].ToString() : "Admin";
+        string avatarChar = !string.IsNullOrEmpty(empName) ? empName.Substring(0, 1).ToUpper() : "U";
     }
 
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            <img src="https://hasaki.vn/images/graphics/logo_site_2024.png" alt="Hasaki Logo" style="height: 30px; object-fit: contain; filter: brightness(0) invert(1);">
+            <span class="ms-2" style="font-size: 1.2rem;">ADMIN</span>
+        </div>
 
-    <div class="sidebar p-3">
-        <img src="~/Content/Images/logo.png" alt="Logo" style="height: 32px; margin-right: 10px;">
+        <div class="sidebar-menu">
+            <ul class="nav flex-column">
 
-        <h4 class="mb-0">Hasaki Admin</h4>
-        @if (role == "Admin")
+                @if (role == "Admin")
+                {
+                    <li class="nav-item">
+                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Thống kê</small>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link @(currentController == "dashboard" ? "active" : "")" href="@Url.Action("Index", "Dashboard", new {area = "admin"})">
+                            <i class="fas fa-chart-pie"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-3">
+                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Quản lý</small>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})">
+                            <i class="fas fa-box-open"></i> Sản phẩm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "order" ? "active" : "")" href="@Url.Action("Index", "Order", new {area = "admin"})">
+                            <i class="fas fa-shopping-bag"></i> Đơn hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "user" ? "active" : "")" href="@Url.Action("Index", "User", new {area = "admin"})">
+                            <i class="fas fa-users"></i> Khách hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "account" ? "active" : "")" href="@Url.Action("Index", "Account", new {area = "admin"})">
+                            <i class="fas fa-user-shield"></i> Nhân viên
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "discount" ? "active" : "")" href="@Url.Action("Index", "Discount", new {area = "admin"})">
+                            <i class="fas fa-ticket-alt"></i> Khuyến mãi
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-3">
+                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Hệ thống</small>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link @(currentController == "backup" ? "active" : "")" href="@Url.Action("Index", "Backup", new {area = "admin"})">
+                            <i class="fas fa-database"></i> Backup & Restore
+                        </a>
+                    </li>
+                }
+                else if (role == "Nhân viên")
+                {
+                    <li class="nav-item">
+                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Chung</small>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link @(currentController == "dashboard" ? "active" : "")" href="@Url.Action("Index", "Dashboard", new {area = "admin"})">
+                            <i class="fas fa-chart-pie"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-3">
+                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Nghiệp vụ</small>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})">
+                            <i class="fas fa-box-open"></i> Sản phẩm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "order" ? "active" : "")" href="@Url.Action("Index", "Order", new {area = "admin"})">
+                            <i class="fas fa-shopping-bag"></i> Đơn hàng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "discount" ? "active" : "")" href="@Url.Action("Index", "Discount", new {area = "admin"})">
+                            <i class="fas fa-ticket-alt"></i> Khuyến mãi
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item mt-3 px-3">
+                        <div class="alert alert-warning text-center small mb-0">
+                            Bạn chưa đăng nhập
+                        </div>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a class="nav-link" href="@Url.Action("Login", "Account", new {area = "admin"})">
+                            <i class="fas fa-sign-in-alt"></i> Đăng nhập ngay
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+
+        @if (!string.IsNullOrEmpty(role))
         {
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link @(currentController == "dashboard" ? "active" : "")" href="@Url.Action("Index", "Dashboard", new {area = "admin"})"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})"><i class="fas fa-seedling me-2"></i> Quản lý sản phẩm</a>
-                </li>
-                <li class="nav-item @(currentController == "order" ? "active" : "")">
-                    <a class="nav-link" href="@Url.Action("Index", "Order", new {area = "admin"})"><i class="fas fa-shopping-cart me-2"></i> Quản lý đơn hàng</a>
-                </li>
-                <li class="nav-item @(currentController == "user" ? "active" : "")">
-                    <a class="nav-link" href="@Url.Action("Index", "User", new {area = "admin"})"><i class="fas fa-users me-2"></i> Quản lý khách hàng</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link @(currentController == "account" ? "active" : "")" href="@Url.Action("Index", "Account", new {area = "admin"})"><i class="fa-solid fa-person me-2"></i> Quản lý nhân viên</a>
-                </li>
-                <li class="nav-item @(currentController == "discount" ? "active" : "")">
-                    <a class="nav-link" href="@Url.Action("Index", "Discount", new {area = "admin"})"><i class="fas fa-tags me-2"></i> Quản lý khuyến mãi</a>
-                </li>
-                <li class="nav-item @(currentController == "backup" ? "active" : "")">
-                    <a class="nav-link" href="@Url.Action("Index", "Backup", new {area = "admin"})">
-                        <i class="fa-solid fa-database me-2"></i> Backup & Restore </a>
-                </li>
-            </ul>
-            <ul class="nav flex-column">
-                <li class="nav-item mt-auto">
-                    <a class="nav-link" href="@Url.Action("Logout", "Account", new {area = "admin"})"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
-                </li>
-            </ul>
+            <div class="logout-section">
+                <a href="@Url.Action("Logout", "Account", new {area = "admin"})" class="btn-logout">
+                    <i class="fas fa-sign-out-alt me-2"></i> Đăng xuất
+                </a>
+            </div>
         }
+    </nav>
 
-        else if (role == "Nhân viên")
-        {
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})"><i class="fas fa-seedling me-2"></i> Quản lý sản phẩm</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#orders"><i class="fas fa-shopping-cart me-2"></i> Quản lý đơn hàng</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#promotions"><i class="fas fa-tags me-2"></i> Quản lý khuyến mãi</a>
-                </li>
-            </ul>
-            <ul class="nav flex-column">
-                <li class="nav-item mt-auto">
-                    <a class="nav-link" href="@Url.Action("Logout", "Account", new {area = "admin"})"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
-                </li>
-            </ul>
-        }
-        else
-        {
+    <header class="main-header">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0 text-dark fw-bold">@ViewBag.Title</h5>
+        </div>
 
+        <div class="user-profile">
+            <div class="text-end d-none d-sm-block">
+                <div class="fw-bold text-dark">@empName</div>
+                <div class="text-muted small" style="font-size: 0.8rem;">@role</div>
+            </div>
+            <div class="user-avatar shadow-sm">
+                @avatarChar
+            </div>
+        </div>
+    </header>
 
-            <ul class="nav flex-column">
-                <li class="nav-item mt-auto">
-                    <a class="nav-link" href="@Url.Action("Login", "Account", new {area = "admin"})"><i class="fas fa-sign-in-alt me-2"></i> Đăng nhập</a>
-                </li>
-            </ul>
-        }
-    </div>
-
-    <div class="main-content">
+    <main class="main-content">
         @RenderBody()
-    </div>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

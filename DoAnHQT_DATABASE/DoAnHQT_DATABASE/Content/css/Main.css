@@ -1474,22 +1474,24 @@ img:not(.img-hover) {
 
 
 
-.cart-item-brand:hover{
+
+.cart-item-brand-a:hover{
     color: var(--primary-color);
     cursor: pointer;
 }
 
-.cart-item-name:hover {
+.cart-item-name-a:hover {
     color: var(--primary-color);
     cursor: pointer;
 }
 
 .cart-item-capacity{
+    
     color: gray;
     font-size: 0.9rem;
 }
 
-.cart-item-name:hover .cart-item-capacity{
+.cart-item-name-a:hover .cart-item-capacity{
     color: var(--primary-color);
    
 }

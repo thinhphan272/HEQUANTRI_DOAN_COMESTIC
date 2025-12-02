@@ -1,144 +1,355 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model List<DoAnHQT_DATABASE.Models.Users>
+
+@{
+    ViewBag.Title = "Quản Lý Khách Hàng";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-    /* 1. Tinh chỉnh ảnh thumbnail */
-    .product-thumbnail {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 6px; /* Bo tròn nhẹ góc ảnh */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Đổ bóng nhẹ cho ảnh */
+    :root {
+        --hasaki-dark: #2d5f4f; /* Xanh đậm Hasaki */
+        --hasaki-green: #10b981; /* Xanh lá tươi */
+        --hasaki-red: #ef4444; /* Màu đỏ báo lỗi */
+        --bg-light: #f8f9fa;
+        --text-secondary: #6c757d;
     }
 
-    /* 2. Căn giữa nội dung */
-    .table.align-middle td,
-    .table.align-middle th {
-        vertical-align: middle;
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f0f2f5;
     }
 
-    /* 3. Style cho tiêu đề bảng */
-    .admin-table thead th {
-        background-color: #f8f9fa; /* Màu nền xám rất nhạt */
-        color: #6c757d; /* Màu chữ xám đậm */
-        font-weight: 600;
-        font-size: 0.85rem;
-        text-transform: uppercase; /* Chữ in hoa */
-        border-bottom: 2px solid #dee2e6;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+    /* --- Page Header & Search --- */
+    .page-header {
+        background-color: white;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
-    /* 4. Hiệu ứng khi di chuột vào hàng */
-    .admin-table tbody tr:hover {
-        background-color: #fdfdfd;
+    .page-title h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--hasaki-dark);
+        margin: 0;
     }
 
-    /* 5. Giới hạn mô tả (nếu dùng) */
-    .text-truncate-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+    .search-box .input-group {
+        width: 350px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        border-radius: 50px;
         overflow: hidden;
-        font-size: 0.9rem;
-        color: #555;
     }
+
+    .search-box input {
+        border: none;
+        padding-left: 1.5rem;
+        height: 45px;
+        background: #f8f9fa;
+    }
+
+        .search-box input:focus {
+            background: white;
+            box-shadow: none;
+        }
+
+    .search-box button {
+        background-color: var(--hasaki-dark);
+        color: white;
+        border: none;
+        padding: 0 1.5rem;
+        transition: all 0.3s;
+    }
+
+        .search-box button:hover {
+            background-color: #1a4236;
+        }
+
+    /* --- Table Card --- */
+    .table-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        overflow: hidden;
+        border: none;
+    }
+
+    .admin-table thead th {
+        background-color: #f1f5f9;
+        color: var(--text-secondary);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        padding: 1rem 1.5rem;
+        border: none;
+    }
+
+    .admin-table tbody td {
+        padding: 1rem 1.5rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.95rem;
+    }
+
+    .admin-table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    /* --- User Info & Avatar --- */
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .avatar-circle {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, var(--hasaki-green), var(--hasaki-dark));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+    }
+
+        .avatar-circle.blocked {
+            background: linear-gradient(135deg, #ef4444, #b91c1c); /* Màu đỏ nếu bị khóa */
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+        }
+
+    .user-name {
+        font-weight: 600;
+        color: #334155;
+        display: block;
+    }
+
+    .user-id {
+        font-size: 0.8rem;
+        color: #94a3b8;
+    }
+
+    /* --- Status Badges --- */
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .status-active {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--hasaki-green);
+    }
+
+    .status-blocked {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--hasaki-red);
+    }
+
+    /* --- Action Buttons --- */
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+        border: none;
+        margin: 0 3px;
+    }
+
+    .btn-view {
+        background-color: #e0f2fe;
+        color: #0ea5e9;
+    }
+
+        .btn-view:hover {
+            background-color: #0ea5e9;
+            color: white;
+        }
+
+    .btn-unlock {
+        background-color: #dcfce7;
+        color: var(--hasaki-green);
+    }
+
+        .btn-unlock:hover {
+            background-color: var(--hasaki-green);
+            color: white;
+        }
+
+    .btn-lock {
+        background-color: #fee2e2;
+        color: var(--hasaki-red);
+    }
+
+        .btn-lock:hover {
+            background-color: var(--hasaki-red);
+            color: white;
+        }
 </style>
 
-@model List<DoAnHQT_DATABASE.Models.Users>
+<div class="container-fluid py-4">
 
-<div class="container-fluid px-4">
     @if (TempData["SuccessDisable"] != null)
     {
-        <div class="alert alert-success" role="alert">
-            @TempData["SuccessDisable"].ToString()
+        <div class="alert alert-success shadow-sm border-0 rounded-3 mb-4 d-flex align-items-center">
+            <i class="fas fa-check-circle me-2 fs-5"></i>
+            <div>@TempData["SuccessDisable"]</div>
         </div>
     }
     @if (TempData["ErrorDisable"] != null)
     {
-        <div class="alert alert-danger" role="alert">
-            @TempData["ErrorDisable"].ToString()
+        <div class="alert alert-danger shadow-sm border-0 rounded-3 mb-4 d-flex align-items-center">
+            <i class="fas fa-exclamation-triangle me-2 fs-5"></i>
+            <div>@TempData["ErrorDisable"]</div>
         </div>
     }
 
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <h2 class="mt-4 text-white">Quản lý khách hàng</h2>
-        <!-- Neon Style Search Bar -->
-        @using (Html.BeginForm("TimKiemUser", "User",FormMethod.Post, new { area = "admin", name = "keyword" }))
-        {
-            <div class="search-container-neon">
-                <div class="search-wrapper-neon">
-                    <div class="search-icon">⚡</div>
-                    <input type="text"
-                           class="search-input-neon"
-                           placeholder="Tìm kiếm tên hoặc mã khách hàng"
-                           name="keyword">
-                    <button type="submit" class="search-button-neon">Tìm</button>
-                </div>
-            </div>
-        }
+    <div class="page-header">
+        <div class="page-title">
+            <h2><i class="fas fa-users-cog me-2"></i>Quản Lý Khách Hàng</h2>
+            <p class="text-muted mb-0 small mt-1">Quản lý thông tin và trạng thái tài khoản khách hàng</p>
+        </div>
 
+        <div class="search-box">
+            @using (Html.BeginForm("TimKiemUser", "User", FormMethod.Post, new { area = "admin", name = "keyword", @class = "d-flex" }))
+            {
+                <div class="input-group">
+                    <input type="text" class="form-control" name="keyword" placeholder="Tìm tên hoặc mã khách hàng...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            }
+        </div>
     </div>
 
-    <div class="card mb-4 shadow-sm border-0">
-        <div class="card-header bg-white py-3">
-            <i class="fas fa-table me-1"></i>
-            Danh sách khách hàng hiện có
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle admin-table mb-0">
-                    <thead>
-                        <tr>
-                            <th style="width: 20%; padding-left: 1.5rem;">Tên khách hàng</th>
-                            <th style="width: 15%;">Email</th>
-                            <th style="width: 8%;">Giới tính</th>
-                            <th style="width: 27%;">Địa chỉ</th>
-                            <th style="width: 10%;">Ngày tạo</th>
-                            <th class="text-center" style="width: 20%;">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="table admin-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Thông tin khách hàng</th>
+                        <th>Liên hệ</th>
+                        <th>Giới tính</th>
+                        <th>Địa chỉ</th>
+                        <th>Trạng thái</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
                         {
+                            // Logic xác định trạng thái
+                            bool isBlocked = (item.IsEnabled != 0); // Giả sử 0 là Active, 1 là Blocked
+                            string firstLetter = !string.IsNullOrEmpty(item.Name) ? item.Name.Substring(0, 1).ToUpper() : "U";
+
                             <tr>
-                                <td style="padding-left: 1.5rem;">
-                                    <div class="fw-bold text-primary @(item.IsEnabled != 0 ? "text-decoration-line-through" : "")">@item.Name</div>
-                                    <small class="text-muted">Mã: @item.UserID</small>
-                                </td>
                                 <td>
-                                    <span class="badge bg-light text-dark border">@item.Email</span>
+                                    <div class="user-info">
+                                        <div class="avatar-circle @(isBlocked ? "blocked" : "")">
+                                            @firstLetter
+                                        </div>
+                                        <div>
+                                            <span class="user-name">@item.Name</span>
+                                            <span class="user-id">ID: @item.UserID</span>
+                                            <div class="small text-muted" style="font-size: 0.75rem">
+                                                <i class="far fa-clock me-1"></i>@string.Format("{0:dd/MM/yyyy}", item.CreatedAt)
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
+
                                 <td>
-                                    <span class="fw-bold text-black">@item.Gender</span>
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="far fa-envelope me-2"></i> @item.Email
+                                    </div>
                                 </td>
+
                                 <td>
-                                    <span class="fw-bold text-black">@item.Address</span>
+                                    @if (item.Gender == "Nam")
+                                    {<span class="badge bg-primary bg-opacity-10 text-primary">Nam</span> }
+                                    else if (item.Gender == "Nữ")
+                                    { <span class="badge bg-danger bg-opacity-10 text-danger">Nữ</span> }
+                                    else
+                                    { <span class="badge bg-secondary bg-opacity-10 text-secondary">Khác</span>}
                                 </td>
-                                <td class="text-muted">
-                                    <i class="far fa-calendar-alt me-1"></i> @item.CreatedAt
+
+                                <td>
+                                    <div class="text-truncate" style="max-width: 200px;" title="@item.Address">
+                                        <i class="fas fa-map-marker-alt text-danger me-1"></i> @item.Address
+                                    </div>
                                 </td>
+
+                                <td style="padding: 0">
+                                    @if (isBlocked)
+                                    {
+                                        <span class="status-badge status-blocked">
+                                            <i class="fas fa-lock me-1"></i>Đã khóa
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-badge status-active">
+                                            <i class="fas fa-check-circle me-1"></i>Hoạt động
+                                        </span>
+                                    }
+                                </td>
+
                                 <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-2">
-                                        <a href="@Url.Action("UserDetail", "User", new {area="admin", userID=item.UserID})" class="btn btn-sm btn-outline-info" title="Xem chi tiết">
+                                    <div class="d-flex justify-content-center">
+                                        <a href="@Url.Action("UserDetail", "User", new {area="admin", userID=item.UserID})"
+                                           class="btn-action btn-view" title="Xem chi tiết">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="@Url.Action("EnableKhachHang", "User", new {area="admin", userID=item.UserID})" class="btn btn-sm btn-outline-success" title="Enable">
-                                            <i class="fa-solid fa-check"></i>
-                                        </a>
-                                        <a href="@Url.Action("DisableKhachHang", "User", new {area="admin", userID=item.UserID})" class="btn btn-sm btn-outline-danger" title="Disable">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+
+                                        @if (isBlocked)
+                                        {
+                                            <a href="@Url.Action("EnableKhachHang", "User", new {area="admin", userID=item.UserID})"
+                                               class="btn-action btn-unlock" title="Mở khóa tài khoản"
+                                               onclick="return confirm('Bạn có chắc muốn mở khóa cho khách hàng này?');">
+                                                <i class="fas fa-lock-open"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("DisableKhachHang", "User", new {area="admin", userID=item.UserID})"
+                                               class="btn-action btn-lock" title="Vô hiệu hóa tài khoản"
+                                               onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
+                                                <i class="fas fa-user-lock"></i>
+                                            </a>
+                                        }
                                     </div>
                                 </td>
                             </tr>
                         }
-
-
-                    </tbody>
-                </table>
-            </div>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <img src="https://cdn-icons-png.flaticon.com/512/7486/7486754.png" width="80" class="mb-3 opacity-50" alt="No data">
+                                <p class="text-muted fw-bold">Không tìm thấy khách hàng nào</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

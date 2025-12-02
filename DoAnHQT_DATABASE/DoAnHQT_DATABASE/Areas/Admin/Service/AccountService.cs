@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoAnHQT_DATABASE.Areas.Admin.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,7 +14,7 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
         string connectionString = ConfigurationManager.ConnectionStrings["QL_BANHANG_ONLINE"].ToString();
         public bool Connect(string username, string password, string role)
         {
-            string connStr = $"Data Source=localhost;Initial Catalog=QL_BANHANG_ONLINE;User ID={username};Password={password};";
+            string connStr = $"Data Source=LAPTOP-6U5MG7PD\\SQLEXPRESS;Initial Catalog=QL_BANHANG_ONLINE;User ID={username};Password={password};";
             string query = $"SELECT IS_ROLEMEMBER('{role}');";
             try
             {
@@ -40,27 +41,28 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
             }
         }
 
-        public List<string> GetAllStaffs()
+        public List<StaffViewModel> GetAllStaffs()
         {
-            List<string> lstNV = new List<string>();
+            List<StaffViewModel> lstNV = new List<StaffViewModel>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "SELECT UserName FROM dbo.F_GetAllUserInRole(@RoleName)";
+                    // Gọi hàm SQL mới tạo ở Bước 1
+                    string query = "SELECT * FROM F_GetStaffWithStatus()";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.AddWithValue("@RoleName", "Nhân viên");
-
                         conn.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                // Đọc giá trị của cột "UserName" và thêm vào List
-                                // Đảm bảo cột UserName không bị null
-                                lstNV.Add(reader["UserName"].ToString());
+                                StaffViewModel staff = new StaffViewModel();
+                                staff.Username = reader["Username"].ToString();
+                                // Đọc trạng thái (nếu null thì coi như không khóa)
+                                staff.IsLocked = reader["IsLocked"] != DBNull.Value && (bool)reader["IsLocked"];
+                                lstNV.Add(staff);
                             }
                         }
                     }
@@ -68,11 +70,48 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Service
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi, ví dụ: ghi log hoặc throw lại lỗi
-                lstNV.Add("N/A");
-                return lstNV;
+                Console.WriteLine("Lỗi lấy danh sách nhân viên: " + ex.Message);
             }
             return lstNV;
+        }
+
+        // 2. THÊM HÀM MỞ KHÓA (UNLOCK)
+        public bool UnlockStaff(string username)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // Câu lệnh SQL để Enable Login
+                    string query = $"ALTER LOGIN [{username}] ENABLE";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+            }
+            catch { return false; }
+        }
+
+        // 3. THÊM HÀM KHÓA (LOCK) - Tùy chọn nếu muốn dùng nút Khóa thay vì Xóa
+        public bool LockStaff(string username)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = $"ALTER LOGIN [{username}] DISABLE";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+            }
+            catch { return false; }
         }
 
         public bool AddStaff(string username, string password)

@@ -16,7 +16,7 @@
             {
                 <div class="not-have-product-in-cart" style="margin: 0 auto;">
                     <div style="width: 400px; margin: 0 auto;">
-                        <img width="100%" src="~/Content/Images/no_cart.png" />
+                        <img width="100%" src="@Url.Content("/Content/Images/no_cart.png")" />
                     </div>
 
                     <div class="not-have-product-in-cart-label" style="margin: 0 auto; text-align: center;">
@@ -49,12 +49,12 @@
                                         </div>
                                         <div class="col-md-10">
                                             <h6 class="cart-item-brand">
-                                                <a href="@Url.Action("TimTheoBrand", "Home", new {id = item.Product.BrandID.Trim()})">
+                                                <a href="@Url.Action("TimTheoBrand", "Home", new {id = item.Product.BrandID.Trim()})"  style="text-decoration: none; color: var(--primary-color)">
                                                     @item.Product.Brand.BrandName
                                                 </a>
                                             </h6>
                                             <span class="cart-item-name">
-                                                <a href="@Url.Action("SanPhamDetail", "Home", new {id = item.ProductID.Trim()})">
+                                                <a href="@Url.Action("SanPhamDetail", "Home", new {id = item.ProductID.Trim()})"  style="text-decoration: none; color:black">
                                                     @item.Product.ProductName<br />@item.Product.Capacity.ToString()ml
                                                 </a>
                                             </span>
@@ -69,7 +69,7 @@
                                                 </span>
                                                 <!--Nút xóa-->
                                                 <div class="btn cart-delete-item">
-                                                    <a href="@Url.Action("XoaTrongGio", "Cart", new {productID = item.ProductID.Trim()})" style="text-decoration:none;">
+                                                    <a href="@Url.Action("XoaTrongGio", "Cart", new {productID = item.ProductID.Trim()})" style="text-decoration:none; color: black">
                                                         <i class="fa fa-x" style="color: var(--primary-color)"></i> Xóa
                                                     </a>
                                                 </div>
@@ -87,13 +87,13 @@
                                         <div class="quantity-btn">
                                             <div class="quantity-btn-icon">
                                                 <a href="@Url.Action("UpdateSoLuong", "Cart", new {productID=item.ProductID, type=1})">
-                                                    <i class="fa-solid fa-caret-up fs-1">
+                                                    <i class="fa-solid fa-caret-up " style="color: black">
                                                     </i>
                                                 </a>
                                             </div>
                                             <div class="quantity-btn-icon">
                                                 <a href="@Url.Action("UpdateSoLuong", "Cart", new {productID=item.ProductID, type=-1})">
-                                                    <i class="fa-solid fa-caret-down fs-1">
+                                                    <i class="fa-solid fa-caret-down" style="color: black">
                                                     </i>
                                                 </a>
                                             </div>

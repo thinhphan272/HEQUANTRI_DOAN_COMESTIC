@@ -1,96 +1,312 @@
-﻿
+﻿@model DoAnHQT_DATABASE.Models.Orders
+
 @{
-    ViewBag.Title = "ChiTietDonHang";
+    ViewBag.Title = "Chi Tiết Đơn Hàng " + Model.OrderID;
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
-@model DoAnHQT_DATABASE.Models.Orders
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --hasaki-dark: #2d5f4f;
+        --hasaki-green: #10b981;
+        --text-muted: #6c757d;
+        --bg-light: #f8f9fa;
+    }
 
-<div class="payment-page" style="margin-top: 123px;">
-    
-    <div class="payment-container " style=" width: 1300px; margin: 0 auto;">
-        
-            <div class="row">
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f0f2f5;
+    }
 
-                <div class="col-md-8 mt-4">
-                    <div class="delivery-address shadow mb-4 p-4 rounded-4" style="background-color: white">
-                        <span class="delivery-address-label">Địa chỉ nhận hàng</span>
-                        <div class="delivery-address-content">
-                            <div class="customer-address-info">
-                                <div class="customer-address-choice-and-name">
-                                    <div class="address-choice">
-                                        Nhà riêng
-                                    </div>
-                                    <span class="customer-name-phone">@Model.Users.Name - @Model.Users.SDT</span>
-                                </div>
+    /* --- Page Header --- */
+    .page-header {
+        background-color: white;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-                                <span class="customer-address">@Model.Address</span>
-                                
-                            </div>
+    .page-title h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--hasaki-dark);
+        margin: 0;
+    }
 
-                        </div>
-                    </div>
-                    <div class="form-of-payment shadow mb-4  p-4 rounded-4" style="background-color: white">
-                        <span class="form-of-payment-label">Hình thức thanh toán</span>
-                        <div class="form-of-payment-choice">
-                            <div id="selectedPaymentMethod" class="form-of-payment-choice-item d-flex">
-                                
-                                <span class="form-of-payment-choice-label align-self-center">@Model.UserPaymentMethod</span>
-                            </div>
+    /* --- Card Custom --- */
+    .detail-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        overflow: hidden;
+        border: none;
+        margin-bottom: 1.5rem;
+    }
 
-                        </div>
-                    </div>
+    .card-header-custom {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #f1f5f9;
+        font-weight: 600;
+        color: #334155;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-                    <div class="cart-detail shadow mb-4  p-4 rounded-4" style=" background-color: white">
-                        <span class="cart-detail-label">Thông tin kiện hàng</span>
-                        <table class="table bg-light">
+        .card-header-custom i {
+            color: var(--hasaki-green);
+        }
 
-                            <tbody>
-                                <!--Sản phẩm đơn hàng-->
-                                @foreach (var item in Model.OrderDetail)
-                                {
-                                    <tr>
-                                        <td class="align-middle" style="width: 600px;">
-                                            <div class="row cart-item">
-                                                <div class="col-md-2">
-                                                    <div class="cart-item-image">
-                                                        <img width="100%" src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-10">
-                                                    <h6 class="cart-item-brand">@item.Product.Brand.BrandName</h6>
-                                                    <span class="cart-item-name">@item.Product.ProductName</span><br />
-                                                    <span class="cart-item-capacity">@item.Product.Capacity.ToString()ml</span>
-                                                </div>
+    /* --- Product Table --- */
+    .product-table thead th {
+        background-color: #f8fafc;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        border: none;
+        padding: 1rem;
+    }
+
+    .product-table tbody td {
+        padding: 1rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    /* --- Product Item Style --- */
+    .product-img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .product-name {
+        font-weight: 600;
+        color: #334155;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .product-brand {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .price-text {
+        font-weight: 600;
+        color: var(--hasaki-dark);
+    }
+
+    /* --- Info Box (Right Side) --- */
+    .info-box {
+        padding: 1.5rem;
+    }
+
+    .info-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 4px;
+    }
+
+    .info-value {
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+    }
+
+    .total-price {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #dc2626;
+    }
+
+    /* Back Button */
+    .btn-back {
+        background-color: white;
+        color: var(--hasaki-dark);
+        border: 1px solid var(--hasaki-dark);
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+        .btn-back:hover {
+            background-color: var(--hasaki-dark);
+            color: white;
+        }
+</style>
+
+<div class="container-fluid py-4">
+
+    <div class="page-header">
+        <div class="page-title">
+            <h2><i class="fas fa-file-invoice me-2"></i>Chi Tiết Đơn Hàng #@Model.OrderID</h2>
+            <p class="text-muted mb-0 small mt-1">Xem thông tin chi tiết và sản phẩm trong đơn</p>
+        </div>
+        <a href="@Url.Action("Index", "Order", new {area="admin"})" class="btn btn-back">
+            <i class="fas fa-arrow-left me-2"></i>Quay lại
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            <div class="detail-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-box-open"></i> Danh sách sản phẩm (@Model.OrderDetail.Count)
+                </div>
+                <div class="table-responsive">
+                    <table class="table product-table mb-0">
+                        <thead>
+                            <tr>
+                                <th style="padding-left: 1.5rem;">Sản phẩm</th>
+                                <th class="text-center">Đơn giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-end" style="padding-right: 1.5rem;">Tạm tính</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderDetail)
+                            {
+                                <tr>
+                                    <td style="padding-left: 1.5rem;">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" class="product-img" onerror="this.src='https://placehold.co/60x60?text=No+Img'" />
+                                            <div>
+                                                <span class="product-brand">@item.Product.Brand.BrandName</span>
+                                                <span class="product-name">@item.Product.ProductName</span>
+                                                <small class="text-muted">Dung tích: @item.Product.Capacity ml</small>
                                             </div>
-                                        </td>
-                                        <td class="align-middle text-end">@item.Quantity <i class="fa fa-x" style="font-size: 0.8rem;"></i> @item.Product.GiaDaGiam.Value.ToString("N0") đ</td>
+                                        </div>
+                                    </td>
+                                    <td class="text-center text-muted">
+                                        @item.Product.GiaDaGiam.Value.ToString("N0") ₫
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-light text-dark border px-3 py-2">x @item.Quantity</span>
+                                    </td>
+                                    <td class="text-end price-text" style="padding-right: 1.5rem;">
+                                        @{
+                                            double tamTinh = (double)item.Product.GiaDaGiam.Value * (int)item.Quantity;
+                                        }
+                                        @tamTinh.ToString("N0") ₫
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-8">
 
-                                    </tr>
-                                }
-
-                            </tbody>
-                        </table>
+                <div class="detail-card">
+                    <div class="card-header-custom">
+                        <i class="fas fa-tasks"></i> Cập nhật trạng thái
                     </div>
-                    <div class="cart-note shadow mb-4  p-4 rounded-4" style="background-color: white">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="cart-note-total">
-                                    <div class="cart-note-total-label">
-                                        Tổng tiền (@Model.TongSoLuong)
-                                    </div>
-                                    <div class="cart-note-total-money">
-                                        @Model.TongThanhTien.ToString("N0") đ
-                                    </div>
-                                </div>
-                               
-                            </div>
-                        </div>
+                    <div class="info-box">
+                        @using (Html.BeginForm("UpdateStatus", "Order", FormMethod.Post))
+                        {
+                            <input type="hidden" name="orderID" value="@Model.OrderID" />
 
+                            <div class="mb-3">
+                                <label class="info-label">Trạng thái hiện tại</label>
+
+                                @{
+                                    string statusClass = "bg-warning text-dark";
+                                    if (Model.Status == "Đã giao hàng") { statusClass = "bg-success text-white"; }
+                                    else if (Model.Status == "Đang giao hàng") { statusClass = "bg-primary text-white"; }
+                                    else if (Model.Status == "Đã hủy" || Model.Status == "Đã huỷ") { statusClass = "bg-secondary text-white"; }
+                                }
+                                <div>
+                                    <span class="badge @statusClass px-3 py-2">@Model.Status</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="info-label">Đổi trạng thái sang</label>
+                                <select class="form-select" name="status">
+                                    <option value="Chờ xác nhận" @(Model.Status == "Chờ xác nhận" ? "selected" : "")>Chờ xác nhận</option>
+                                    <option value="Đang giao hàng" @(Model.Status == "Đang giao hàng" ? "selected" : "")>Đang giao hàng</option>
+                                    <option value="Đã giao hàng" @(Model.Status == "Đã giao hàng" ? "selected" : "")>Đã giao hàng</option>
+                                    <option value="Đã hủy" @(Model.Status == "Đã hủy" || Model.Status == "Đã huỷ" ? "selected" : "")>Hủy đơn hàng</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-success w-100 fw-bold">
+                                <i class="fas fa-save me-2"></i>Cập nhật
+                            </button>
+                        }
                     </div>
                 </div>
-               
+
+                
             </div>
-        
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="detail-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-user-circle"></i> Thông tin giao hàng
+                </div>
+                <div class="info-box">
+                    <div class="mb-3">
+                        <div class="info-label">Người nhận</div>
+                        <div class="info-value">
+                            @Model.Users.Name <br>
+                            <small class="text-muted"><i class="fas fa-phone-alt me-1"></i> @Model.Users.SDT</small>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="info-label">Địa chỉ</div>
+                        <div class="info-value">
+                            <i class="fas fa-map-marker-alt text-danger me-1"></i> @Model.Address
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <div class="info-label">Ngày đặt hàng</div>
+                        <div class="info-value">
+                            @string.Format("{0:dd/MM/yyyy HH:mm}", Model.OrderDate)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="detail-card">
+                <div class="card-header-custom">
+                    <i class="fas fa-money-bill-wave"></i> Thanh toán
+                </div>
+                <div class="info-box">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Hình thức</span>
+                        <span class="fw-bold">@Model.UserPaymentMethod</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Tổng số lượng</span>
+                        <span class="fw-bold">@Model.TongSoLuong</span>
+                    </div>
+                    <hr class="my-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold" style="font-size: 1.1rem;">Tổng cộng</span>
+                        <span class="total-price">@Model.TongThanhTien.ToString("N0") ₫</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

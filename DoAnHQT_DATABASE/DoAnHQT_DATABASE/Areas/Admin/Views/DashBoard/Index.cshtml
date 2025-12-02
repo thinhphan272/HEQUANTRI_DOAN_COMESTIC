@@ -1,97 +1,212 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Tổng Quan Hệ Thống";
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+    string role = (Session["Role"] != null) ? Session["Role"].ToString() : "";
 }
-@{
-    string role = Session["Role"]?.ToString() ?? "";
-}
+
+<style>
+    /* Custom CSS cho Dashboard */
+    .dashboard-header {
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-title {
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .stats-card {
+        border: none;
+        border-radius: 15px;
+        background-color: #fff;
+        box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-icon-box {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin-right: 1rem;
+    }
+
+    /* Định màu riêng cho từng loại Card */
+    .icon-primary {
+        background-color: rgba(13, 110, 253, 0.1);
+        color: #0d6efd;
+    }
+
+    .icon-success {
+        background-color: rgba(25, 135, 84, 0.1);
+        color: #198754;
+    }
+
+    .icon-warning {
+        background-color: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+    }
+
+    .icon-info {
+        background-color: rgba(13, 202, 240, 0.1);
+        color: #0dcaf0;
+    }
+
+    .stats-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .stats-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #343a40;
+        margin-bottom: 0;
+    }
+
+    .welcome-banner {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+</style>
+
 @if (TempData["Error"] != null)
 {
-    // Hiển thị alert màu đỏ (danger) cho thông báo lỗi
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        <strong>Lỗi truy cập:</strong> @TempData["Error"]
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-exclamation-triangle me-3 fs-4"></i>
+            <div>
+                <strong>Lỗi truy cập!</strong> @TempData["Error"]
+            </div>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
+
 @if (!string.IsNullOrWhiteSpace(role))
 {
-    if (role == "Admin")
-    {
-        <section id="dashboard" class="active-section">
-            <h2 class="mb-4 text-white">Dashboard</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card text-white bg-primary">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fas fa-basket-shopping me-2"></i>Tổng sản phẩm
-                            </h5>
-                            <h2>@ViewBag.TongSanPham</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-success">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fas fa-shopping-cart me-2"></i>Tổng đơn hàng
-                            </h5>
-                            <h2>@ViewBag.TongDonHang</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-warning">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fas fa-users me-2"></i>Tổng khách hàng
-                            </h5>
-                            <h2>@ViewBag.TongKhachHang</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-info">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fas fa-money-bill-wave me-2"></i>Doanh thu
-                            </h5>
-                            <h2>@ViewBag.DoanhThu đ</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    }
-    else
-    {
-        <section id="dashboard" class="active-section">
-            <h2 class="mb-4">Dashboard</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card text-white bg-primary">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fas fa-basket-shopping me-2"></i>Tổng sản phẩm
-                            </h5>
-                            <h2>@ViewBag.TongSanPham</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-success">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fas fa-shopping-cart me-2"></i>Tổng đơn hàng
-                            </h5>
-                            <h2>@ViewBag.TongDonHang</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    }
-}
+    <div class="container-fluid px-4">
 
+        <div class="welcome-banner d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1">Xin chào, @role! 👋</h2>
+                <p class="mb-0 opacity-75">Đây là tổng quan tình hình hoạt động của hệ thống hôm nay.</p>
+            </div>
+            <div class="d-none d-md-block">
+                <span class="badge bg-white text-primary px-3 py-2 rounded-pill">
+                    <i class="far fa-calendar-alt me-2"></i> @DateTime.Now.ToString("dd/MM/yyyy")
+                </span>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-6 col-xl-3">
+                <div class="card stats-card p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon-box icon-primary">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div>
+                            <div class="stats-label">Sản phẩm</div>
+                            <h3 class="stats-value">@ViewBag.TongSanPham</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="card stats-card p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="stats-icon-box icon-success">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div>
+                            <div class="stats-label">Đơn hàng</div>
+                            <h3 class="stats-value">@ViewBag.TongDonHang</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* Chỉ hiển thị 2 thẻ này nếu là Admin *@
+            @if (role == "Admin")
+            {
+                <div class="col-md-6 col-xl-3">
+                    <div class="card stats-card p-3">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon-box icon-warning">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <div class="stats-label">Khách hàng</div>
+                                <h3 class="stats-value">@ViewBag.TongKhachHang</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="card stats-card p-3">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon-box icon-info">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div>
+                                <div class="stats-label">Doanh thu</div>
+                                
+                                <h4 class="stats-value text-primary">
+                                    @{
+                                        decimal doanhThu = 0;
+                                        if (ViewBag.DoanhThu != null)
+                                        {
+                                            decimal.TryParse(ViewBag.DoanhThu.ToString(), out doanhThu);
+                                        }
+                                    }
+                                    @doanhThu.ToString("N0") đ
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card stats-card" style="min-height: 400px;">
+                    <div class="card-header bg-white border-0 pt-4 px-4">
+                        <h5 class="fw-bold text-secondary"><i class="fas fa-chart-line me-2"></i>Biểu đồ tăng trưởng</h5>
+                    </div>
+                    <div class="card-body d-flex align-items-center justify-content-center text-muted">
+                        <span>(Khu vực hiển thị biểu đồ thống kê)</span>
+
+
+                        [Image of line chart showing growth]
+
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+}

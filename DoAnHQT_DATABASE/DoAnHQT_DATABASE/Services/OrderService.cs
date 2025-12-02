@@ -41,15 +41,16 @@ namespace DoAnHQT_DATABASE.Services
             }
         }
 
-        public int HuyDonHang(string OrderID)
+        public int HuyDonHang(string OrderID, string UpdatedUser)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("P_Delete_Order", conn))
+                using (SqlCommand cmd = new SqlCommand("P_Cancel_Order", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@OrderID", OrderID);
+                    cmd.Parameters.AddWithValue("@UpdatedUser", UpdatedUser);
 
                     conn.Open();
                     return cmd.ExecuteNonQuery();

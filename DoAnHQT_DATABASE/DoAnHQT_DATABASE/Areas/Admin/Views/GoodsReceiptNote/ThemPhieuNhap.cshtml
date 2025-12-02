@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "ThemPhieuNhap";
+    Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
+    string GRNID = TempData["GRNID"] != null ? TempData["GRNID"].ToString() : "";
+    string EmployeeName = TempData["EmployeeName"] != null ? TempData["EmployeeName"].ToString() : "";
+    DateTime ReceiptDate = TempData["receiptDate"] != null ? DateTime.Parse(TempData["receiptDate"].ToString()) : DateTime.Now;
+    string SupplierID = TempData["supplierID"] != null ? TempData["supplierID"].ToString() : "";
+    List<DoAnHQT_DATABASE.Models.Supplier> lsSupplier = ViewBag.SupplierList as List<DoAnHQT_DATABASE.Models.Supplier>;
+}
+<style>
+
+    .main-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        margin-top: 2rem;
+        overflow: hidden;
+    }
+
+    .card-header-custom {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border: none;
+    }
+
+    .form-section {
+        padding: 2rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+    .section-title {
+        color: #667eea;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .section-title i {
+            margin-right: 0.5rem;
+        }
+
+    .product-table {
+        margin-top: 1rem;
+    }
+
+    .btn-add-product {
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+    }
+
+        .btn-add-product:hover {
+            background: #764ba2;
+            color: white;
+        }
+
+    .btn-remove {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 5px;
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+    .product-row {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        transition: all 0.3s;
+    }
+
+        .product-row:hover {
+            background: #e9ecef;
+        }
+
+    .total-section {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
+
+    .total-amount {
+        font-size: 1.5rem;
+        color: #667eea;
+        font-weight: 700;
+    }
+</style>
+
+
+<!-- Main Content -->
+<div class="container mb-5">
+    @if (TempData["AddItemError"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["AddItemError"].ToString()
+        </div>
+    }
+    @if (TempData["AddGRNError"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["AddGRNError"].ToString()
+        </div>
+    }
+
+    @if (TempData["AddItemSuccess"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["AddItemSuccess"].ToString()
+        </div>
+    }
+    @if (TempData["AddItemError"] != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            @TempData["AddItemError"]
+        </div>
+    }
+
+    <div class="main-card">
+        <div class="card-header-custom">
+            <h4 class="mb-0"><i class="fas fa-plus-circle"></i> Create Goods Receipt Note</h4>
+        </div>
+
+        @using (Html.BeginForm("ThemPhieuNhapOnSubmit", "GoodsReceiptNote", FormMethod.Post, new { id = "grnForm" }))
+        {
+            <!-- Receipt Information Section -->
+            <div class="form-section">
+                <h5 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Receipt Information
+                </h5>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Receipt Note ID <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="grnID" name="grnID" value="@GRNID" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Receipt Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="receiptDate" value="@ReceiptDate" id="receiptDate" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="productID" class="form-label required">Supplier ID<span class="text-danger">*</span></label>
+                        <select class="form-select" id="supplierID" required name="supplierID">
+                            <option value="">Select Product</option>
+                            @foreach (var item in lsSupplier)
+                            {
+                                <option value="@item.SupplierID" @(item.SupplierID.Contains(SupplierID) ? "selected" : "")>
+                                    @item.Name
+                                </option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Created By <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="@EmployeeName" id="createdUser" name="createdUser" readonly>
+                    </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="form-section">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="fas fa-save"></i> Save Receipt Note
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("ThemSanPhamPhieuNhap", "GoodsReceiptNote", FormMethod.Post))
+        {
+            <input name="grnID" value="@GRNID" hidden />
+            <input name="receiptDate" value="@ReceiptDate" hidden />
+            <input name="supplierID" value="@SupplierID" hidden />
+            <input name="createdUser" value="@EmployeeName" hidden />
+            <!-- Product Details Section -->
+            <div class="form-section">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="section-title mb-0">
+                        <i class="fas fa-box"></i>
+                        Product Details
+                    </h5>
+
+                    <button type="button" class="btn btn-add-product" onclick="addProductRow()">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+
+                <div id="productList">
+                    <!-- Product rows will be added here -->
+                </div>
+
+                <div class="total-section">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0">Total Amount:</span>
+                        <span class="total-amount" id="totalAmount">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <a href="@Url.Action("Index", "Discount", new {area="admin"})" class="btn btn-secondary m-3">
+            <i class="bi bi-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+</div>
+
+<script>
+    let productCounter = 0;
+
+    // Set today's date as default
+    document.getElementById('receiptDate').valueAsDate = new Date();
+
+    function addProductRow() {
+        productCounter++;
+        const productList = document.getElementById('productList');
+
+        const productRow = document.createElement('div');
+        productRow.className = 'product-row';
+        productRow.id = `product-${productCounter}`;
+
+        productRow.innerHTML = `
+                <div class="row align-items-end">
+                    <div class="col-md-3 mb-2">
+                        <label class="form-label">Product ID <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="productID"  required>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label class="form-label">Unit Price ($) <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control unit-price" name="unitPrice" step="1" min="0" required onchange="calculateTotal()">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label class="form-label">Quantity <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control quantity" name="quantity" min="1" required onchange="calculateTotal()">
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <label class="form-label">Subtotal</label>
+                        <input type="text" class="form-control subtotal" readonly value="$0.00">
+                    </div>
+                    <div class="col-md-1 mb-2 d-flex flex-row">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-remove w-100" onclick="removeProductRow(${productCounter})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+        productList.appendChild(productRow);
+
+        const row = document.getElementById(`product-${productCounter}`);
+        row.querySelector('.unit-price').addEventListener('input', calculateTotal);
+        row.querySelector('.quantity').addEventListener('input', calculateTotal);
+    }
+
+    function removeProductRow(id) {
+        const row = document.getElementById(`product-${id}`);
+        row.remove();
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        let total = 0;
+        const productRows = document.querySelectorAll('.product-row');
+
+        productRows.forEach(row => {
+            const unitPriceInput = row.querySelector('.unit-price');
+            const quantityInput = row.querySelector('.quantity');
+            const subtotalInput = row.querySelector('.subtotal');
+
+            const unitPrice = parseFloat(unitPriceInput.value) || 0;
+            const quantity = parseInt(quantityInput.value) || 0;
+            const subtotal = unitPrice * quantity;
+
+            subtotalInput.value = `${subtotal.toFixed(2)}`;
+            total += subtotal;
+        });
+
+        document.getElementById('totalAmount').textContent = `${total.toFixed(2)}`;
+    }
+
+    function resetForm() {
+        if (confirm('Are you sure you want to reset the form?')) {
+            document.getElementById('grnForm').reset();
+            document.getElementById('productList').innerHTML = '';
+            document.getElementById('totalAmount').textContent = '$0.00';
+            productCounter = 0;
+            document.getElementById('receiptDate').valueAsDate = new Date();
+        }
+    }
+
+
+    // Add first product row on page load
+    addProductRow();
+</script>

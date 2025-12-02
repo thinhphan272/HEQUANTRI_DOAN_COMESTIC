@@ -5,308 +5,557 @@
     Layout = "~/Areas/Admin/Views/Shared/Admin_Layout.cshtml";
 }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-    :root {
-        --hasaki-dark: #2d5f4f;
-        --hasaki-green: #10b981;
-        --text-muted: #6c757d;
-        --bg-light: #f8f9fa;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-        background-color: #f0f2f5;
-    }
-
-    /* --- Page Header --- */
-    .page-header {
-        background-color: white;
-        padding: 1.5rem 2rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-        margin-bottom: 2rem;
+    .page-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 25px;
     }
 
-    .page-title h2 {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--hasaki-dark);
-        margin: 0;
+        .page-title h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin: 0;
+        }
+
+    .status-badge {
+        padding: 8px 18px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 
-    /* --- Card Custom --- */
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-confirmed {
+        background-color: #cfe2ff;
+        color: #084298;
+    }
+
+    .status-shipping {
+        background-color: #e7f3ff;
+        color: #0969da;
+    }
+
+    .status-delivered {
+        background-color: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .status-cancelled {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+
+    /* Cards */
     .detail-card {
         background: white;
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 20px;
         overflow: hidden;
-        border: none;
-        margin-bottom: 1.5rem;
     }
 
     .card-header-custom {
-        padding: 1rem 1.5rem;
-        border-bottom: 1px solid #f1f5f9;
-        font-weight: 600;
-        color: #334155;
-        background-color: white;
+        background: #f8f9fa;
+        padding: 18px 25px;
+        border-bottom: 2px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 0;
         display: flex;
         align-items: center;
         gap: 10px;
     }
 
-        .card-header-custom i {
-            color: var(--hasaki-green);
+        .card-title i {
+            color: #2d5f4f;
         }
 
-    /* --- Product Table --- */
-    .product-table thead th {
-        background-color: #f8fafc;
-        color: var(--text-muted);
-        font-weight: 600;
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        border: none;
-        padding: 1rem;
+    .card-body-custom {
+        padding: 25px;
     }
 
-    .product-table tbody td {
-        padding: 1rem;
-        vertical-align: middle;
-        border-bottom: 1px solid #f1f5f9;
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
-    /* --- Product Item Style --- */
-    .product-img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 8px;
-        border: 1px solid #e2e8f0;
-    }
-
-    .product-name {
-        font-weight: 600;
-        color: #334155;
-        display: block;
-        margin-bottom: 2px;
-    }
-
-    .product-brand {
-        font-size: 0.75rem;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    .price-text {
-        font-weight: 600;
-        color: var(--hasaki-dark);
-    }
-
-    /* --- Info Box (Right Side) --- */
-    .info-box {
-        padding: 1.5rem;
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
     }
 
     .info-label {
         font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-bottom: 4px;
+        color: #6c757d;
+        font-weight: 600;
+        text-transform: uppercase;
     }
 
     .info-value {
+        font-size: 1rem;
+        color: #2c3e50;
+        font-weight: 500;
+    }
+
+    /* Product Table */
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .product-table thead {
+            background: #f8f9fa;
+        }
+
+        .product-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .product-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+    .product-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .product-image {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+    }
+
+    .product-details h6 {
+        margin: 0 0 5px 0;
+        font-size: 0.95rem;
+        color: #2c3e50;
+    }
+
+    .product-details small {
+        color: #6c757d;
+    }
+
+    /* Timeline */
+    .timeline {
+        position: relative;
+        padding-left: 40px;
+    }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e9ecef;
+        }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #2d5f4f;
+            z-index: 1;
+        }
+
+        .timeline-item.completed::before {
+            background: #10b981;
+            border-color: #10b981;
+        }
+
+    .timeline-content {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 3px solid #2d5f4f;
+    }
+
+        .timeline-content.completed {
+            border-left-color: #10b981;
+        }
+
+    .timeline-title {
         font-weight: 600;
-        color: #334155;
-        margin-bottom: 1rem;
+        color: #2c3e50;
+        margin-bottom: 5px;
+    }
+
+    .timeline-time {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+
+    .timeline-note {
+        font-size: 0.9rem;
+        color: #495057;
+        margin-top: 8px;
+    }
+
+    /* Total Summary */
+    .summary-box {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            padding-top: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d5f4f;
+        }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .btn-custom {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s;
         font-size: 0.95rem;
     }
 
-    .total-price {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #dc2626;
+    .btn-success-custom {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
     }
 
-    /* Back Button */
-    .btn-back {
-        background-color: white;
-        color: var(--hasaki-dark);
-        border: 1px solid var(--hasaki-dark);
-        padding: 8px 20px;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: 0.3s;
-    }
-
-        .btn-back:hover {
-            background-color: var(--hasaki-dark);
-            color: white;
+        .btn-success-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
+
+    .btn-warning-custom {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+    }
+
+    .btn-danger-custom {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+    }
+
+    .btn-secondary-custom {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-outline-custom {
+        background: white;
+        color: #2d5f4f;
+        border: 2px solid #2d5f4f;
+    }
+
+    @@media (max-width: 992px) {
+        .sidebar {
+            transform: translateX(-100%);
+        }
+
+        .main-content {
+            margin-left: 0;
+        }
+
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .content-wrapper {
+            padding: 15px;
+        }
+
+        .page-title {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .action-buttons {
+            width: 100%;
+        }
+
+        .btn-custom {
+            flex: 1;
+            justify-content: center;
+        }
+    }
 </style>
+@model DoAnHQT_DATABASE.Models.Orders
 
-<div class="container-fluid py-4">
 
-    <div class="page-header">
-        <div class="page-title">
-            <h2><i class="fas fa-file-invoice me-2"></i>Chi Tiết Đơn Hàng #@Model.OrderID</h2>
-            <p class="text-muted mb-0 small mt-1">Xem thông tin chi tiết và sản phẩm trong đơn</p>
+    @if (TempData["UpdateSuccess"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["UpdateSuccess"].ToString()
         </div>
-        <a href="@Url.Action("Index", "Order", new {area="admin"})" class="btn btn-back">
-            <i class="fas fa-arrow-left me-2"></i>Quay lại
-        </a>
-    </div>
+    }@if (TempData["UpdateError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["UpdateError"].ToString()
+        </div>
+    }
 
-    <div class="row">
-        <div class="col-lg-8">
-
-            <div class="detail-card">
-                <div class="card-header-custom">
-                    <i class="fas fa-box-open"></i> Danh sách sản phẩm (@Model.OrderDetail.Count)
-                </div>
-                <div class="table-responsive">
-                    <table class="table product-table mb-0">
-                        <thead>
-                            <tr>
-                                <th style="padding-left: 1.5rem;">Sản phẩm</th>
-                                <th class="text-center">Đơn giá</th>
-                                <th class="text-center">Số lượng</th>
-                                <th class="text-end" style="padding-right: 1.5rem;">Tạm tính</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.OrderDetail)
-                            {
-                                <tr>
-                                    <td style="padding-left: 1.5rem;">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <img src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" class="product-img" onerror="this.src='https://placehold.co/60x60?text=No+Img'" />
-                                            <div>
-                                                <span class="product-brand">@item.Product.Brand.BrandName</span>
-                                                <span class="product-name">@item.Product.ProductName</span>
-                                                <small class="text-muted">Dung tích: @item.Product.Capacity ml</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center text-muted">
-                                        @item.Product.GiaDaGiam.Value.ToString("N0") ₫
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="badge bg-light text-dark border px-3 py-2">x @item.Quantity</span>
-                                    </td>
-                                    <td class="text-end price-text" style="padding-right: 1.5rem;">
-                                        @{
-                                            double tamTinh = (double)item.Product.GiaDaGiam.Value * (int)item.Quantity;
-                                        }
-                                        @tamTinh.ToString("N0") ₫
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+    <!-- Content -->
+    <div class="content-wrapper">
+        <!-- Page Title -->
+        <div class="page-title ">
+            <div>
+                <h1 class="text-white">Chi tiết Đơn hàng @Model.OrderID</h1>
+                <small style="color: #6c757d; color:white;">Ngày đặt: @Model.OrderDate</small>
             </div>
-            <div class="col-lg-8">
+            <span class="status-badge status-shipping">
+                <i class="fas fa-shipping-fast"></i>
+                @Model.Status
+            </span>
+        </div>
 
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Customer Info -->
                 <div class="detail-card">
                     <div class="card-header-custom">
-                        <i class="fas fa-tasks"></i> Cập nhật trạng thái
+                        <h3 class="card-title">
+                            <i class="fas fa-user"></i>
+                            Thông tin Khách hàng
+                        </h3>
+                        <a href="@Url.Action("UserDetail", "User", new {userID = Model.UserID})" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-eye"></i> Xem hồ sơ
+                        </a>
                     </div>
-                    <div class="info-box">
-                        @using (Html.BeginForm("UpdateStatus", "Order", FormMethod.Post))
-                        {
-                            <input type="hidden" name="orderID" value="@Model.OrderID" />
+                    <div class="card-body-custom">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Họ và tên</span>
+                                <span class="info-value">@Model.Users.Name</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Số điện thoại</span>
+                                <span class="info-value">@Model.Users.SDT</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Email</span>
+                                <span class="info-value">@Model.Users.Email</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Mã khách hàng</span>
+                                <span class="info-value">@Model.Users.UserID</span>
+                            </div>
+                            <div class="info-item" style="grid-column: 1 / -1;">
+                                <span class="info-label">Địa chỉ giao hàng</span>
+                                <span class="info-value">@Model.Address</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                            <div class="mb-3">
-                                <label class="info-label">Trạng thái hiện tại</label>
-
-                                @{
-                                    string statusClass = "bg-warning text-dark";
-                                    if (Model.Status == "Đã giao hàng") { statusClass = "bg-success text-white"; }
-                                    else if (Model.Status == "Đang giao hàng") { statusClass = "bg-primary text-white"; }
-                                    else if (Model.Status == "Đã hủy" || Model.Status == "Đã huỷ") { statusClass = "bg-secondary text-white"; }
+                <!-- Products -->
+                <div class="detail-card">
+                    <div class="card-header-custom">
+                        <h3 class="card-title">
+                            <i class="fas fa-box-open"></i>
+                            Sản phẩm đơn hàng (@Model.OrderDetail.Count())
+                        </h3>
+                    </div>
+                    <div class="card-body-custom" style="padding: 0;">
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderDetail)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="product-info">
+                                                <img src="@Url.Content("~/Content/Images/ProductIMG/" + item.Product.Image)" alt="Product" class="product-image">
+                                                <div class="product-details">
+                                                    <h6>@item.Product.ProductName</h6>
+                                                    <small>MaSP: @item.ProductID</small><br>
+                                                    <small>Thương hiệu: @item.Product.Brand.BrandName</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>@item.UnitPrice.Value.ToString("N0")đ</td>
+                                        <td>@item.Quantity</td>
+                                        <td><strong>@item.TongTien.ToString("N0")đ</strong></td>
+                                    </tr>
                                 }
-                                <div>
-                                    <span class="badge @statusClass px-3 py-2">@Model.Status</span>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Order Timeline -->
+                <div class="detail-card">
+                    <div class="card-header-custom">
+                        <h3 class="card-title">
+                            <i class="fas fa-history"></i>
+                            Lịch sử Đơn hàng
+                        </h3>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="timeline">
+                            <div class="timeline-item completed">
+                                <div class="timeline-content completed">
+                                    <div class="timeline-title">@Model.Status</div>
+                                    <div class="timeline-time">@Model.OrderDate</div>
+                                    <div class="timeline-note">Khách hàng đã đặt hàng thành công</div>
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="info-label">Đổi trạng thái sang</label>
-                                <select class="form-select" name="status">
-                                    <option value="Chờ xác nhận" @(Model.Status == "Chờ xác nhận" ? "selected" : "")>Chờ xác nhận</option>
-                                    <option value="Đang giao hàng" @(Model.Status == "Đang giao hàng" ? "selected" : "")>Đang giao hàng</option>
-                                    <option value="Đã giao hàng" @(Model.Status == "Đã giao hàng" ? "selected" : "")>Đã giao hàng</option>
-                                    <option value="Đã hủy" @(Model.Status == "Đã hủy" || Model.Status == "Đã huỷ" ? "selected" : "")>Hủy đơn hàng</option>
-                                </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Order Summary -->
+                <div class="detail-card">
+                    <div class="card-header-custom">
+                        <h3 class="card-title">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            Tóm tắt Đơn hàng
+                        </h3>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="summary-box">
+                            <div class="summary-row">
+                                <span>Tạm tính:</span>
+                                <span>@Model.TongThanhTien.ToString("N0")đ</span>
                             </div>
-
-                            <button type="submit" class="btn btn-success w-100 fw-bold">
-                                <i class="fas fa-save me-2"></i>Cập nhật
-                            </button>
-                        }
-                    </div>
-                </div>
-
-                
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-
-            <div class="detail-card">
-                <div class="card-header-custom">
-                    <i class="fas fa-user-circle"></i> Thông tin giao hàng
-                </div>
-                <div class="info-box">
-                    <div class="mb-3">
-                        <div class="info-label">Người nhận</div>
-                        <div class="info-value">
-                            @Model.Users.Name <br>
-                            <small class="text-muted"><i class="fas fa-phone-alt me-1"></i> @Model.Users.SDT</small>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="info-label">Địa chỉ</div>
-                        <div class="info-value">
-                            <i class="fas fa-map-marker-alt text-danger me-1"></i> @Model.Address
-                        </div>
-                    </div>
-                    <div class="mb-0">
-                        <div class="info-label">Ngày đặt hàng</div>
-                        <div class="info-value">
-                            @string.Format("{0:dd/MM/yyyy HH:mm}", Model.OrderDate)
+                            <div class="summary-row">
+                                <span>Giảm giá:</span>
+                                <span style="color: #dc2626;">-0đ</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Phí vận chuyển:</span>
+                                <span>0đ</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tổng cộng:</span>
+                                <span>@Model.TongThanhTien.ToString("N0")đ</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-
-            <div class="detail-card">
-                <div class="card-header-custom">
-                    <i class="fas fa-money-bill-wave"></i> Thanh toán
+                <!-- Payment Info -->
+                <div class="detail-card">
+                    <div class="card-header-custom">
+                        <h3 class="card-title">
+                            <i class="fas fa-credit-card"></i>
+                            Thanh toán
+                        </h3>
+                    </div>
+                    <div class="card-body-custom">
+                        <div class="info-item mb-3">
+                            <span class="info-label">Phương thức</span>
+                            <span class="info-value">@Model.UserPaymentMethod</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Trạng thái thanh toán</span>
+                            <span class="status-badge status-pending">
+                                <i class="fas fa-clock"></i> Chưa thanh toán
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="info-box">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Hình thức</span>
-                        <span class="fw-bold">@Model.UserPaymentMethod</span>
+
+                <!-- Actions -->
+                <div class="detail-card">
+                    <div class="card-header-custom">
+                        <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                            Thao tác
+                        </h3>
                     </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Tổng số lượng</span>
-                        <span class="fw-bold">@Model.TongSoLuong</span>
-                    </div>
-                    <hr class="my-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="fw-bold" style="font-size: 1.1rem;">Tổng cộng</span>
-                        <span class="total-price">@Model.TongThanhTien.ToString("N0") ₫</span>
+                    <div class="card-body-custom">
+                        <div class="action-buttons">
+
+                            <a href="@Url.Action("UpdateDonHang", "Order", new {area="admin", orderID=Model.OrderID})" class="btn-custom btn-warning-custom w-100">
+                                <i class="fas fa-edit"></i>
+                                Cập nhật trạng thái
+                            </a>
+
+                            <a href="mailto: @Model.Users.Email" class="btn-custom btn-secondary-custom w-100">
+                                <i class="fas fa-envelope"></i>
+                                Gửi email khách hàng
+                            </a>
+
+                            <a href="@Url.Action("HuyDonHang", "Order", new {area="admin", orderID = Model.OrderID})" class="btn-custom btn-danger-custom w-100">
+                                <i class="fas fa-times"></i>
+                                Hủy đơn hàng
+                            </a>
+
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-</div>

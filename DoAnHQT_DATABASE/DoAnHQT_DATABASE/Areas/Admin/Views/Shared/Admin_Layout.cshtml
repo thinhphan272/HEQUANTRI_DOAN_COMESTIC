@@ -200,98 +200,64 @@
         <div class="sidebar-menu">
             <ul class="nav flex-column">
 
-                @if (role == "Admin")
-                {
-                    <li class="nav-item">
-                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Thống kê</small>
-                    </li>
-                    <li class="nav-item mt-1">
-                        <a class="nav-link @(currentController == "dashboard" ? "active" : "")" href="@Url.Action("Index", "Dashboard", new {area = "admin"})">
-                            <i class="fas fa-chart-pie"></i> Dashboard
-                        </a>
-                    </li>
+        <h4 class="mb-0">Hasaki Admin</h4>
+        @if (role == "Admin")
+        {
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link @(currentController == "dashboard" ? "active" : "")" href="@Url.Action("Index", "Dashboard", new {area = "admin"})"><i class="fas fa-chart-line me-2"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})"><i class="fas fa-seedling me-2"></i> Quản lý sản phẩm</a>
+                </li>
+                <li class="nav-item @(currentController == "order" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Order", new {area = "admin"})"><i class="fas fa-shopping-cart me-2"></i> Quản lý đơn hàng</a>
+                </li>
+                <li class="nav-item @(currentController == "user" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "User", new {area = "admin"})"><i class="fas fa-users me-2"></i> Quản lý khách hàng</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(currentController == "account" ? "active" : "")" href="@Url.Action("Index", "Account", new {area = "admin"})"><i class="fa-solid fa-person me-2"></i> Quản lý nhân viên</a>
+                </li>
+                <li class="nav-item @(currentController == "discount" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Discount", new {area = "admin"})"><i class="fas fa-tags me-2"></i> Quản lý khuyến mãi</a>
+                </li>
+                <li class="nav-item @(currentController == "goodsreceiptnote" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "GoodsReceiptNote", new {area = "admin"})"><i class="bi bi-card-checklist me-2"></i> Quản lý phiếu nhập</a>
+                </li>
+                <li class="nav-item @(currentController == "backup" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Backup", new {area = "admin"})">
+                        <i class="fa-solid fa-database me-2"></i> Backup & Restore
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item mt-auto">
+                    <a class="nav-link" href="@Url.Action("Logout", "Account", new {area = "admin"})"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
+                </li>
+            </ul>
+        }
 
-                    <li class="nav-item mt-3">
-                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Quản lý</small>
-                    </li>
-                    <li class="nav-item mt-1">
-                        <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})">
-                            <i class="fas fa-box-open"></i> Sản phẩm
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @(currentController == "order" ? "active" : "")" href="@Url.Action("Index", "Order", new {area = "admin"})">
-                            <i class="fas fa-shopping-bag"></i> Đơn hàng
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @(currentController == "user" ? "active" : "")" href="@Url.Action("Index", "User", new {area = "admin"})">
-                            <i class="fas fa-users"></i> Khách hàng
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @(currentController == "account" ? "active" : "")" href="@Url.Action("Index", "Account", new {area = "admin"})">
-                            <i class="fas fa-user-shield"></i> Nhân viên
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @(currentController == "discount" ? "active" : "")" href="@Url.Action("Index", "Discount", new {area = "admin"})">
-                            <i class="fas fa-ticket-alt"></i> Khuyến mãi
-                        </a>
-                    </li>
+        else if (role == "Nhân viên")
+        {
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})"><i class="fas fa-seedling me-2"></i> Quản lý sản phẩm</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @(currentController == "order" ? "active" : "")" href="@Url.Action("Index", "Order", new {area = "admin"})"><i class="fas fa-shopping-cart me-2"></i> Quản lý đơn hàng</a>
+                </li>
+               
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item mt-auto">
+                    <a class="nav-link" href="@Url.Action("Logout", "Account", new {area = "admin"})"><i class="fas fa-sign-out-alt me-2"></i> Đăng xuất</a>
+                </li>
+            </ul>
+        }
+        else
+        {
 
-                    <li class="nav-item mt-3">
-                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Hệ thống</small>
-                    </li>
-                    <li class="nav-item mt-1">
-                        <a class="nav-link @(currentController == "backup" ? "active" : "")" href="@Url.Action("Index", "Backup", new {area = "admin"})">
-                            <i class="fas fa-database"></i> Backup & Restore
-                        </a>
-                    </li>
-                }
-                else if (role == "Nhân viên")
-                {
-                    <li class="nav-item">
-                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Chung</small>
-                    </li>
-                    <li class="nav-item mt-1">
-                        <a class="nav-link @(currentController == "dashboard" ? "active" : "")" href="@Url.Action("Index", "Dashboard", new {area = "admin"})">
-                            <i class="fas fa-chart-pie"></i> Dashboard
-                        </a>
-                    </li>
-
-                    <li class="nav-item mt-3">
-                        <small class="text-uppercase text-white-50 ms-2" style="font-size: 0.7rem; font-weight: 700;">Nghiệp vụ</small>
-                    </li>
-                    <li class="nav-item mt-1">
-                        <a class="nav-link @(currentController == "product" ? "active" : "")" href="@Url.Action("Index", "Product", new {area = "admin"})">
-                            <i class="fas fa-box-open"></i> Sản phẩm
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @(currentController == "order" ? "active" : "")" href="@Url.Action("Index", "Order", new {area = "admin"})">
-                            <i class="fas fa-shopping-bag"></i> Đơn hàng
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @(currentController == "discount" ? "active" : "")" href="@Url.Action("Index", "Discount", new {area = "admin"})">
-                            <i class="fas fa-ticket-alt"></i> Khuyến mãi
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item mt-3 px-3">
-                        <div class="alert alert-warning text-center small mb-0">
-                            Bạn chưa đăng nhập
-                        </div>
-                    </li>
-                    <li class="nav-item mt-2">
-                        <a class="nav-link" href="@Url.Action("Login", "Account", new {area = "admin"})">
-                            <i class="fas fa-sign-in-alt"></i> Đăng nhập ngay
-                        </a>
-                    </li>
-                }
 
             </ul>
         </div>

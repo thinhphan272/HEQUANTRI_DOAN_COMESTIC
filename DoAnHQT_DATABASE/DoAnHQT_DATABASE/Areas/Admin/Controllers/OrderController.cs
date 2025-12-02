@@ -48,6 +48,44 @@ namespace DoAnHQT_DATABASE.Areas.Admin.Controllers
             return View("Index", ds);
         }
 
+        public ActionResult UpdateDonHang(string orderID)
+        {
+            Orders order = db.Orders.FirstOrDefault(t => t.OrderID.Equals(orderID));
+            return View(order);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateOnSubmit(FormCollection form)
+        {
+            string status = form["status"].ToString();
+            string orderID = form["orderID"].ToString();
+            Orders order = db.Orders.FirstOrDefault(t => t.OrderID.Contains(orderID));
+            string employeeName = Session["EmployeeName"].ToString();
+            try
+            {
+                order.Status = status;
+                int ret = orderService.UpdateDonHang(orderID, order.UserID, order.OrderDate.Value, order.Address, order.Status, order.UserPaymentMethod, employeeName); 
+                if (ret != 0)
+                {
+                    TempData["UpdateSuccess"] = "Cập nhật thành công";
+                    return View("ChiTietDonHang", order);
+                }
+                else
+                {
+                    TempData["UpdateError"] = "Cập nhật thất bại";
+                    return View("ChiTietDonHang", order);
+                }
+            }
+            catch(Exception e)
+            {
+                TempData["UpdateError"] = $"Cập nhật thất bại Lỗi: {e.Message}";
+                return View("ChiTietDonHang", order);
+            }
+        }
+
+
+
+
 
         
         [HttpPost]

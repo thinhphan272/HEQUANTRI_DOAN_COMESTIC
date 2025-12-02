@@ -211,137 +211,113 @@
         }
 </style>
 
-<div class="container-fluid py-4">
+@model List< DoAnHQT_DATABASE.Models.Discount>
 
-    <div class="page-header">
-        <div class="page-title">
-            <h2><i class="fas fa-ticket-alt me-2"></i>Quản Lý Khuyến Mãi</h2>
-            <p class="text-muted mb-0 small mt-1">Danh sách các chương trình giảm giá</p>
+<div class="container-fluid px-4">
+    @if (TempData["DeleteSucess"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["DeleteSucess"].ToString()
         </div>
+    }
+    @if (TempData["DeleteError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["DeleteError"].ToString()
+        </div>
+    }
 
-        <div class="d-flex gap-3 align-items-center">
-            <div class="search-box">
-                @using (Html.BeginForm("Index", "Discount", FormMethod.Get, new { @class = "d-flex" }))
-                {
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="keyword" placeholder="Tìm tên chương trình, mã...">
-                        <button type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                }
+    @if (TempData["AddSucess"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["AddSucess"].ToString()
+        </div>
+    }
+    @if (TempData["AddError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["AddError"].ToString()
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h2 class="mt-4 text-white">Quản lý discount</h2>
+        <!-- Neon Style Search Bar -->
+        @using (Html.BeginForm("TimGiamGia", "Discount", new { area = "admin", name = "keyword" }))
+        {
+            <div class="search-container-neon">
+                <div class="search-wrapper-neon">
+                    <div class="search-icon">⚡</div>
+                    <input type="text"
+                           class="search-input-neon"
+                           placeholder="Tìm kiếm tên hoặc mã giảm giá"
+                           name="keyword">
+                    <button type="submit" class="search-button-neon">Tìm</button>
+                </div>
             </div>
-
-            <a class="btn-create" href="@Url.Action("Create", "Discount", new {area = "admin"})">
-                <i class="fas fa-plus"></i> Tạo KM Mới
-            </a>
-        </div>
+        }
+        <a class="btn btn-primary shadow-sm" href="@Url.Action("AddDiscountPage", "Discount", new {area = "admin"})">
+            <i class="fas fa-plus me-2"></i>Thêm giảm giá
+        </a>
     </div>
 
-    <div class="table-card">
-        <div class="table-responsive">
-            <table class="table admin-table mb-0">
-                <thead>
-                    <tr>
-                        <th style="padding-left: 1.5rem;">Chương trình khuyến mãi</th>
-                        <th>Sản phẩm áp dụng</th>
-                        <th class="text-center">Mức giảm</th>
-                        <th>Thời gian áp dụng</th>
-                        <th class="text-center">Trạng thái</th>
-                        <th class="text-center">Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Count > 0)
-                    {
-                        foreach (var item in Model)
+    <div class="card mb-4 shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <i class="fas fa-table me-1"></i>
+            Danh sách sản phẩm hiện có
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle admin-table mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%; padding-left: 1.5rem;">Tên discount</th>
+                            <th style="width: 10%;">Product ID</th>
+                            <th style="width: 10%;">Ngày bắt đầu</th>
+                            <th style="width: 10%;">Ngày kết thúc</th>
+                            <th style="width: 10%;">Phần trăm giảm</th>
+                            <th class="text-center" style="width: 15%;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
                         {
-                            // Tính toán trạng thái dựa trên ngày tháng
-                            var now = DateTime.Now;
-                            string statusClass = "status-expired";
-                            string statusText = "Hết hạn";
-
-                            if (now >= item.StartDate && now <= item.EndDate)
-                            {
-                                statusClass = "status-active";
-                                statusText = "Đang chạy";
-                            }
-                            else if (now < item.StartDate)
-                            {
-                                statusClass = "status-future";
-                                statusText = "Sắp diễn ra";
-                            }
-
                             <tr>
                                 <td style="padding-left: 1.5rem;">
-                                    <div>
-                                        <span class="discount-name">@item.DiscountName</span>
-                                        <span class="discount-id">@item.DiscountID</span>
-                                    </div>
+                                    <div class="fw-bold text-primary">@item.DiscountName</div>
+                                    <small class="text-muted">Mã: @item.DiscountID</small>
                                 </td>
-
                                 <td>
-                                    @if (item.Product != null)
-                                    {
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-box text-muted me-2"></i>
-                                            <span class="text-truncate" style="max-width: 150px;" title="@item.Product.ProductName">
-                                                @item.Product.ProductName
-                                            </span>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted fst-italic">Không xác định</span>
-                                    }
+                                    <span class="badge bg-light text-dark border fs-5">@item.ProductID</span>
                                 </td>
-
+                                <td class="text-muted">
+                                    <i class="far fa-calendar-alt me-1"></i> @item.StartDate
+                                </td>
+                                <td class="text-muted">
+                                    <i class="far fa-calendar-alt me-1"></i> @item.EndDate
+                                </td>
                                 <td class="text-center">
-                                    <span class="badge-percent">
-                                        -@item.DiscountRate%
-                                    </span>
+                                    <span class="badge bg-light text-dark border fs-5">@item.DiscountRate %</span>
                                 </td>
-
-                                <td>
-                                    <div class="d-flex flex-column small">
-                                        <span class="text-success"><i class="fas fa-play me-2" style="width: 10px"></i> @string.Format("{0:dd/MM/yyyy}", item.StartDate)</span>
-                                        <span class="text-danger mt-1"><i class="fas fa-stop me-2" style="width: 10px"></i> @string.Format("{0:dd/MM/yyyy}", item.EndDate)</span>
-                                    </div>
-                                </td>
-
                                 <td class="text-center">
-                                    <span class="status-badge @statusClass">
-                                        <i class="fas fa-circle me-1" style="font-size: 6px; vertical-align: middle;"></i> @statusText
-                                    </span>
-                                </td>
-
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center">
-                                        <a href="@Url.Action("Edit", "Discount", new { area = "admin", id = item.DiscountID })"
-                                           class="btn-icon btn-edit" title="Chỉnh sửa">
-                                            <i class="fas fa-pen"></i>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="@Url.Action("UpdateDiscount", "Discount", new { area = "admin" , discountID = item.DiscountID})" class="btn btn-sm btn-outline-primary" title="Sửa">
+                                            <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a href="@Url.Action("Delete", "Discount", new { area = "admin", id = item.DiscountID })"
-                                           class="btn-icon btn-delete" title="Xóa"
-                                           onclick="return confirm('Bạn có chắc muốn xóa chương trình khuyến mãi này?');">
+                                        <a href="@Url.Action("DetailDiscountPage", "Discount", new { area = "admin" , discountID = item.DiscountID})" class="btn btn-sm btn-outline-info" title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="@Url.Action("DeleteDiscount", "Discount", new { area = "admin" , discountID = item.DiscountID})" class="btn btn-sm btn-outline-danger" title="Xóa">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
                                 </td>
+
                             </tr>
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <img src="https://cdn-icons-png.flaticon.com/512/6021/6021648.png" width="80" class="mb-3 opacity-50" alt="No data">
-                                <p class="text-muted fw-bold">Chưa có chương trình khuyến mãi nào</p>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
